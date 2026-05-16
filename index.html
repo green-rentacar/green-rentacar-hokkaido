@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Serif+JP:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/png" href="images/favicon.png">
-  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="icon" type="image/png" href="画像/favicon.png">
+  <link rel="apple-touch-icon" href="画像/favicon.png">
   <style>
     /* 北海道版カスタムスタイル */
     #hero {
@@ -22,7 +22,7 @@
     .hero-bg-img {
       position: absolute;
       inset: 0;
-      background-image: url('images/happy1-main.jpg');
+      background-image: url('画像/happy1-main.jpg');
       background-size: cover;
       background-position: center;
       opacity: 0.35;
@@ -81,16 +81,8 @@
       font-size: 28px;
       flex-shrink: 0;
     }
-    .access-card h4 {
-      font-size: 0.85rem;
-      color: #888;
-      margin-bottom: 4px;
-    }
-    .access-card p {
-      font-size: 0.95rem;
-      color: #333;
-      font-weight: 600;
-    }
+    .access-card h4 { font-size: 0.85rem; color: #888; margin-bottom: 4px; }
+    .access-card p { font-size: 0.95rem; color: #333; font-weight: 600; }
     .price-table-hokkaido {
       width: 100%;
       border-collapse: collapse;
@@ -107,13 +99,8 @@
       text-align: center;
       border-bottom: 1px solid #e8e8e8;
     }
-    .price-table-hokkaido tr:nth-child(even) td {
-      background: #f4f8fc;
-    }
-    .price-table-hokkaido .price-num {
-      font-weight: 700;
-      color: #2d6a9f;
-    }
+    .price-table-hokkaido tr:nth-child(even) td { background: #f4f8fc; }
+    .price-table-hokkaido .price-num { font-weight: 700; color: #2d6a9f; }
     .highseason-note {
       background: #fff8e1;
       border-left: 4px solid #f9a825;
@@ -122,16 +109,222 @@
       margin-top: 20px;
       font-size: 0.9rem;
     }
+
+    /* ===== カレンダータブ ===== */
+    .cal-tab-wrap {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .cal-tab {
+      padding: 10px 28px;
+      border-radius: 8px;
+      border: 2px solid #2d6a9f;
+      background: #fff;
+      color: #2d6a9f;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all .2s;
+      font-family: 'Noto Serif JP', serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cal-tab.active, .cal-tab:hover {
+      background: #2d6a9f;
+      color: #fff;
+    }
+    .cal-panel { display: none; }
+    .cal-panel.active { display: block; }
+    .cal-iframe-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 62%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    }
+    .cal-iframe-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .cal-note {
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cal-note .material-icons-round { font-size: 1rem; color: #2d6a9f; }
+
+    /* 悩み・解決セクション */
+    .section-problems {
+      position: relative;
+      background: linear-gradient(180deg, #f5fafc 0%, #e8f4f8 60%, #ddeef5 100%);
+      padding: 110px 0 130px;
+      overflow: hidden;
+    }
+    .section-problems::before, .section-problems::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+    .section-problems::before {
+      top: -100px; left: -120px; width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(46,156,74,0.18) 0%, transparent 70%);
+      animation: floatBlob 14s ease-in-out infinite;
+    }
+    .section-problems::after {
+      bottom: -120px; right: -100px; width: 460px; height: 460px;
+      background: radial-gradient(circle, rgba(45,106,159,0.18) 0%, transparent 70%);
+      animation: floatBlob 18s ease-in-out infinite reverse;
+    }
+    @keyframes floatBlob {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%      { transform: translate(40px, -30px) scale(1.08); }
+      66%      { transform: translate(-30px, 40px) scale(0.95); }
+    }
+    .problems-eyebrow {
+      display: block; text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; letter-spacing: 0.32em; color: #2d9c4a;
+      font-weight: 700; margin-bottom: 18px; text-transform: uppercase;
+    }
+    .problems-eyebrow::before, .problems-eyebrow::after { content: '—'; margin: 0 14px; opacity: 0.5; }
+    .problems-heading-new {
+      text-align: center;
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: clamp(1.4rem, 3.4vw, 2.2rem);
+      color: #1d3142; font-weight: 800; line-height: 1.7; letter-spacing: 0.04em; margin-bottom: 14px;
+    }
+    .problems-heading-new .accent-bad {
+      position: relative; display: inline-block; color: #c0392b; padding: 0 4px;
+    }
+    .problems-heading-new .accent-bad::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 8px; background: rgba(192,57,43,0.18); border-radius: 4px; z-index: -1;
+    }
+    .problems-sub { text-align: center; color: #5a7388; font-size: 1rem; margin-bottom: 64px; }
+    .problems-grid-new {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; max-width: 1080px; margin: 0 auto; position: relative; z-index: 1;
+    }
+    .problem-card-new {
+      position: relative; background: #fff; border-radius: 24px; padding: 48px 28px 36px;
+      text-align: center; box-shadow: 0 10px 40px -16px rgba(31,62,93,0.18);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s; overflow: hidden;
+    }
+    .problem-card-new:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 24px 60px -16px rgba(31,62,93,0.28); }
+    .problem-card-new::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #c0392b, #e67e22); transform: scaleX(0); transform-origin: left; transition: transform 0.5s;
+    }
+    .problem-card-new:hover::before { transform: scaleX(1); }
+    .problem-num {
+      position: absolute; top: 18px; right: 22px;
+      font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700;
+      color: rgba(192,57,43,0.12); line-height: 1;
+    }
+    .problem-icon-new {
+      width: 92px; height: 92px; border-radius: 50%; margin: 0 auto 22px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #ffe5e0, #ffd0c4); position: relative; transition: transform 0.5s;
+    }
+    .problem-card-new:hover .problem-icon-new { transform: rotate(-6deg) scale(1.08); }
+    .problem-icon-new::after {
+      content: ''; position: absolute; inset: -8px;
+      border: 2px dashed rgba(192,57,43,0.25); border-radius: 50%;
+      animation: rotateRing 18s linear infinite;
+    }
+    @keyframes rotateRing { to { transform: rotate(360deg); } }
+    .problem-icon-new .material-icons-round { font-size: 42px; color: #c0392b; z-index: 1; }
+    .problem-card-new h3 {
+      font-family: 'Shippori Mincho B1', serif; font-size: 1.08rem; color: #1d3142;
+      font-weight: 700; margin-bottom: 14px; line-height: 1.6;
+    }
+    .problem-card-new p { font-size: 0.88rem; color: #5a7388; line-height: 1.95; }
+    .problems-to-solution { display: flex; justify-content: center; margin-top: 64px; position: relative; z-index: 1; }
+    .pts-arrow { display: flex; flex-direction: column; align-items: center; gap: 6px; animation: bounceDown 2.2s ease infinite; }
+    .pts-arrow .label { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.24em; color: #2d9c4a; font-weight: 700; text-transform: uppercase; }
+    .pts-arrow .down-icon {
+      width: 48px; height: 48px; border-radius: 50%; background: #2d9c4a; color: #fff;
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(45,156,74,0.4);
+    }
+    @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+    .section-solution {
+      position: relative;
+      background: linear-gradient(180deg, #ddeef5 0%, #c6e4f0 30%, #d8eef7 70%, #c0dcea 100%);
+      padding: 120px 0; overflow: hidden;
+    }
+    .solution-lead-new {
+      text-align: center; font-family: 'Shippori Mincho B1', serif;
+      font-size: clamp(1.4rem, 3.4vw, 2.2rem); color: #1d3142; font-weight: 800; line-height: 1.7; margin-bottom: 12px;
+    }
+    .solution-lead-new .accent-good { color: #2d9c4a; }
+    .solution-sub { text-align: center; color: #5a7388; font-size: 0.95rem; margin-bottom: 56px; }
+    .point-block { margin-bottom: 80px; }
+    .point-block:last-child { margin-bottom: 0; }
+    .point-panorama-wrap {
+      border-radius: 38px; overflow: hidden; height: 220px; position: relative; margin-bottom: 36px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .point-panorama-bg { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.6s ease; }
+    .point-panorama-wrap:hover .point-panorama-bg { transform: scale(1.04); }
+    .point-badge-area { position: absolute; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .point-badge-area.right { right: 32px; }
+    .point-badge-area.left { left: 32px; }
+    .point-badge-circle {
+      background: #2d9c4a; color: #fff; border-radius: 50%; width: 54px; height: 54px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-weight: 900; line-height: 1; font-size: 0.6rem; box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .point-badge-circle .pn { font-size: 1.5rem; font-weight: 900; }
+    .point-vert-text {
+      writing-mode: vertical-rl; color: #fff; font-size: 0.76rem; font-weight: 600;
+      letter-spacing: 2px; text-shadow: 0 1px 6px rgba(0,0,0,0.6); margin-top: 4px; max-height: 120px;
+    }
+    .point-kanji-tile {
+      background: rgba(255,255,255,0.92); color: #2d9c4a; font-size: 2.2rem; font-weight: 900;
+      width: 66px; height: 66px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2); margin-top: 6px;
+    }
+    .point-body { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; }
+    .point-popup-card {
+      background: #fff; border-radius: 20px; padding: 26px 22px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 300px; flex-shrink: 0;
+    }
+    .point-popup-card h4 { color: #2d9c4a; font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; }
+    .point-popup-card p { font-size: 0.88rem; color: #555; line-height: 1.9; }
+    .point-car-float { width: 130px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2)); }
+    .logo-mark-img { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.04)); }
+
+    @media (max-width: 900px) {
+      .problems-grid-new { grid-template-columns: 1fr; gap: 18px; max-width: 460px; }
+      .section-problems, .section-solution { padding: 80px 0; }
+    }
+    @media (max-width: 640px) {
+      .point-panorama-wrap { height: 160px; border-radius: 20px; }
+      .point-kanji-tile { font-size: 1.6rem; width: 52px; height: 52px; }
+      .point-popup-card { max-width: 100%; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ヘッダー / ナビゲーション -->
+  <!-- ヘッダー -->
   <header id="header">
     <div class="container header-inner">
       <div class="logo" aria-label="グリーンレンタカー北海道店">
         <div class="logo-mark">
-          <img src="images/favicon.png" class="logo-mark-img" alt="">
+          <img src="画像/logo.png" class="logo-mark-img" alt="">
         </div>
         <div class="logo-texts">
           <span class="logo-name">グリーンレンタカー</span>
@@ -140,17 +333,14 @@
       </div>
       <nav id="nav">
         <ul class="nav-list">
-          <li><a href="#vehicles">車両ラインナップ</a></li>
+          <li><a href="#vehicles">車両</a></li>
+          <li><a href="#price">料金</a></li>
+          <li><a href="#insurance">保険</a></li>
           <li><a href="#flow">ご利用の流れ</a></li>
-          <li><a href="#price">料金案内</a></li>
           <li><a href="#calendar">予約状況</a></li>
-          <li><a href="#access">アクセス</a></li>
-          <li><a href="#faq">よくある質問</a></li>
-          <li class="nav-social">
-            <a href="https://www.instagram.com/green_rentacar_osaka/" class="social-icon-link instagram" aria-label="Instagram" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-          </li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#estimate">仮見積もり</a></li>
+          <li><a href="#company">会社概要</a></li>
           <li><a href="#contact" class="btn btn-nav">予約する</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="メニューを開く">
@@ -160,7 +350,7 @@
     </div>
   </header>
 
-  <!-- ヒーローセクション -->
+  <!-- ヒーロー -->
   <section id="hero">
     <div class="hero-bg-img"></div>
     <div class="hero-overlay"></div>
@@ -185,31 +375,120 @@
     </div>
   </section>
 
-  <!-- 特徴（3つのポイント） -->
+  <!-- 悩みセクション -->
+  <section id="problems" class="section-problems">
+    <div class="container">
+      <span class="problems-eyebrow animate">Why Camping Car</span>
+      <h2 class="problems-heading-new animate">北海道旅行は、鉄道やバス移動だけじゃ<br><span class="accent-bad">もったいない</span></h2>
+      <p class="problems-sub animate">こんなお悩み、ありませんか？</p>
+      <div class="problems-grid-new">
+        <div class="problem-card-new animate">
+          <span class="problem-num">01</span>
+          <div class="problem-icon-new"><span class="material-icons-round">directions_railway</span></div>
+          <h3>行きたい場所に<br>行けなかった</h3>
+          <p>観光地は点在しているため、<br>公共交通機関だけでは<br>アクセスが不便。</p>
+        </div>
+        <div class="problem-card-new animate">
+          <span class="problem-num">02</span>
+          <div class="problem-icon-new"><span class="material-icons-round">schedule</span></div>
+          <h3>時間に縛られて<br>バタバタ移動</h3>
+          <p>時刻表に合わせた移動で、<br>景色をゆっくり<br>楽しめない。</p>
+        </div>
+        <div class="problem-card-new animate">
+          <span class="problem-num">03</span>
+          <div class="problem-icon-new"><span class="material-icons-round">payments</span></div>
+          <h3>宿と移動の両方で<br>コストが二重に</h3>
+          <p>ホテル代とレンタカー代が、<br>二重で発生してしまう<br>ケースも。</p>
+        </div>
+      </div>
+      <div class="problems-to-solution">
+        <div class="pts-arrow">
+          <span class="label">but...</span>
+          <span class="down-icon"><span class="material-icons-round">expand_more</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 解決セクション -->
+  <section id="solution" class="section-solution">
+    <div class="container">
+      <span class="problems-eyebrow animate" style="color: #2d9c4a;">The Solution</span>
+      <h2 class="solution-lead-new animate">その悩み、キャンピングカーなら<br><span class="accent-good">全部解決できます！</span></h2>
+      <p class="solution-sub animate">3つのポイントで、あなたの旅が変わります</p>
+      <div class="point-block animate">
+        <div class="point-panorama-wrap">
+          <div class="point-panorama-bg" style="background-image: linear-gradient(120deg, #4a7c3f 0%, #7ab648 40%, #e8c840 70%, #d4a820 100%);"></div>
+          <div class="point-badge-area right">
+            <div class="point-badge-circle"><span style="font-size:0.6rem;letter-spacing:0">Point</span><span class="pn">1</span></div>
+            <div class="point-vert-text">絶景スポットを"ひとり占め"</div>
+            <div class="point-kanji-tile">観る</div>
+          </div>
+        </div>
+        <div class="point-body">
+          <div class="point-popup-card">
+            <h4>＼ 早朝や夕方の<br>ベストタイミングに ／</h4>
+            <p>キャンピングカーなら観光スポット近くに宿泊でき、現地入りも自由自在。人が少ない時間帯に絶景を満喫！</p>
+          </div>
+          <div><img src="画像/happy1-main.jpg" class="point-car-float" alt="HAPPY1"></div>
+        </div>
+      </div>
+      <div class="point-block animate">
+        <div class="point-panorama-wrap">
+          <div class="point-panorama-bg" style="background-image: linear-gradient(120deg, #c0392b 0%, #e05020 40%, #e8a000 100%);"></div>
+          <div class="point-badge-area left">
+            <div class="point-badge-circle"><span style="font-size:0.6rem;letter-spacing:0">Point</span><span class="pn">2</span></div>
+            <div class="point-vert-text">好きな食べ物を持ち込んで"絶景テイクアウト旅"</div>
+            <div class="point-kanji-tile">食べる</div>
+          </div>
+        </div>
+        <div class="point-body">
+          <div class="point-popup-card">
+            <h4>＼ お気に入りのお弁当や<br>地元グルメを持ってドライブ ／</h4>
+            <p>景色の良い場所で食事を楽しんで、朝は湖畔で朝食を。夜は星空の下でジンギスカンを！</p>
+          </div>
+          <div><img src="画像/happy1-main.jpg" class="point-car-float" alt="HAPPY1"></div>
+        </div>
+      </div>
+      <div class="point-block animate">
+        <div class="point-panorama-wrap">
+          <div class="point-panorama-bg" style="background-image: linear-gradient(120deg, #0f1a2e 0%, #1a2e5a 50%, #0f3060 100%);"></div>
+          <div class="point-badge-area right">
+            <div class="point-badge-circle"><span style="font-size:0.6rem;letter-spacing:0">Point</span><span class="pn">3</span></div>
+            <div class="point-vert-text">旅の途中で"予定変更も自由"</div>
+            <div class="point-kanji-tile">泊まる</div>
+          </div>
+        </div>
+        <div class="point-body">
+          <div class="point-popup-card">
+            <h4>＼ この景色、<br>もう少し見ていたい！ ／</h4>
+            <p>レンタル期間内なら延泊も気ままにOK。予約の取れない人気観光地も、キャンピングカーなら駐車場やキャンプ場で宿泊可能。</p>
+          </div>
+          <div><img src="画像/happy1-main.jpg" class="point-car-float" alt="HAPPY1"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 特徴 -->
   <section id="features" class="section">
     <div class="container">
-      <h2 class="section-title animate">北海道店が選ばれる3つの理由</h2>
+      <h2 class="section-title animate">HAPPY1の3つの特徴</h2>
       <div class="features-grid">
         <div class="feature-card animate d1">
-          <div class="feature-icon">
-            <span class="material-icons-round">height</span>
-          </div>
+          <div class="feature-icon"><span class="material-icons-round">height</span></div>
           <h3>車内で立てる<br>ゆとりある天井高</h3>
-          <p>HAPPY1は軽キャンピングカーながら、<strong>車内で立てる広々とした天井高</strong>を確保。荷物の出し入れや着替えも楽々。コンパクトなのに快適な空間を実現しています。</p>
+          <p>HAPPY1は軽キャンピングカーながら、<strong>車内で立てる広々とした天井高</strong>を確保。荷物の出し入れや着替えも楽々。</p>
         </div>
         <div class="feature-card animate d2">
-          <div class="feature-icon">
-            <span class="material-icons-round">ac_unit</span>
-          </div>
+          <div class="feature-icon"><span class="material-icons-round">ac_unit</span></div>
           <h3>冬も安心！<br>ヒーター完備</h3>
-          <p>北海道の厳しい冬もへっちゃら。<strong>ヒーターを完備</strong>しているので、真冬の車中泊も暖かく過ごせます。四季を通じて北海道の魅力をお楽しみください。</p>
+          <p>北海道の厳しい冬もへっちゃら。<strong>ヒーターを完備</strong>しているので、真冬の車中泊も暖かく過ごせます。</p>
         </div>
         <div class="feature-card animate d3">
-          <div class="feature-icon">
-            <span class="material-icons-round">directions_car</span>
-          </div>
+          <div class="feature-icon"><span class="material-icons-round">directions_car</span></div>
           <h3>コンパクトで<br>運転しやすい</h3>
-          <p>軽自動車ベースのコンパクトサイズで、<strong>普通免許（AT限定可）</strong>で運転できます。北海道の細い農道や山道も安心。初めての方でも気軽にご利用いただけます。</p>
+          <p>軽自動車ベースのコンパクトサイズで、<strong>普通免許（AT限定可）</strong>で運転できます。初めての方でも安心。</p>
         </div>
       </div>
     </div>
@@ -220,37 +499,23 @@
     <div class="container">
       <h2 class="section-title animate">ご用意している車両</h2>
       <p class="section-desc animate">JP STAR製「HAPPY1」を2台ご用意しています。</p>
-
-      <!-- 車両タブ -->
       <div class="vehicle-tab-wrap animate">
         <button class="vehicle-tab active" onclick="switchVehicleTab(0)">1号車</button>
         <button class="vehicle-tab" onclick="switchVehicleTab(1)">2号車</button>
       </div>
-
       <div class="vehicle-showcase animate">
         <div class="vehicle-showcase-img">
-          <div class="vehicle-img vehicle-img-main" id="vehicleMain" style="background-image:url('images/happy1-main.jpg')"></div>
+          <div class="vehicle-img vehicle-img-main" id="vehicleMain" style="background-image:url('画像/happy1-main.jpg')"></div>
           <div class="vehicle-thumbs">
-            <div class="vehicle-thumb active" onclick="switchVehicleImg(0)" style="background-image:url('images/happy1-main.jpg')">
-              <span class="thumb-label">全体</span>
-            </div>
-            <div class="vehicle-thumb" onclick="switchVehicleImg(1)" style="background-image:url('images/happy1-side.jpg')">
-              <span class="thumb-label">横</span>
-            </div>
-            <div class="vehicle-thumb" onclick="switchVehicleImg(2)" style="background-image:url('images/happy1-interior.jpg')">
-              <span class="thumb-label">内装</span>
-            </div>
-            <div class="vehicle-thumb" onclick="switchVehicleImg(3)" style="background-image:url('images/happy1-bed.jpg')">
-              <span class="thumb-label">就寝</span>
-            </div>
+            <div class="vehicle-thumb active" onclick="switchVehicleImg(0)" style="background-image:url('画像/happy1-main.jpg')"><span class="thumb-label">全体</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(1)" style="background-image:url('画像/happy1-side.jpg')"><span class="thumb-label">横</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(2)" style="background-image:url('画像/happy1-interior.jpg')"><span class="thumb-label">内装</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(3)" style="background-image:url('画像/happy1-bed.jpg')"><span class="thumb-label">就寝</span></div>
           </div>
         </div>
         <div class="vehicle-showcase-info">
           <span class="vehicle-tag" id="vehicleTagLabel">北海道店 1号車</span>
-          <div class="jpstar-badge">
-            <span class="material-icons-round">verified</span>
-            JP STAR取扱店
-          </div>
+          <div class="jpstar-badge"><span class="material-icons-round">verified</span>JP STAR取扱店</div>
           <h3 class="vehicle-name">HAPPY1</h3>
           <p class="vehicle-base">ダイハツ ハイゼットトラックベース &nbsp;|&nbsp; JP STAR製</p>
           <div class="vehicle-capacity">
@@ -258,8 +523,8 @@
             <span><span class="material-icons-round">bed</span>就寝定員 4名</span>
           </div>
           <ul class="vehicle-specs">
-            <li><span class="material-icons-round">height</span>車内で立てるゆとりある天井高（軽キャンでは珍しい快適空間）</li>
-            <li><span class="material-icons-round">ac_unit</span>ヒーター完備（冬の北海道でも安心・暖かく過ごせます）</li>
+            <li><span class="material-icons-round">height</span>車内で立てるゆとりある天井高</li>
+            <li><span class="material-icons-round">ac_unit</span>ヒーター完備（冬の北海道でも安心）</li>
             <li><span class="material-icons-round">kitchen</span>キッチン設備・調理スペース完備</li>
             <li><span class="material-icons-round">bed</span>ダブルサイズ相当のベッドスペース（4人就寝可）</li>
             <li><span class="material-icons-round">directions_car</span>軽自動車ベース・コンパクトで運転しやすい</li>
@@ -277,7 +542,7 @@
     </div>
   </section>
 
-  <!-- 料金案内 -->
+  <!-- 料金 -->
   <section id="price" class="section">
     <div class="container">
       <h2 class="section-title animate">料金案内</h2>
@@ -292,51 +557,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>当日利用（日帰り）</td>
-              <td><span class="price-num">¥23,760</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥28,512</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>1泊2日</td>
-              <td><span class="price-num">¥47,520</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥57,024</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>2泊3日</td>
-              <td><span class="price-num">¥71,280</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥85,024</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>3泊4日</td>
-              <td><span class="price-num">¥95,040</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥114,048</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>4泊5日</td>
-              <td><span class="price-num">¥106,920</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥128,304</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>5泊6日</td>
-              <td><span class="price-num">¥128,304</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥153,964</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>6泊7日</td>
-              <td><span class="price-num">¥149,688</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥179,625</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>7泊8日</td>
-              <td><span class="price-num">¥171,072</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥205,286</span><span class="tax">（税込）</span></td>
-            </tr>
-            <tr>
-              <td>以降1日（24時間）ごと</td>
-              <td><span class="price-num">¥21,384</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥25,660</span><span class="tax">（税込）</span></td>
-            </tr>
+            <tr><td>当日利用（日帰り）</td><td><span class="price-num">¥23,760</span><span class="tax">（税込）</span></td><td><span class="price-num">¥28,512</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>1泊2日</td><td><span class="price-num">¥47,520</span><span class="tax">（税込）</span></td><td><span class="price-num">¥57,024</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>2泊3日</td><td><span class="price-num">¥71,280</span><span class="tax">（税込）</span></td><td><span class="price-num">¥85,024</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>3泊4日</td><td><span class="price-num">¥95,040</span><span class="tax">（税込）</span></td><td><span class="price-num">¥114,048</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>4泊5日</td><td><span class="price-num">¥106,920</span><span class="tax">（税込）</span></td><td><span class="price-num">¥128,304</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>5泊6日</td><td><span class="price-num">¥128,304</span><span class="tax">（税込）</span></td><td><span class="price-num">¥153,964</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>6泊7日</td><td><span class="price-num">¥149,688</span><span class="tax">（税込）</span></td><td><span class="price-num">¥179,625</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>7泊8日</td><td><span class="price-num">¥171,072</span><span class="tax">（税込）</span></td><td><span class="price-num">¥205,286</span><span class="tax">（税込）</span></td></tr>
+            <tr><td>以降1日（24時間）ごと</td><td><span class="price-num">¥21,384</span><span class="tax">（税込）</span></td><td><span class="price-num">¥25,660</span><span class="tax">（税込）</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -344,83 +573,89 @@
         <strong>※ ハイシーズン料金</strong>：上記料金に <strong>¥11,000（税込）</strong> が加算されます。<br>
         ※ 燃料費は実費精算となります。
       </div>
-      <!-- 受渡・返却時間 -->
       <div class="rental-hours-box animate" style="margin-top:32px">
-        <div class="rental-hour-item">
-          <span class="material-icons-round">login</span>
-          <div>
-            <strong>お渡し時間</strong>
-            <p>10:00〜</p>
-          </div>
-        </div>
+        <div class="rental-hour-item"><span class="material-icons-round">login</span><div><strong>お渡し時間</strong><p>10:00〜</p></div></div>
         <div class="rental-hour-divider"></div>
-        <div class="rental-hour-item">
-          <span class="material-icons-round">logout</span>
-          <div>
-            <strong>ご返却時間</strong>
-            <p>〜18:00</p>
-          </div>
-        </div>
+        <div class="rental-hour-item"><span class="material-icons-round">logout</span><div><strong>ご返却時間</strong><p>〜18:00</p></div></div>
         <div class="rental-hour-divider"></div>
-        <div class="rental-hour-item">
-          <span class="material-icons-round">event_available</span>
-          <div>
-            <strong>営業時間</strong>
-            <p>8:00〜20:00（年中無休）</p>
-          </div>
-        </div>
+        <div class="rental-hour-item"><span class="material-icons-round">event_available</span><div><strong>営業時間</strong><p>9:00〜18:00（年中無休）</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- 予約カレンダー -->
-  <section id="calendar" class="section section-gray">
+  <!-- 保険・免責 -->
+  <section id="insurance" class="section section-gray">
     <div class="container">
-      <h2 class="section-title animate">予約状況カレンダー</h2>
-      <p class="section-desc animate">1号車・2号車の空き状況をご確認の上、お気軽にお問い合わせください。</p>
-      <div class="calendar-wrap">
-        <div class="calendar-responsive">
-          <!-- TODO: 北海道用Googleカレンダーに差し替え -->
-          <p style="text-align:center;padding:40px;color:#888;">カレンダーを準備中です。お電話またはメールにてお問い合わせください。</p>
+      <h2 class="section-title animate">保険・免責について</h2>
+      <p class="ins-intro animate">安心してご利用いただけるよう、充実の補償を基本料金に含めています。</p>
+      <div class="ins-card animate">
+        <div class="ins-card-head"><span class="material-icons-round">verified_user</span><h3>基本保険（標準装備）</h3><span class="ins-badge">全車標準付帯</span></div>
+        <p class="ins-card-desc">安心して旅を楽しんでいただくため、<strong>基本保険を全車に標準装備</strong>しています。</p>
+        <table class="ins-table">
+          <thead><tr><th>補償項目</th><th>補償金額</th><th>免責金額</th></tr></thead>
+          <tbody>
+            <tr><td><span class="material-icons-round">person</span>対人</td><td>無制限</td><td>0円</td></tr>
+            <tr><td><span class="material-icons-round">directions_car</span>対物</td><td>無制限</td><td>¥150,000</td></tr>
+            <tr><td><span class="material-icons-round">healing</span>人身傷害</td><td>3,000万円<small>1名</small></td><td>0円</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ins-card animate">
+        <div class="ins-card-head"><span class="material-icons-round">support_agent</span><h3>24時間ロードサービス</h3><span class="ins-badge ins-badge-blue">24h対応</span></div>
+        <p class="ins-card-desc">万が一のトラブル時も、24時間体制でサポートいたします。北海道全域カバー。</p>
+        <div class="ins-roadservice-icons">
+          <span><span class="material-icons-round">car_crash</span>事故対応</span>
+          <span><span class="material-icons-round">battery_alert</span>バッテリー上がり</span>
+          <span><span class="material-icons-round">local_gas_station</span>燃料切れ</span>
+          <span><span class="material-icons-round">tire_repair</span>パンク</span>
+          <span><span class="material-icons-round">key</span>キー閉じ込み</span>
+          <span><span class="material-icons-round">tow_truck</span>レッカー</span>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- アクセス -->
-  <section id="access" class="section">
-    <div class="container">
-      <h2 class="section-title animate">アクセス・送迎</h2>
-      <p class="section-desc animate">グリーンレンタカー北海道店へのアクセス情報です。</p>
-      <div class="access-grid animate">
-        <div class="access-card">
-          <span class="material-icons-round">place</span>
-          <div>
-            <h4>住所</h4>
-            <p>〒003-0835<br>北海道札幌市白石区<br>北郷五条8丁目10番18号</p>
+      <div class="ins-highlight animate">
+        <div class="ins-highlight-head"><span class="material-icons-round">shield</span><h3>免責補償制度（任意・推奨）<br><small style="font-weight:400;font-size:0.8em;">万が一の事故時に、免責額のお支払いが0円になります</small></h3></div>
+        <p>対物免責額（¥150,000）のお支払いが、本制度へのご加入で<strong>全額免除（0円）</strong>となります。</p>
+        <div class="ins-highlight-point"><span class="material-icons-round">recommend</span><span>¥3,300 / 日　&nbsp;|&nbsp;　ご加入を強くおすすめしています</span></div>
+      </div>
+      <div class="ins-card animate">
+        <div class="ins-card-head"><span class="material-icons-round">compare_arrows</span><h3>免責金額 ・ NOC（営業補償）について</h3></div>
+        <div class="ins-terms-grid">
+          <div class="ins-term-box">
+            <span class="ins-term-label">事故時</span><p class="ins-term-sub">免責金額のご負担</p>
+            <p>免責補償制度（¥3,300/日）加入で<strong>0円</strong>になります。</p>
+            <div class="ins-amount-grid">
+              <div class="ins-amount-item"><div class="ins-amount-label">対物事故<small>1事故につき</small></div><div class="ins-amount-val">¥150,000</div></div>
+              <div class="ins-amount-item"><div class="ins-amount-label">免責補償制度加入時</div><div class="ins-amount-val" style="color:#2d9c4a">¥0</div></div>
+            </div>
+          </div>
+          <div class="ins-term-box">
+            <span class="ins-term-label">NOC</span><p class="ins-term-sub">営業補償金</p>
+            <p>事故や汚損により修理・清掃が必要になった場合のご負担額です。</p>
+            <div class="ins-amount-grid">
+              <div class="ins-amount-item"><div class="ins-amount-label">自走して返却された場合</div><div class="ins-amount-val">¥100,000</div></div>
+              <div class="ins-amount-item"><div class="ins-amount-label">レッカーが必要な場合</div><div class="ins-amount-val">¥150,000</div></div>
+            </div>
           </div>
         </div>
-        <div class="access-card">
-          <span class="material-icons-round">train</span>
-          <div>
-            <h4>新千歳空港から</h4>
-            <p>電車で約35分</p>
-          </div>
-        </div>
-        <div class="access-card">
-          <span class="material-icons-round">schedule</span>
-          <div>
-            <h4>営業時間</h4>
-            <p>8:00〜20:00<br>（年中無休）</p>
-          </div>
-        </div>
-        <div class="access-card">
-          <span class="material-icons-round">directions_car</span>
-          <div>
-            <h4>マイカー預かり</h4>
-            <p>キャンピングカー1台につき<br>お車1台を<strong>無料</strong>でお預かり</p>
-          </div>
-        </div>
+      </div>
+      <div class="ins-license animate">
+        <div class="ins-warning-head"><span class="material-icons-round">badge</span><h3>運転免許の条件</h3></div>
+        <ul class="ins-warning-list">
+          <li><span class="material-icons-round">check_circle</span><div><strong>普通自動車免許（AT限定可）</strong>で運転できます</div></li>
+          <li><span class="material-icons-round">check_circle</span><div><strong>運転される全ての方の免許証</strong>を当日ご持参ください</div></li>
+          <li><span class="material-icons-round">check_circle</span><div>同乗者が運転される場合は<strong>事前申告</strong>が必要です</div></li>
+        </ul>
+      </div>
+      <div class="ins-warning animate">
+        <div class="ins-warning-head"><span class="material-icons-round">warning</span><h3>以下の場合は補償対象外となります</h3></div>
+        <ul class="ins-warning-list">
+          <li><span class="material-icons-round">block</span><div>飲酒運転・無免許運転・薬物使用時の事故</div></li>
+          <li><span class="material-icons-round">block</span><div>事前申告のない第三者による運転</div></li>
+          <li><span class="material-icons-round">block</span><div>故意・重過失による事故・損害</div></li>
+          <li><span class="material-icons-round">block</span><div>車内の汚損・タバコの臭い（車内禁煙）</div></li>
+          <li><span class="material-icons-round">block</span><div>盗難・車上荒らしによる車内物品の損害</div></li>
+          <li><span class="material-icons-round">block</span><div>無断延長・無連絡時に発生した事故</div></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -430,13 +665,11 @@
     <div class="container">
       <h2 class="section-title animate">ご利用の流れ</h2>
       <ol class="flow-list">
-
         <li class="flow-item animate d1">
           <div class="flow-num"><span class="material-icons-round">edit_note</span></div>
           <div class="flow-step-label">01</div>
           <div class="flow-body">
             <h3>ご予約</h3>
-            <p>以下の方法でご予約いただけます。</p>
             <ul class="flow-sub-list">
               <li><span class="material-icons-round">phone</span><a href="tel:050-1720-6116">050-1720-6116</a></li>
               <li><span class="material-icons-round">mail</span><a href="mailto:info@green-rentacar.net">info@green-rentacar.net</a></li>
@@ -444,145 +677,408 @@
             </ul>
           </div>
         </li>
-
         <li class="flow-item animate d2">
           <div class="flow-num"><span class="material-icons-round">payments</span></div>
           <div class="flow-step-label">02</div>
           <div class="flow-body">
             <h3>お支払い</h3>
-            <p>2つの方法からお選びいただけます。</p>
             <div class="payment-methods">
-              <div class="payment-method">
-                <span class="material-icons-round pay-icon">account_balance</span>
-                <div>
-                  <strong>① 銀行振り込み</strong>
-                  <p class="pay-note">ご予約確定後、指定口座へ事前にお振り込みください。</p>
-                </div>
-              </div>
-              <div class="payment-method">
-                <span class="material-icons-round pay-icon">credit_card</span>
-                <div>
-                  <strong>② 当日払い（クレジット・PayPay・現金）</strong>
-                  <p class="pay-note">クレジットカード（VISA・Master・JCB・AMEX）、PayPay、現金に対応</p>
-                </div>
-              </div>
+              <div class="payment-method"><span class="material-icons-round pay-icon">account_balance</span><div><strong>① 銀行振り込み</strong><p class="pay-note">ご予約確定後、指定口座へ事前にお振り込みください。</p></div></div>
+              <div class="payment-method"><span class="material-icons-round pay-icon">credit_card</span><div><strong>② 当日払い（クレジット・PayPay・現金）</strong><p class="pay-note">VISA・Master・JCB・AMEX、PayPay、現金に対応</p></div></div>
             </div>
           </div>
         </li>
-
         <li class="flow-item animate d3">
           <div class="flow-num"><span class="material-icons-round">menu_book</span></div>
           <div class="flow-step-label">03</div>
-          <div class="flow-body">
-            <h3>出発前レクチャー</h3>
-            <p>当日スタッフが車両の操作方法・注意事項を丁寧にご説明します。</p>
-          </div>
+          <div class="flow-body"><h3>出発前レクチャー</h3><p>当日スタッフが車両の操作方法・注意事項を丁寧にご説明します。</p></div>
         </li>
-
         <li class="flow-item animate d4">
           <div class="flow-num"><span class="material-icons-round">explore</span></div>
           <div class="flow-step-label">04</div>
-          <div class="flow-body">
-            <h3>北海道を旅しよう！</h3>
-            <p>あとは自由に北海道を旅してください。困ったことがあればいつでもご連絡を。</p>
-          </div>
+          <div class="flow-body"><h3>北海道を旅しよう！</h3><p>あとは自由に北海道を旅してください。困ったことがあればいつでもご連絡を。</p></div>
         </li>
-
         <li class="flow-item animate d5">
           <div class="flow-num"><span class="material-icons-round">check_circle</span></div>
           <div class="flow-step-label">05</div>
-          <div class="flow-body">
-            <h3>ご返却（18:00まで）</h3>
-            <p>ご利用後は営業所へ車両を返却ください。追加費用が発生した場合はその場でご精算となります。</p>
-          </div>
+          <div class="flow-body"><h3>ご返却（18:00まで）</h3><p>ご利用後は営業所へ車両を返却ください。追加費用が発生した場合はその場でご精算となります。</p></div>
         </li>
-
       </ol>
     </div>
   </section>
 
-  <!-- よくある質問 -->
+  <!-- ===== 予約カレンダー（1号車・2号車タブ切替） ===== -->
+  <section id="calendar" class="section section-gray">
+    <div class="container">
+      <h2 class="section-title animate">予約状況カレンダー</h2>
+      <p class="section-desc animate">
+        1号車・2号車の空き状況をご確認の上、お気軽にお問い合わせください。<br>
+        <small style="color:#888;">※ 色がついている日は予約済みです。空白の日はご予約いただけます。</small>
+      </p>
+
+      <!-- タブ切替ボタン -->
+      <div class="cal-tab-wrap animate">
+        <button class="cal-tab active" onclick="switchCal(0)">
+          <span class="material-icons-round" style="font-size:1.1rem;">directions_car</span>
+          HAPPY1 1号車
+        </button>
+        <button class="cal-tab" onclick="switchCal(1)">
+          <span class="material-icons-round" style="font-size:1.1rem;">directions_car</span>
+          HAPPY1 2号車
+        </button>
+      </div>
+
+      <!-- 1号車カレンダー -->
+      <div class="cal-panel active" id="cal-0">
+        <div class="cal-iframe-wrap">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=c_4f4bdd27d55ca2e3e2bf4c69d84d8557505a0c72a66f93e5df13ebed8de0c3bf%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=ja"
+            frameborder="0"
+            scrolling="no"
+            title="HAPPY1 1号車 予約カレンダー">
+          </iframe>
+        </div>
+        <p class="cal-note">
+          <span class="material-icons-round">info</span>
+          HAPPY1 1号車の予約状況です。空き日程はお気軽にお問い合わせください。
+        </p>
+      </div>
+
+      <!-- 2号車カレンダー -->
+      <div class="cal-panel" id="cal-1">
+        <div class="cal-iframe-wrap">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=c_022cdd25380999739aa57c3fcfbaaf654226fde6e1ed28dd3607f86a0d8154e4%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=ja"
+            frameborder="0"
+            scrolling="no"
+            title="HAPPY1 2号車 予約カレンダー">
+          </iframe>
+        </div>
+        <p class="cal-note">
+          <span class="material-icons-round">info</span>
+          HAPPY1 2号車の予約状況です。空き日程はお気軽にお問い合わせください。
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
   <section id="faq" class="section">
     <div class="container">
-      <h2 class="section-title animate">よくある質問</h2>
+      <h2 class="section-title animate">よくあるご質問</h2>
       <div class="faq-list">
-
-        <details class="faq-item animate d1">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>何時から何時まで利用できますか？</span>
-          </summary>
-          <p>お渡しは<strong>10:00〜</strong>、ご返却は<strong>〜18:00</strong>です。営業時間は<strong>8:00〜20:00（年中無休）</strong>です。</p>
+        <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>普通免許で運転できますか？</span></summary><p>はい、普通自動車免許（AT限定可）で運転していただけます。ご運転は18歳〜75歳未満で、免許取得から1年以上経過している方に限らせていただきます。</p></details>
+        <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>ペット同伴はOKですか？</span></summary><p>はい、可能です！小型犬2匹、または中・大型犬1匹まで同乗いただけます。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。</p></details>
+        <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>車内での宿泊は本当に快適ですか？</span></summary><p>大人4名様まで就寝可能なフルフラットベッドを展開できます。人数分の寝袋や毛布、マットレスを無料でご用意。冬季はFFヒーターを完備しておりポカポカです。</p></details>
+        <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>保険や補償制度はありますか？</span></summary><p>基本料金に自動車保険（対人・対物無制限 ※対物免責15万円）が含まれております。さらに「<strong>免責補償制度（3,300円/日）</strong>」へのご加入を強く推奨しております。</p></details>
+        <details class="faq-item animate d3"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>宿を予約しなくても旅ができるって本当？</span></summary><p>はい、本当です。キャンピングカーがあれば"宿ごと移動"できるので、旅行のたびに宿を探したり予約を取る必要がありません。</p></details>
+        <details class="faq-item animate d4"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>キャンセル料はいつから発生しますか？</span></summary><p>ご出発日の<strong>29日前から</strong>発生いたします。（29〜15日前：30%、14〜8日前：50%、7〜1日前：80%、当日：100%）</p></details>
+        <details class="faq-item animate d4"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>はじめてのキャンピングカーで使い方が不安です…。</span></summary><p>ご出発前に必ず「<strong>30分の無料レクチャー</strong>」を実施いたします。車の操作からベッドの展開方法、ヒーターの使い方まで丁寧にご説明いたします。</p></details>
+        <details class="faq-item animate d5"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>どこで車中泊してもいいんですか？</span></summary><p>「<strong>RVパーク</strong>」や「<strong>オートキャンプ場</strong>」のご利用をおすすめしております。ご出発時にスタッフからおすすめの場所もご案内可能です。</p></details>
+        <details class="faq-item animate d5"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>キャンプ用品や調理器具のレンタル（オプション）はありますか？</span></summary>
+          <p><strong>【無料の標準装備】</strong>寝袋・毛布・快適マットレス・車載冷蔵庫<br>
+          <strong>【有料オプション例】</strong>IHコンロ（550円）・電気ケトル（1,100円）・ポータブル電源（3,300円）・折りたたみテーブル・ラウンジチェア（各1,100円）</p>
         </details>
-
-        <details class="faq-item animate d1">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>新千歳空港からどう行けばいいですか？</span>
-          </summary>
-          <p>新千歳空港から電車で約35分です。詳細なアクセス方法はお問い合わせください。空港送迎についてもご相談いただけます。</p>
-        </details>
-
-        <details class="faq-item animate d2">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>普通免許でも運転できますか？</span>
-          </summary>
-          <p>はい、普通自動車免許（AT限定可）で運転できます。軽自動車ベースのHAPPY1は、初めての方でも運転しやすいコンパクトサイズです。</p>
-        </details>
-
-        <details class="faq-item animate d2">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>冬でも利用できますか？</span>
-          </summary>
-          <p>はい、年中無休でご利用いただけます。HAPPY1はヒーターを完備しているため、北海道の厳しい冬でも暖かく過ごせます。ただし、冬季は雪道運転に十分注意してください。</p>
-        </details>
-
-        <details class="faq-item animate d3">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>マイカーを預けることはできますか？</span>
-          </summary>
-          <p>はい、<strong>キャンピングカー1台につきお車1台を無料でお預かり</strong>します。旅行中の駐車場代の節約になります。</p>
-        </details>
-
-        <details class="faq-item animate d3">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>トイレはありますか？</span>
-          </summary>
-          <p>車両にはトイレの設備がございません。道の駅・キャンプ場・SA等の施設をご利用ください。北海道には道の駅が多数あり便利です。</p>
-        </details>
-
-        <details class="faq-item animate d4">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>1号車と2号車の違いは何ですか？</span>
-          </summary>
-          <p>どちらも同じHAPPY1（JP STAR製）です。装備・料金はすべて同一です。ご予約状況によりご案内する車両が異なります。</p>
-        </details>
-
-        <details class="faq-item animate d4">
-          <summary>
-            <span class="faq-q"><span class="material-icons-round">help_outline</span>車内での喫煙はできますか？</span>
-          </summary>
-          <p>車内は<strong>全席禁煙</strong>です。車内での喫煙が確認された場合、クリーニング代を別途ご請求させていただく場合があります。</p>
-        </details>
-
       </div>
     </div>
   </section>
 
-  <!-- お問い合わせ -->
-  <section id="contact" class="section section-gray">
+  <!-- 仮見積もり -->
+  <section id="estimate" class="section section-gray">
     <div class="container">
-      <h2 class="section-title animate">お問い合わせ・ご予約</h2>
-      <p class="section-desc animate">ご予約・ご不明な点はお気軽にお問い合わせください。</p>
-      <div class="contact-methods animate" style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:32px">
-        <a href="tel:050-1720-6116" class="btn btn-primary" style="font-size:1.1rem;padding:18px 36px">
-          <span class="material-icons-round">phone</span>
-          050-1720-6116
-        </a>
-        <a href="mailto:info@green-rentacar.net" class="btn btn-secondary" style="font-size:1rem;padding:18px 36px">
-          <span class="material-icons-round">mail</span>
-          info@green-rentacar.net
+      <h2 class="section-title animate">かんたん仮見積もり</h2>
+      <p class="section-desc animate">日程とオプションを入力すると、料金の目安を確認できます。</p>
+      <div class="estimate-box animate" id="estimate-box" style="margin-top: 64px;">
+        <div style="text-align:center; margin-bottom: 28px;">
+          <h3 style="font-family: 'Shippori Mincho B1', serif; font-size: clamp(1.3rem, 2.6vw, 1.8rem); color: var(--green-dark); font-weight: 800; letter-spacing: 0.06em;">
+            <span class="material-icons-round" style="vertical-align: middle; color: var(--green);">calculate</span>
+            かんたん仮見積もり
+          </h3>
+        </div>
+        <div class="estimate-inputs">
+          <div class="est-field"><label for="est-checkin">ご利用開始日</label><input type="date" id="est-checkin"></div>
+          <div class="est-field"><label for="est-checkout">ご利用終了日</label><input type="date" id="est-checkout"></div>
+          <div class="est-field est-field-pickup">
+            <label for="est-pickup">受け取り方法</label>
+            <select id="est-pickup">
+              <option value="当日10時以降">当日 10:00 以降 受け取り（通常）</option>
+              <option value="前日夜18時〜（半額）">前日 18:00 以降 受け取り（前日分 半額）</option>
+            </select>
+          </div>
+        </div>
+        <div id="estFutureYearNotice" class="notice-future-year">
+          <span class="material-icons-round">event_busy</span>
+          <p>2027年以降のご予約は別途お電話・メールでお問い合わせください。</p>
+        </div>
+        <div class="est-options-section">
+          <div class="est-options-title"><span class="material-icons-round">tune</span>オプション選択（任意）</div>
+          <div class="est-opt-group">
+            <div class="est-opt-group-header"><span class="material-icons-round">pets</span>ファミリー・ペット</div>
+            <div class="est-opt-grid">
+              <label class="est-opt-card est-opt-check-card">
+                <input type="checkbox" id="opt-pet" class="est-opt-checkbox" onchange="updateOptionPreview()">
+                <span class="est-opt-check-icon"><span class="material-icons-round">check</span></span>
+                <div class="est-opt-card-body"><span class="est-opt-name">ペット同乗</span><span class="est-opt-price">¥5,000 <small>/ 1回</small></span></div>
+              </label>
+            </div>
+          </div>
+          <div class="est-opt-group">
+            <div class="est-opt-group-header"><span class="material-icons-round">forest</span>手ぶらでキャンプ</div>
+            <div class="est-opt-grid">
+              <div class="est-opt-card est-opt-qty-card">
+                <div class="est-opt-card-body"><span class="est-opt-name">寝袋（シュラフ）セット</span><span class="est-opt-price">¥1,500 <small>/ 1人分</small></span></div>
+                <div class="est-qty-ctrl"><button type="button" class="est-qty-btn" onclick="changeQty('opt-sleepingbag', -1)">−</button><span class="est-qty-num" id="opt-sleepingbag">0</span><button type="button" class="est-qty-btn" onclick="changeQty('opt-sleepingbag', 1)">+</button></div>
+              </div>
+              <div class="est-opt-card est-opt-qty-card">
+                <div class="est-opt-card-body"><span class="est-opt-name">キャンプチェア＆テーブル</span><span class="est-opt-price">¥3,000 <small>/ 1セット</small></span></div>
+                <div class="est-qty-ctrl"><button type="button" class="est-qty-btn" onclick="changeQty('opt-campset', -1)">−</button><span class="est-qty-num" id="opt-campset">0</span><button type="button" class="est-qty-btn" onclick="changeQty('opt-campset', 1)">+</button></div>
+              </div>
+            </div>
+          </div>
+          <div id="est-opt-running" class="est-opt-running" style="display:none;"><span class="material-icons-round">shopping_cart</span>オプション合計：<strong id="est-opt-running-total">¥0</strong></div>
+          <div class="est-opt-notice"><span class="material-icons-round">info</span><span>※ オプションは現地で実物を確認の上、最終確定します。</span></div>
+        </div>
+        <div class="est-calc-btn-wrap">
+          <button type="button" class="btn btn-primary est-calc-btn" onclick="calcEstimate()"><span class="material-icons-round">calculate</span>見積もりを計算する</button>
+        </div>
+        <p id="est-error" class="est-error"></p>
+        <div id="est-result" class="estimate-result">
+          <div class="est-row est-nights-row"><span>ご利用泊数</span><span id="est-nights">—</span></div>
+          <div id="est-rate-rows"></div>
+          <div class="est-row est-prevday-row" id="est-prevday-row" style="display:none;"><span>前日受け取り</span><span id="est-prevday-amt">—</span></div>
+          <div class="est-row est-sub"><span>レンタル小計</span><span id="est-subtotal">—</span></div>
+          <div class="est-row est-discount-row" id="est-discount-row" style="display:none;"><span>割引</span><span id="est-discount">—</span></div>
+          <div id="est-option-rows"></div>
+          <div class="est-row est-opt-subtotal-row" id="est-opt-subtotal-row" style="display:none;"><span>オプション小計</span><span id="est-opt-subtotal">—</span></div>
+          <div class="est-row est-total-row"><span>合計（税込）</span><span id="est-total">—</span></div>
+          <p class="est-note">※ 概算です。実際の金額は予約時に確定します。</p>
+          <div class="est-to-form-wrap">
+            <button type="button" id="est-attach-btn" class="est-attach-btn" onclick="attachEstimateToForm()"><span class="material-icons-round">attach_file</span>予約フォームに添付する</button>
+            <div id="est-attach-done" class="est-attach-hint" style="display:none;"><span class="material-icons-round">check_circle</span>添付しました。下のフォームへ自動入力されています。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- お問い合わせ・ご予約 -->
+  <section id="contact" class="section section-green">
+    <div class="container">
+      <h2 class="section-title section-title-white animate">お問い合わせ・ご予約</h2>
+      <p class="section-desc section-desc-white animate">必要事項をご入力の上、お申し込みください。仮予約後、スタッフよりお電話確認いたします。</p>
+      <div id="formFutureYearNotice" class="notice-future-year">
+        <span class="material-icons-round">event_busy</span>
+        <p>2027年以降のご予約は別途お電話・メールでお問い合わせください。</p>
+      </div>
+      <form id="contact-form" class="contact-form animate" action="https://formspree.io/f/mdaboaka" method="POST" novalidate>
+        <div class="form-est-attach-wrap">
+          <div id="form-est-attach-empty" class="form-est-attach-empty">
+            <span class="material-icons-round">attach_file</span>
+            <div><p>仮見積もりが添付されていません</p><p class="form-est-empty-hint">上の<strong>「予約フォームに添付する」</strong>ボタンを押すと、料金内訳が自動入力されます。</p></div>
+          </div>
+          <div id="form-est-attach-filled" class="form-est-attach-filled" style="display:none;">
+            <div class="form-est-attach-header"><span class="material-icons-round">description</span>添付された仮見積もり<button type="button" class="form-est-detach-btn" onclick="detachEstimate()" aria-label="取り外す"><span class="material-icons-round">close</span></button></div>
+            <textarea name="仮見積もり内容" id="est-attached-text" class="form-est-attach-textarea" rows="8" readonly></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="checkin">ご利用開始日<span class="required">必須</span></label><input type="date" id="checkin" name="ご利用開始日" required><span class="form-err-msg">ご利用開始日を入力してください。</span></div>
+          <div class="form-group"><label for="checkout">ご利用終了日<span class="required">必須</span></label><input type="date" id="checkout" name="ご利用終了日" required><span class="form-err-msg">ご利用終了日を入力してください。</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="arrival-time">来店時間<span class="required">必須</span></label>
+            <select id="arrival-time" name="来店時間" required>
+              <option value="">時間を選んでください</option>
+              <option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option>
+            </select>
+            <span class="form-err-msg">来店時間を選択してください。</span>
+          </div>
+          <div class="form-group">
+            <label for="return-time">ご返却時間<span class="required">必須</span></label>
+            <select id="return-time" name="返却時間" required>
+              <option value="">時間を選んでください</option>
+              <option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option>
+            </select>
+            <span class="form-err-msg">ご返却時間を選択してください。</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rental-type">受け取り方法<span class="required">必須</span></label>
+            <select id="rental-type" name="受け取り方法" required>
+              <option value="">選択してください</option>
+              <option value="当日10時以降">当日 10:00 以降 受け取り（通常）</option>
+              <option value="前日夜18時〜（半額）">前日 18:00 以降 受け取り（前日分 半額）</option>
+            </select>
+            <span class="form-err-msg">受け取り方法を選択してください。</span>
+          </div>
+          <div class="form-group">
+            <label for="vehicle-select">ご希望の車両</label>
+            <select id="vehicle-select" name="ご希望の車両">
+              <option value="どちらでも可">どちらでも可</option>
+              <option value="HAPPY1（北海道店 1号車）">HAPPY1（北海道店 1号車）</option>
+              <option value="HAPPY1（北海道店 2号車）">HAPPY1（北海道店 2号車）</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="name">お名前<span class="required">必須</span></label><input type="text" id="name" name="お名前" required placeholder="例：山田 太郎"><span class="form-err-msg">お名前を入力してください。</span></div>
+          <div class="form-group"><label for="email">メールアドレス<span class="required">必須</span></label><input type="email" id="email" name="メールアドレス" required placeholder="例：sample@example.com"><span class="form-err-msg">正しいメールアドレスを入力してください。</span></div>
+        </div>
+        <div class="form-group">
+          <label for="phone">電話番号<span class="required">必須</span></label>
+          <input type="tel" id="phone" name="電話番号" required placeholder="例：090-1234-5678">
+          <span class="form-err-msg">電話番号を入力してください。</span>
+        </div>
+        <div class="form-group">
+          <label>ご住所<span class="required">必須</span></label>
+          <div class="address-grid">
+            <div class="address-col-postal">
+              <div class="postal-input-wrap">
+                <input type="text" id="postal" name="郵便番号" placeholder="〒1234567（ハイフンなし）" maxlength="8" oninput="onPostalInput(this.value)" required>
+                <span id="postal-loading" class="postal-loading"><span class="material-icons-round">refresh</span></span>
+              </div>
+            </div>
+            <div class="address-col-pref">
+              <select id="pref-select" name="都道府県" required>
+                <option value="">都道府県</option>
+                <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option><option>山形県</option><option>福島県</option>
+                <option>茨城県</option><option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option>
+                <option>新潟県</option><option>富山県</option><option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
+                <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
+                <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option><option>奈良県</option><option>和歌山県</option>
+                <option>鳥取県</option><option>島根県</option><option>岡山県</option><option>広島県</option><option>山口県</option>
+                <option>徳島県</option><option>香川県</option><option>愛媛県</option><option>高知県</option>
+                <option>福岡県</option><option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+              </select>
+            </div>
+            <div class="address-col-city"><input type="text" id="city-input" name="市区町村" placeholder="市区町村（例：札幌市白石区）" required></div>
+            <div class="address-col-street"><input type="text" name="番地" placeholder="番地（例：北郷五条8丁目10番18号）" required></div>
+            <div class="address-col-building"><input type="text" name="建物名・部屋番号" placeholder="建物名・部屋番号（任意）"></div>
+          </div>
+          <span class="form-err-msg">ご住所を入力してください。</span>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthdate">代表運転者の生年月日<span class="required">必須</span></label>
+            <input type="date" id="birthdate" name="代表運転者の生年月日" required>
+            <span class="form-err-msg">生年月日を入力してください（18歳〜75歳未満）。</span>
+          </div>
+          <div class="form-group">
+            <label for="license-date">免許取得年月<span class="required">必須</span></label>
+            <input type="month" id="license-date" name="免許取得年月" required>
+            <span class="form-err-msg">免許取得年月を入力してください（1年以上経過）。</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>運転免許証の種類<span class="required">必須</span></label>
+          <div id="license-group" class="license-radio-group">
+            <label class="license-radio-item"><input type="radio" name="運転免許証の種類" value="普通免許（MT）"><span>普通（MT）</span></label>
+            <label class="license-radio-item"><input type="radio" name="運転免許証の種類" value="普通免許（AT限定）"><span>普通（AT限定）</span></label>
+            <label class="license-radio-item"><input type="radio" name="運転免許証の種類" value="準中型免許"><span>準中型</span></label>
+            <label class="license-radio-item"><input type="radio" name="運転免許証の種類" value="中型免許"><span>中型</span></label>
+            <label class="license-radio-item"><input type="radio" name="運転免許証の種類" value="その他"><span>その他</span></label>
+          </div>
+          <span id="license-err" class="form-err-msg">運転免許証の種類を選択してください。</span>
+          <div class="license-notice">
+            <span class="material-icons-round">warning</span>
+            <span>運転される<strong>全ての方の運転免許証</strong>を当日ご持参ください。ご運転は<strong>18歳〜75歳未満</strong>、かつ<strong>免許取得から1年以上</strong>経過している方に限らせていただきます。</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="extra-driver">同乗者運転の事前申告</label>
+          <select id="extra-driver" name="同乗者運転の事前申告">
+            <option value="運転は申込者本人のみ">運転は申込者本人のみ</option>
+            <option value="同乗者も運転する（事前申告）">同乗者も運転する（事前申告）</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="payment">お支払い方法<span class="required">必須</span></label>
+          <select id="payment" name="お支払い方法" required>
+            <option value="">選択してください</option>
+            <option value="事前銀行振り込み">事前銀行振り込み</option>
+            <option value="当日 クレジットカード">当日 クレジットカード（VISA / Master / JCB / AMEX）</option>
+            <option value="当日 PayPay">当日 PayPay</option>
+            <option value="当日 現金">当日 現金</option>
+          </select>
+          <span class="form-err-msg">お支払い方法を選択してください。</span>
+          <div id="payment-bank-info" class="confirm-bank-info" style="display:none; margin-top:14px;">
+            <span class="material-icons-round">account_balance</span>
+            <div>
+              <strong>お振込先</strong>
+              三井住友銀行　普通口座　4180470<br>
+              カ）トーワオート<br>
+              <small>※ご予約確定のご連絡後、3営業日以内にお振り込みください。</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">ご質問・ご要望</label>
+          <textarea id="message" name="ご質問・ご要望" rows="4" placeholder="ご希望の装備、北海道での旅行プラン、初めてのキャンピングカー利用でのご不安な点など、何でもお気軽にご記入ください。"></textarea>
+        </div>
+        <div class="consent-section">
+          <div class="consent-title"><span class="material-icons-round">verified_user</span>ご確認・ご同意事項</div>
+          <p class="terms-hint">下のボタンから重要事項をご確認いただいた上で、同意のチェックをお願いします。</p>
+          <button type="button" class="btn-terms-open" id="terms-open-btn"><span class="material-icons-round">menu_book</span>重要事項を確認する</button>
+          <div class="consent-item" id="consent-terms-wrap">
+            <label class="consent-label">
+              <input type="checkbox" id="consent-terms" disabled>
+              <span class="consent-check-box"><span class="material-icons-round">check</span></span>
+              <span class="consent-text">キャンセルポリシー・補償・免責などの重要事項を確認し、同意します。</span>
+            </label>
+            <p id="terms-not-read-msg" class="terms-not-read-msg" style="display:none;">※ まず「重要事項を確認する」をご一読ください。</p>
+            <p class="consent-err">重要事項への同意が必要です。</p>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-submit"><span class="material-icons-round">send</span>仮予約を申し込む</button>
+        </div>
+      </form>
+      <div class="contact-methods animate" style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:48px;padding-top:36px;border-top:1px solid rgba(255,255,255,0.2);">
+        <a href="tel:050-1720-6116" class="btn btn-primary" style="font-size:1.05rem;padding:16px 30px"><span class="material-icons-round">phone</span>050-1720-6116</a>
+        <a href="mailto:info@green-rentacar.net" class="btn btn-secondary" style="font-size:1rem;padding:16px 30px"><span class="material-icons-round">mail</span>info@green-rentacar.net</a>
+      </div>
+      <p style="text-align:center;margin-top:14px;color:rgba(255,255,255,0.7);font-size:0.88rem">営業時間：9:00〜18:00（年中無休）</p>
+      <div style="text-align:center;margin-top:36px;">
+        <a href="javascript:void(0)" onclick="openCancelModal()" style="color: rgba(255,255,255,0.85); font-size: 0.9rem; text-decoration: underline; text-underline-offset: 3px; display:inline-flex; align-items:center; gap:6px;">
+          <span class="material-icons-round" style="font-size:1.05rem;">event_busy</span>既にお申し込みの方｜予約変更・キャンセル
         </a>
       </div>
-      <p style="text-align:center;margin-top:16px;color:#888;font-size:0.9rem">営業時間：8:00〜20:00（年中無休）</p>
+    </div>
+  </section>
+
+  <!-- 会社概要 -->
+  <section id="company" class="section">
+    <div class="container">
+      <h2 class="section-title animate">会社概要・アクセス</h2>
+      <p class="section-desc animate">グリーンレンタカー北海道店のご案内</p>
+      <div class="access-grid animate">
+        <div class="access-card"><span class="material-icons-round">place</span><div><h4>住所</h4><p>〒003-0835<br>北海道札幌市白石区<br>北郷五条8丁目10番18号</p></div></div>
+        <div class="access-card"><span class="material-icons-round">flight</span><div><h4>新千歳空港から</h4><p>電車で約35分<br><small style="color:#2d6a9f;font-weight:700">✈ 空港まで無料送迎あり</small></p></div></div>
+        <div class="access-card"><span class="material-icons-round">schedule</span><div><h4>営業時間</h4><p>9:00〜18:00<br>（年中無休）</p></div></div>
+        <div class="access-card"><span class="material-icons-round">directions_car</span><div><h4>マイカー預かり</h4><p>キャンピングカー1台につき<br>お車1台を<strong>無料</strong>でお預かり</p></div></div>
+      </div>
+      <div class="company-table-wrap animate">
+        <table class="company-table">
+          <tr><th>店舗名</th><td>グリーンレンタカー 北海道店</td></tr>
+          <tr><th>運営元</th><td>株式会社TOWA AUTO（トーワオート）</td></tr>
+          <tr><th>所在地</th><td>〒003-0835 北海道札幌市白石区北郷五条8丁目10番18号</td></tr>
+          <tr><th>電話番号</th><td><a href="tel:050-1720-6116">050-1720-6116</a>（受付 9:00〜18:00）</td></tr>
+          <tr><th>メール</th><td><a href="mailto:info@green-rentacar.net">info@green-rentacar.net</a></td></tr>
+          <tr><th>営業時間</th><td>9:00〜18:00（年中無休）</td></tr>
+          <tr><th>取扱車両</th><td>JP STAR製「HAPPY1」（2台）</td></tr>
+          <tr><th>空港送迎</th><td>新千歳空港まで無料送迎あり</td></tr>
+          <tr><th>マイカー預かり</th><td>キャンピングカー1台につき、お車1台を無料でお預かり</td></tr>
+          <tr><th>大阪本店</th><td><a href="https://green-rentacar.net" target="_blank" rel="noopener">green-rentacar.net</a></td></tr>
+        </table>
+      </div>
+      <div class="company-map animate" style="aspect-ratio: 16/9; max-width: 720px; margin: 40px auto 0; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 1px dashed var(--green-light); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: var(--green-dark);">
+        <span class="material-icons-round" style="font-size: 3rem;">map</span>
+        <p style="font-size: 0.9rem; font-weight: 600;">Google マップ埋め込み予定</p>
+        <p style="font-size: 0.8rem; color: var(--green); opacity: 0.7;">〒003-0835 北海道札幌市白石区北郷五条8丁目10番18号</p>
+      </div>
     </div>
   </section>
 
@@ -590,20 +1086,20 @@
   <footer id="footer">
     <div class="container footer-inner">
       <div class="footer-logo">
-        <img src="images/favicon.png" class="logo-mark-img" alt="" style="width:40px;height:40px;object-fit:contain">
+        <img src="画像/logo.png" class="logo-mark-img" alt="" style="width:48px;height:44px;object-fit:contain">
         <div>
-          <span class="logo-name" style="color:#fff">グリーンレンタカー</span>
-          <span class="logo-name-sub" style="color:rgba(255,255,255,0.7)">北海道店</span>
+          <span class="logo-name" style="color:var(--green-dark)">グリーンレンタカー</span>
+          <span class="logo-name-sub" style="color:var(--green)">北海道店</span>
         </div>
       </div>
       <div class="footer-info">
         <p><span class="material-icons-round">place</span> 〒003-0835 北海道札幌市白石区北郷五条8丁目10番18号</p>
-        <p><span class="material-icons-round">phone</span> <a href="tel:050-1720-6116">050-1720-6116</a>（営業時間 8:00〜20:00）</p>
+        <p><span class="material-icons-round">phone</span> <a href="tel:050-1720-6116">050-1720-6116</a>（営業時間 9:00〜18:00）</p>
         <p><span class="material-icons-round">mail</span> <a href="mailto:info@green-rentacar.net">info@green-rentacar.net</a></p>
       </div>
       <div class="footer-links">
         <a href="https://green-rentacar.net" target="_blank" rel="noopener">大阪本店HP</a>
-        <a href="https://www.instagram.com/green_rentacar_osaka/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://lin.ee/nyuZ31e" target="_blank" rel="noopener">LINE公式</a>
       </div>
       <div class="footer-copy">
         <p>JP STAR取扱店 &nbsp;|&nbsp; 「HAPPY1」取扱店</p>
@@ -614,31 +1110,170 @@
 
   <script src="js/main.js"></script>
   <script>
-    // 車両タブ切替
+    /* ===== カレンダータブ切替 ===== */
+    function switchCal(idx) {
+      document.querySelectorAll('.cal-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+      document.querySelectorAll('.cal-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+    }
+
+    /* ===== 車両タブ切替 ===== */
     function switchVehicleTab(idx) {
-      const tabs = document.querySelectorAll('.vehicle-tab');
-      tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+      document.querySelectorAll('.vehicle-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
       const label = document.getElementById('vehicleTagLabel');
       if (label) label.textContent = idx === 0 ? '北海道店 1号車' : '北海道店 2号車';
     }
 
-    // サムネイル切替（大阪HPと共通）
+    /* ===== サムネイル切替 ===== */
     function switchVehicleImg(idx) {
-      const thumbs = document.querySelectorAll('.vehicle-thumb');
-      const imgs = ['images/happy1-main.jpg','images/happy1-side.jpg','images/happy1-interior.jpg','images/happy1-bed.jpg'];
-      thumbs.forEach((t, i) => t.classList.toggle('active', i === idx));
+      const imgs = ['画像/happy1-main.jpg','画像/happy1-side.jpg','画像/happy1-interior.jpg','画像/happy1-bed.jpg'];
+      document.querySelectorAll('.vehicle-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
       const main = document.getElementById('vehicleMain');
       if (main && imgs[idx]) main.style.backgroundImage = `url('${imgs[idx]}')`;
     }
 
-    // スクロールアニメーション
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.animate').forEach(el => observer.observe(el));
-
-    // ヒーローアニメーション
+    /* ===== ヒーローアニメーション ===== */
     document.querySelectorAll('.anim-hero').forEach(el => el.classList.add('in-view'));
+
+    /* ===== 運転者バリデーション ===== */
+    function validateDriverAge() {
+      const birthInput = document.getElementById('birthdate');
+      const licenseInput = document.getElementById('license-date');
+      const today = new Date();
+      if (birthInput && birthInput.value) {
+        const birth = new Date(birthInput.value);
+        let age = today.getFullYear() - birth.getFullYear();
+        if (today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())) age--;
+        birthInput.setCustomValidity(age < 18 ? '運転者は満18歳以上である必要があります。' : age >= 75 ? '運転者は75歳未満である必要があります。' : '');
+      }
+      if (licenseInput && licenseInput.value) {
+        const license = new Date(licenseInput.value + '-01');
+        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+        licenseInput.setCustomValidity(license > oneYearAgo ? '免許取得から1年以上経過している必要があります。' : '');
+      }
+    }
+    document.getElementById('birthdate')?.addEventListener('change', validateDriverAge);
+    document.getElementById('license-date')?.addEventListener('change', validateDriverAge);
+    (() => {
+      const t = new Date();
+      const todayStr = t.toISOString().split('T')[0];
+      const bd = document.getElementById('birthdate');
+      const ld = document.getElementById('license-date');
+      if (bd) bd.max = todayStr;
+      if (ld) ld.max = todayStr.substring(0, 7);
+    })();
   </script>
+
+  <!-- 重要事項モーダル -->
+  <div id="terms-modal" class="terms-modal-wrap" style="display:none;">
+    <div class="terms-modal-overlay" id="terms-modal-overlay"></div>
+    <div class="terms-modal-box">
+      <div class="terms-modal-header">
+        <span class="material-icons-round">menu_book</span>
+        <h3>重要事項のご確認</h3>
+        <button class="terms-close-btn" id="terms-close-btn" aria-label="閉じる"><span class="material-icons-round">close</span></button>
+      </div>
+      <div class="terms-modal-body">
+        <div class="terms-group">
+          <div class="terms-group-title">キャンセルポリシー</div>
+          <ul class="terms-list">
+            <li>ご利用開始日の<strong>30日以上前</strong>：キャンセル料 無料</li>
+            <li>29日〜15日前：合計金額の<strong>30%</strong></li>
+            <li>14日〜8日前：合計金額の<strong>50%</strong></li>
+            <li>7日〜1日前：合計金額の<strong>80%</strong></li>
+            <li>当日・無断キャンセル：合計金額の<strong>100%</strong></li>
+          </ul>
+        </div>
+        <div class="terms-group">
+          <div class="terms-group-title">補償・免責</div>
+          <ul class="terms-list">
+            <li>基本保険（対人無制限・対物無制限・人身傷害 3,000万円/名）は全車に標準装備</li>
+            <li>対物事故の免責金額は1事故につき<strong>¥150,000</strong></li>
+            <li><strong>免責補償制度（¥3,300 / 日）</strong>加入で対物免責額が0円</li>
+            <li>NOC：自走返却<strong>¥100,000</strong> / レッカー<strong>¥150,000</strong></li>
+          </ul>
+        </div>
+        <div class="terms-group">
+          <div class="terms-group-title">運転免許の条件</div>
+          <ul class="terms-list">
+            <li>普通自動車免許（AT限定可）で運転できます</li>
+            <li>ご運転は<strong>18歳〜75歳未満</strong>、かつ<strong>免許取得から1年以上</strong>経過の方に限ります</li>
+            <li>全ての運転者の免許証を当日ご持参ください</li>
+          </ul>
+        </div>
+        <div class="terms-group terms-group-warning">
+          <div class="terms-group-title">⚠ 北海道ご利用上の注意</div>
+          <ul class="terms-list">
+            <li><strong>冬季の雪道運転</strong>：スタッドレスタイヤ標準装着。急ハンドル・急ブレーキは避けてください</li>
+            <li><strong>野生動物との衝突注意</strong>：道東・道北の夜間走行はエゾシカ等との衝突事故に注意</li>
+            <li><strong>車内禁煙</strong>：違反時はクリーニング代をご請求します</li>
+            <li><strong>トイレなし</strong>：道の駅・キャンプ場・SA等の施設をご利用ください</li>
+            <li><strong>給油</strong>：返却時は満タン返却をお願いします</li>
+          </ul>
+        </div>
+      </div>
+      <div class="terms-modal-footer">
+        <button class="btn-terms-back" id="terms-back-btn">閉じる</button>
+        <button class="btn-terms-agree" id="terms-agree-btn"><span class="material-icons-round">check_circle</span>確認しました（同意する）</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 受付確認モーダル -->
+  <div id="confirmation-modal" class="confirm-modal" style="display:none;">
+    <div class="confirm-modal-overlay" onclick="closeConfirmModal()"></div>
+    <div class="confirm-modal-content">
+      <div class="confirm-modal-header"><span class="material-icons-round">check_circle</span><h2>仮予約を受け付けました</h2></div>
+      <div class="confirm-modal-desc"><strong>※ まだ予約は確定していません。</strong><br>スタッフよりお電話確認の上、正式に確定となります。</div>
+      <div id="confirm-body"></div>
+      <p class="confirm-modal-note">ご不明な点は <a href="tel:050-1720-6116">050-1720-6116</a>（営業時間 9:00〜18:00）までお問い合わせください。</p>
+      <div class="confirm-modal-actions">
+        <button type="button" class="btn btn-primary confirm-print-btn" onclick="printConfirmation()"><span class="material-icons-round">print</span>印刷 / PDF保存</button>
+        <button type="button" class="confirm-close-btn" onclick="closeConfirmModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- キャンセルモーダル -->
+  <div id="cancel-modal" class="cancel-modal-wrap" style="display:none;">
+    <div class="cancel-modal-overlay" onclick="closeCancelModal()"></div>
+    <div class="cancel-modal-box">
+      <div class="cancel-modal-header">
+        <span class="material-icons-round" style="color:#1976d2;">event_busy</span>
+        <h3>予約のキャンセル</h3>
+        <button class="cancel-close-btn" onclick="closeCancelModal()" aria-label="閉じる"><span class="material-icons-round">close</span></button>
+      </div>
+      <div id="cancel-step1">
+        <div class="cancel-step-desc-box"><span class="material-icons-round">info</span><p>仮予約完了時の<strong>受付番号</strong>とお申し込み時の<strong>メールアドレス</strong>でご予約を確認します。</p></div>
+        <div class="cancel-input-group"><label>受付番号<span class="cancel-required">必須</span></label><input type="text" id="cancel-receipt" placeholder="例：GR20260516120000"></div>
+        <div class="cancel-input-group"><label>メールアドレス<span class="cancel-required">必須</span></label><input type="email" id="cancel-email" placeholder="お申し込み時のメールアドレス"></div>
+        <p id="cancel-step1-err" class="cancel-err" style="display:none;"></p>
+        <div class="cancel-modal-actions">
+          <button class="cancel-btn-close" onclick="closeCancelModal()">閉じる</button>
+          <button class="cancel-btn-search" onclick="lookupCancel()"><span class="material-icons-round">search</span>予約を検索</button>
+        </div>
+      </div>
+      <div id="cancel-step2" style="display:none;">
+        <p class="cancel-confirm-lead">以下のご予約をキャンセルします。よろしいですか？</p>
+        <div class="cancel-booking-info" id="cancel-booking-info"></div>
+        <div class="cancel-fee-box" id="cancel-fee-box"></div>
+        <p class="cancel-confirm-note">※ キャンセル後の取り消しはできません。</p>
+        <div class="cancel-modal-actions">
+          <button class="cancel-btn-close" onclick="cancelBackToStep1()">戻る</button>
+          <button class="cancel-btn-danger" onclick="confirmCancel()"><span class="material-icons-round">delete_forever</span>キャンセルを確定する</button>
+        </div>
+      </div>
+      <div id="cancel-step3" style="display:none;">
+        <div class="cancel-complete">
+          <span class="material-icons-round cancel-complete-icon">check_circle</span>
+          <h4>キャンセルを承りました</h4>
+          <p id="cancel-complete-msg"></p>
+        </div>
+        <div class="cancel-modal-actions" style="justify-content:center;">
+          <button class="cancel-btn-search" onclick="closeCancelModal()">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
