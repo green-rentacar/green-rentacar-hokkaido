@@ -113,7 +113,7 @@ async function fetchAddress(digits) {
 }
 
 // ===== Google Apps Script URL =====
-const APPS_SCRIPT_URL = 'https://green-rentacar-proxy.shy-snow-b32c.workers.dev';
+const APPS_SCRIPT_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.workers.dev';
 
 // ===== 予約フォーム バリデーション＆AJAX送信 =====
 (function () {
@@ -496,14 +496,14 @@ function calcEstimate() {
     return;
   }
 
-  // ---- 基本料金計算（ご利用開始日〜ご利用終了日の各日・両日含む） ----
+  // ---- 基本料金計算（チェックイン日〜チェックアウト日の両日含む・1泊2日=2日分） ----
   let rentalSubtotal      = 0;
   let normalWeekdayNights = 0;
   let normalWeekendNights = 0;
   let highWeekdayNights   = 0;
   let highWeekendNights   = 0;
 
-  for (let i = 0; i < nights; i++) {
+  for (let i = 0; i <= nights; i++) {
     const d = new Date(checkin);
     d.setDate(d.getDate() + i);
     const high    = isPeak(d);
@@ -546,7 +546,7 @@ function calcEstimate() {
   const grandTotal = rentalSubtotal + optionTotal;
 
   // ---- 結果表示 ----
-  document.getElementById('est-nights').textContent = nights + '日';
+  document.getElementById('est-nights').textContent = nights + '泊（' + (nights + 1) + '日間分）';
 
   // 料金内訳行を動的生成（カテゴリ別に平日・土日を分けて表示）
   const rateRows = document.getElementById('est-rate-rows');
@@ -640,14 +640,14 @@ function attachEstimateToForm() {
   // 受け取り方法の表示ラベル
   const pickupLabel = isPrevDay
     ? '前日 18:00 以降 受け取り（前日分 半額オプション）'
-    : '当日 9:00 以降 受け取り（通常）';
+    : pickupVal;
 
   // 添付テキスト生成
   let attachText =
     `■ 仮見積もり内容\n` +
     `チェックイン  ：${formatDate(checkinVal)}\n` +
     `チェックアウト：${formatDate(checkoutVal)}\n` +
-    `ご利用泊数    ：${nights}泊（${rentalBreakdown}）\n` +
+    `ご利用泊数    ：${nights}泊（${nights + 1}日間分 / ${rentalBreakdown}）\n` +
     `受け取り方法  ：${pickupLabel}\n`;
 
   if (isPrevDay && prevDayAmount > 0) {
@@ -850,49 +850,71 @@ function closeConfirmModal() {
   document.body.style.overflow = '';
 }
 
-// ===== 印刷 / PDF保存（同一ページ内印刷 — PC・スマホ全端末対応） =====
+// ===== 印刷 / PDF保存 =====
 function printConfirmation() {
-  const modalContent = document.querySelector('#confirmation-modal .confirm-modal-content');
+  const modal        = document.getElementById('confirmation-modal');
+  const modalContent = modal?.querySelector('.confirm-modal-content');
   if (!modalContent) return;
 
+  // モーダル内容をクローン（.confirm-modal-content 要素ごと）
   const clone = modalContent.cloneNode(true);
   const actions = clone.querySelector('.confirm-modal-actions');
   if (actions) actions.remove();
+  const note = clone.querySelector('.confirm-modal-note');
+  if (note) note.remove();
 
-  // 同一ページ内の #print-area にクローンを挿入して window.print() を呼ぶ。
-  // window.open + document.write はiOS Safariで白画面になるため使用しない。
   let printArea = document.getElementById('print-area');
   if (!printArea) {
     printArea = document.createElement('div');
     printArea.id = 'print-area';
     document.body.appendChild(printArea);
   }
-  printArea.innerHTML = clone.innerHTML;
+  printArea.innerHTML = '';
+  // innerHTML ではなく appendChild で挿入 → .confirm-modal-content が
+  // #print-area の子に入り @media print の CSS が正しく適用される
+  printArea.appendChild(clone);
 
-  // iOS Safari ではモーダルで body overflow:hidden のままだと
-  // 印刷ダイアログが表示されないため、一時的に解除する
-  // モバイル（iPhone/Android）は window.print() が不安定なため案内を表示
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (isMobile) {
-    alert('📸 スクリーンショットを端末に保存してください。\n予約変更はメールにてご確認ください。');
+    alert('スクリーンショットを端末に保存してください。\n予約変更はメールにてご確認ください。');
+    printArea.innerHTML = '';
     return;
   }
 
-  // PC用：window.print()
+  // 元モーダルを一時非表示（position:fixed 要素が印刷に混入するブラウザ対策）
+  const prevModalDisplay = modal.style.display;
+  modal.style.display = 'none';
+
   const prevOverflow = document.body.style.overflow;
   document.body.style.overflow = '';
 
+  // PDFファイル名設定
+  const prevTitle = document.title;
+  const today = new Date();
+  const yy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  document.title = `キャンピングカーレンタル契約書（${yy}年${mm}月${dd}日）`;
+
+  let cleaned = false;
   const cleanup = () => {
+    if (cleaned) return;
+    cleaned = true;
     printArea.innerHTML = '';
     document.body.style.overflow = prevOverflow;
+    document.title = prevTitle;
+    // モーダルを復元（印刷後も確認画面が見られるように）
+    modal.style.display = prevModalDisplay;
   };
+
   window.addEventListener('afterprint', function onAfterPrint() {
     cleanup();
     window.removeEventListener('afterprint', onAfterPrint);
   });
-  setTimeout(cleanup, 5000);
+  setTimeout(cleanup, 8000);
 
-  window.print();
+  // DOMレンダリングを待ってから印刷ダイアログを開く
+  setTimeout(() => window.print(), 150);
 }
 
 // ===== 重要事項モーダル =====
