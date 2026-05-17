@@ -324,10 +324,15 @@ const APPS_SCRIPT_URL = 'https://green-rentacar-proxy.shy-snow-b32c.workers.dev'
 })();
 
 // ===== 仮見積もり基本料金 =====
-const NORMAL_WEEKDAY = 27500;
-const NORMAL_WEEKEND = 33000;
-const HIGH_WEEKDAY   = 33000;
-const HIGH_WEEKEND   = 37000;
+const BASE_WEEKDAY   = 23760;
+const BASE_WEEKEND   = Math.round(BASE_WEEKDAY * 1.2); // 28512
+const HIGH_ADDON     = 11000;
+const NORMAL_WEEKDAY = BASE_WEEKDAY;                   // 23760
+const NORMAL_WEEKEND = BASE_WEEKEND;                   // 28512
+const HIGH_WEEKDAY   = BASE_WEEKDAY + HIGH_ADDON;      // 34760
+const HIGH_WEEKEND   = BASE_WEEKEND + HIGH_ADDON;      // 39512
+const LONG_DISCOUNT_NIGHTS = 5;   // 5泊以上で割引
+const LONG_DISCOUNT_RATE   = 0.1; // 10%引き
 
 // ===== オプション定義 =====
 const OPTIONS = [
@@ -336,7 +341,8 @@ const OPTIONS = [
   // グループ2: 手ぶらでキャンプ
   { id: 'opt-sleepingbag', type: 'qty',   name: '寝袋（シュラフ）セット',         price: 1500, unit: '1人分' },
   { id: 'opt-campset',     type: 'qty',   name: 'キャンプチェア＆テーブルセット', price: 3000, unit: '1セット' },
-  // グループ3: サービス
+  // グループ3: 送迎サービス
+  { id: 'opt-airport',     type: 'check', name: '新千歳空港お迎えサービス',       price: 16500, unit: '1回' },
 ];
 
 // 数量型オプションの値を管理
@@ -524,6 +530,13 @@ function calcEstimate() {
     rentalSubtotal += prevDayAmount;
   }
 
+  // ---- 長期割引（5泊以上 10%引き） ----
+  let discountAmount = 0;
+  if (nights >= LONG_DISCOUNT_NIGHTS) {
+    discountAmount  = Math.round(rentalSubtotal * LONG_DISCOUNT_RATE);
+    rentalSubtotal -= discountAmount;
+  }
+
   // ---- オプション合計 ----
   const { total: optionTotal, lines: optionLines } = getOptionResults();
 
@@ -557,8 +570,15 @@ function calcEstimate() {
     prevdayRow.style.display = 'none';
   }
 
-  document.getElementById('est-subtotal').textContent = formatYen(rentalSubtotal);
-  document.getElementById('est-discount-row').style.display = 'none';
+  document.getElementById('est-subtotal').textContent = formatYen(rentalSubtotal + discountAmount);
+  const discountRow = document.getElementById('est-discount-row');
+  const discountEl  = document.getElementById('est-discount');
+  if (discountAmount > 0 && discountRow && discountEl) {
+    discountEl.textContent = '－' + formatYen(discountAmount) + '（5泊以上 10%割引）';
+    discountRow.style.display = 'flex';
+  } else if (discountRow) {
+    discountRow.style.display = 'none';
+  }
 
   // オプション明細行を動的生成
   const optRows = document.getElementById('est-option-rows');
@@ -590,7 +610,7 @@ function calcEstimate() {
     normalNights, highNights,
     normalWeekdayNights, normalWeekendNights,
     highWeekdayNights, highWeekendNights,
-    rentalSubtotal, optionTotal, grandTotal, optionLines,
+    rentalSubtotal, discountAmount, optionTotal, grandTotal, optionLines,
     pickupVal, isPrevDay, prevDayAmount
   };
 }
@@ -602,7 +622,7 @@ function attachEstimateToForm() {
     checkinVal, checkoutVal, nights,
     normalWeekdayNights, normalWeekendNights,
     highWeekdayNights, highWeekendNights,
-    rentalSubtotal, optionTotal, grandTotal, optionLines,
+    rentalSubtotal, discountAmount, optionTotal, grandTotal, optionLines,
     pickupVal, isPrevDay, prevDayAmount
   } = _lastEstimate;
 
@@ -631,7 +651,13 @@ function attachEstimateToForm() {
     attachText += `前日受け取り分：${formatYen(prevDayAmount)}（半額）\n`;
   }
 
-  attachText += `レンタル小計  ：${formatYen(rentalSubtotal)}\n`;
+  if (discountAmount > 0) {
+    attachText += `レンタル小計  ：${formatYen(rentalSubtotal + discountAmount)}\n`;
+    attachText += `長期割引（10%）：－${formatYen(discountAmount)}\n`;
+    attachText += `割引後小計    ：${formatYen(rentalSubtotal)}\n`;
+  } else {
+    attachText += `レンタル小計  ：${formatYen(rentalSubtotal)}\n`;
+  }
 
   if (optionLines.length > 0) {
     attachText += `\n■ 選択オプション\n`;

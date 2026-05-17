@@ -94,8 +94,7 @@ ul, ol { list-style: none; }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
 .hamburger span { display: block; width: 24px; height: 2px; background: #333; border-radius: 2px; transition: all 0.3s; }
 #hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(-45deg, rgba(0,60,10,0.82), rgba(0,0,0,0.52), rgba(10,80,25,0.78), rgba(0,30,5,0.68)); background-size: 400% 400%; animation: gradientFlow 14s ease infinite; }
-@keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(160deg, rgba(0,40,10,0.72) 0%, rgba(0,0,0,0.55) 50%, rgba(0,30,8,0.70) 100%); }
 .hero-content { position: relative; z-index: 2; text-align: center; color: #fff; padding: 20px; max-width: 760px; }
 .hero-sub { font-size: 1.15rem; letter-spacing: 0.25em; opacity: 0.85; margin-bottom: 20px; font-weight: 500; }
 .hero-title { font-family: 'Shippori Mincho B1', serif; font-size: clamp(2.4rem, 6vw, 4.8rem); font-weight: 800; line-height: 1.25; margin-bottom: 28px; text-shadow: 0 2px 24px rgba(0,0,0,0.35); letter-spacing: 0.06em; }
@@ -1064,13 +1063,13 @@ ul, ol { list-style: none; }
           <tbody>
             <tr>
               <td style="text-align:left;padding-left:20px;font-weight:700;color:#333">通常期（1泊）</td>
-              <td><span class="price-num">¥27,500</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num">¥33,000</span><span class="tax">（税込）</span></td>
+              <td><span class="price-num">¥23,760</span><span class="tax">（税込）</span></td>
+              <td><span class="price-num">¥28,512</span><span class="tax">（税込）</span></td>
             </tr>
             <tr style="background:#f0f7ff">
-              <td style="text-align:left;padding-left:20px;font-weight:700;color:#1565c0">ハイシーズン（1泊）</td>
-              <td><span class="price-num" style="color:#1565c0">¥33,000</span><span class="tax">（税込）</span></td>
-              <td><span class="price-num" style="color:#1565c0">¥37,000</span><span class="tax">（税込）</span></td>
+              <td style="text-align:left;padding-left:20px;font-weight:700;color:#1565c0">ハイシーズン（1泊）<br><small style="font-weight:400;font-size:0.78em">通常料金＋¥11,000</small></td>
+              <td><span class="price-num" style="color:#1565c0">¥34,760</span><span class="tax">（税込）</span></td>
+              <td><span class="price-num" style="color:#1565c0">¥39,512</span><span class="tax">（税込）</span></td>
             </tr>
           </tbody>
         </table>
@@ -1102,6 +1101,15 @@ ul, ol { list-style: none; }
             </div>
           </div>
         </div>
+        <div style="background:#e8f5e9;border-left:4px solid #2d9c4a;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:8px;font-weight:800;color:#1b5e20;margin-bottom:4px">
+            <span class="material-icons-round" style="font-size:1.2rem">sell</span>長期ご利用割引
+          </div>
+          <div style="font-size:0.92rem;color:#2e7d32;line-height:1.8">
+            <strong>5泊以上のご利用はレンタル料金を10%割引</strong>いたします。<br>
+            ※ 下記「かんたん仮見積もり」で自動適用されます。
+          </div>
+        </div>
         <p style="font-size:0.84rem;color:#666;line-height:1.9">
           ※ 料金は1泊あたりの金額（税込）です。平日・土日祝・ハイシーズンが混在する日程は、下記「かんたん仮見積もり」で自動計算できます。<br>
           ※ 燃料費は実費精算となります。
@@ -1112,7 +1120,7 @@ ul, ol { list-style: none; }
         <div class="rental-hour-divider"></div>
         <div class="rental-hour-item"><span class="material-icons-round">logout</span><div><strong>ご返却時間</strong><p>〜18:00</p></div></div>
         <div class="rental-hour-divider"></div>
-        <div class="rental-hour-item"><span class="material-icons-round">event_available</span><div><strong>営業時間</strong><p>9:00〜18:00（年中無休）</p></div></div>
+        <div class="rental-hour-item"><span class="material-icons-round">event_available</span><div><strong>営業時間</strong><p>9:00〜18:00</p></div></div>
       </div>
     </div>
   </section>
@@ -1146,28 +1154,22 @@ ul, ol { list-style: none; }
           <span><span class="material-icons-round">tow_truck</span>レッカー</span>
         </div>
       </div>
-      <div class="ins-highlight animate">
-        <div class="ins-highlight-head"><span class="material-icons-round">shield</span><h3>免責補償制度（任意・推奨）<br><small style="font-weight:400;font-size:0.8em;">万が一の事故時に、免責額のお支払いが0円になります</small></h3></div>
-        <p>対物免責額（¥150,000）のお支払いが、本制度へのご加入で<strong>全額免除（0円）</strong>となります。</p>
-        <div class="ins-highlight-point"><span class="material-icons-round">recommend</span><span>¥3,300 / 日　&nbsp;|&nbsp;　ご加入を強くおすすめしています</span></div>
-      </div>
       <div class="ins-card animate">
         <div class="ins-card-head"><span class="material-icons-round">compare_arrows</span><h3>免責金額 ・ NOC（営業補償）について</h3></div>
         <div class="ins-terms-grid">
           <div class="ins-term-box">
             <span class="ins-term-label">事故時</span><p class="ins-term-sub">免責金額のご負担</p>
-            <p>免責補償制度（¥3,300/日）加入で<strong>0円</strong>になります。</p>
+            <p>対物事故の場合、免責金額をお客様にご負担いただきます。</p>
             <div class="ins-amount-grid">
               <div class="ins-amount-item"><div class="ins-amount-label">対物事故<small>1事故につき</small></div><div class="ins-amount-val">¥150,000</div></div>
-              <div class="ins-amount-item"><div class="ins-amount-label">免責補償制度加入時</div><div class="ins-amount-val" style="color:#2d9c4a">¥0</div></div>
             </div>
           </div>
           <div class="ins-term-box">
             <span class="ins-term-label">NOC</span><p class="ins-term-sub">営業補償金</p>
             <p>事故や汚損により修理・清掃が必要になった場合のご負担額です。</p>
             <div class="ins-amount-grid">
-              <div class="ins-amount-item"><div class="ins-amount-label">自走して返却された場合</div><div class="ins-amount-val">¥100,000</div></div>
-              <div class="ins-amount-item"><div class="ins-amount-label">レッカーが必要な場合</div><div class="ins-amount-val">¥150,000</div></div>
+              <div class="ins-amount-item"><div class="ins-amount-label">自走可能な場合</div><div class="ins-amount-val">¥150,000</div></div>
+              <div class="ins-amount-item"><div class="ins-amount-label">自走不可（レッカー）の場合</div><div class="ins-amount-val">¥200,000</div></div>
             </div>
           </div>
         </div>
@@ -1305,7 +1307,7 @@ ul, ol { list-style: none; }
         <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>普通免許で運転できますか？</span></summary><p>はい、普通自動車免許（AT限定可）で運転していただけます。ご運転は18歳〜75歳未満で、免許取得から1年以上経過している方に限らせていただきます。</p></details>
         <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>ペット同伴はOKですか？</span></summary><p>はい、可能です！小型犬2匹、または中・大型犬1匹まで同乗いただけます。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。</p></details>
         <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>車内での宿泊は本当に快適ですか？</span></summary><p>大人4名様まで就寝可能なフルフラットベッドを展開できます。人数分の寝袋や毛布、マットレスを無料でご用意。冬季はFFヒーターを完備しておりポカポカです。</p></details>
-        <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>保険や補償制度はありますか？</span></summary><p>基本料金に自動車保険（対人・対物無制限 ※対物免責15万円）が含まれております。さらに「<strong>免責補償制度（3,300円/日）</strong>」へのご加入を強く推奨しております。</p></details>
+        <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>保険はありますか？</span></summary><p>基本料金に自動車保険（対人・対物無制限 ※対物免責¥150,000）が含まれております。万が一の事故時は免責金額（¥150,000）をお客様にご負担いただきます。</p></details>
         <details class="faq-item animate d3"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>宿を予約しなくても旅ができるって本当？</span></summary><p>はい、本当です。キャンピングカーがあれば"宿ごと移動"できるので、旅行のたびに宿を探したり予約を取る必要がありません。</p></details>
         <details class="faq-item animate d4"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>キャンセル料はいつから発生しますか？</span></summary><p>ご出発日の<strong>29日前から</strong>発生いたします。（29〜15日前：30%、14〜8日前：50%、7〜1日前：80%、当日：100%）</p></details>
         <details class="faq-item animate d4"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>はじめてのキャンピングカーで使い方が不安です…。</span></summary><p>ご出発前に必ず「<strong>30分の無料レクチャー</strong>」を実施いたします。車の操作からベッドの展開方法、ヒーターの使い方まで丁寧にご説明いたします。</p></details>
@@ -1370,8 +1372,19 @@ ul, ol { list-style: none; }
               </div>
             </div>
           </div>
+          <div class="est-opt-group">
+            <div class="est-opt-group-header"><span class="material-icons-round">directions_car</span>送迎サービス</div>
+            <div class="est-opt-grid">
+              <label class="est-opt-card est-opt-check-card">
+                <input type="checkbox" id="opt-airport" class="est-opt-checkbox" onchange="updateOptionPreview()">
+                <span class="est-opt-check-icon"><span class="material-icons-round">check</span></span>
+                <div class="est-opt-card-body"><span class="est-opt-name">新千歳空港お迎え</span><span class="est-opt-price">¥16,500 <small>/ 1回</small></span></div>
+              </label>
+            </div>
+            <p style="font-size:0.8rem;color:#666;margin-top:6px;padding-left:4px"><span class="material-icons-round" style="font-size:0.95rem;vertical-align:middle">info</span> 新札幌駅までの送迎は<strong>無料</strong>です（空港送迎は有料）</p>
+          </div>
           <div id="est-opt-running" class="est-opt-running" style="display:none;"><span class="material-icons-round">shopping_cart</span>オプション合計：<strong id="est-opt-running-total">¥0</strong></div>
-          <div class="est-opt-notice"><span class="material-icons-round">info</span><span>※ オプションは現地で実物を確認の上、最終確定します。</span></div>
+          <div class="est-opt-notice"><span class="material-icons-round">info</span><span>※ 車両の返却はご来店（店舗まで）でお願いします。</span></div>
         </div>
         <div class="est-calc-btn-wrap">
           <button type="button" class="btn btn-primary est-calc-btn" onclick="calcEstimate()"><span class="material-icons-round">calculate</span>見積もりを計算する</button>
@@ -1574,7 +1587,7 @@ ul, ol { list-style: none; }
         <a href="tel:050-1720-6116" class="btn btn-primary" style="font-size:1.05rem;padding:16px 30px"><span class="material-icons-round">phone</span>050-1720-6116</a>
         <a href="mailto:info@green-rentacar.net" class="btn btn-secondary" style="font-size:1rem;padding:16px 30px"><span class="material-icons-round">mail</span>info@green-rentacar.net</a>
       </div>
-      <p style="text-align:center;margin-top:14px;color:rgba(255,255,255,0.7);font-size:0.88rem">営業時間：9:00〜18:00（年中無休）</p>
+      <p style="text-align:center;margin-top:14px;color:rgba(255,255,255,0.7);font-size:0.88rem">営業時間：9:00〜18:00</p>
       <div style="text-align:center;margin-top:36px;">
         <a href="javascript:void(0)" onclick="openCancelModal()" style="color: rgba(255,255,255,0.85); font-size: 0.9rem; text-decoration: underline; text-underline-offset: 3px; display:inline-flex; align-items:center; gap:6px;">
           <span class="material-icons-round" style="font-size:1.05rem;">event_busy</span>既にお申し込みの方｜予約変更・キャンセル
@@ -1590,8 +1603,8 @@ ul, ol { list-style: none; }
       <p class="section-desc animate">グリーンレンタカー北海道店のご案内</p>
       <div class="access-grid animate">
         <div class="access-card"><span class="material-icons-round">place</span><div><h4>住所</h4><p>〒003-0835<br>北海道札幌市白石区<br>北郷五条8丁目10番18号</p></div></div>
-        <div class="access-card"><span class="material-icons-round">flight</span><div><h4>新千歳空港から</h4><p>電車で約35分<br><small style="color:#2d6a9f;font-weight:700">✈ 空港まで無料送迎あり</small></p></div></div>
-        <div class="access-card"><span class="material-icons-round">schedule</span><div><h4>営業時間</h4><p>9:00〜18:00<br>（年中無休）</p></div></div>
+        <div class="access-card"><span class="material-icons-round">flight</span><div><h4>新千歳空港から</h4><p>電車で約35分<br><small style="color:#2d6a9f;font-weight:700">✈ 空港お迎え：¥16,500（税込）</small><br><small style="color:#2d9c4a;font-weight:700">🚉 新札幌駅まで無料送迎</small></p></div></div>
+        <div class="access-card"><span class="material-icons-round">schedule</span><div><h4>営業時間</h4><p>9:00〜18:00</p></div></div>
         <div class="access-card"><span class="material-icons-round">directions_car</span><div><h4>マイカー預かり</h4><p>キャンピングカー1台につき<br>お車1台を<strong>無料</strong>でお預かり</p></div></div>
       </div>
       <div class="company-table-wrap animate">
@@ -1601,9 +1614,9 @@ ul, ol { list-style: none; }
           <tr><th>所在地</th><td>〒003-0835 北海道札幌市白石区北郷五条8丁目10番18号</td></tr>
           <tr><th>電話番号</th><td><a href="tel:050-1720-6116">050-1720-6116</a>（受付 9:00〜18:00）</td></tr>
           <tr><th>メール</th><td><a href="mailto:info@green-rentacar.net">info@green-rentacar.net</a></td></tr>
-          <tr><th>営業時間</th><td>9:00〜18:00（年中無休）</td></tr>
+          <tr><th>営業時間</th><td>9:00〜18:00</td></tr>
           <tr><th>取扱車両</th><td>JP STAR製「HAPPY1」（2台）</td></tr>
-          <tr><th>空港送迎</th><td>新千歳空港まで無料送迎あり</td></tr>
+          <tr><th>送迎</th><td>新千歳空港お迎え：¥16,500（税込）／ 新札幌駅まで無料送迎</td></tr>
           <tr><th>マイカー預かり</th><td>キャンピングカー1台につき、お車1台を無料でお預かり</td></tr>
           <tr><th>大阪本店</th><td><a href="https://green-rentacar.net" target="_blank" rel="noopener">green-rentacar.net</a></td></tr>
         </table>
@@ -1735,8 +1748,7 @@ ul, ol { list-style: none; }
           <ul class="terms-list">
             <li>基本保険（対人無制限・対物無制限・人身傷害 3,000万円/名）は全車に標準装備</li>
             <li>対物事故の免責金額は1事故につき<strong>¥150,000</strong></li>
-            <li><strong>免責補償制度（¥3,300 / 日）</strong>加入で対物免責額が0円</li>
-            <li>NOC：自走返却<strong>¥100,000</strong> / レッカー<strong>¥150,000</strong></li>
+            <li>NOC：自走可能<strong>¥150,000</strong> / 自走不可（レッカー）<strong>¥200,000</strong></li>
           </ul>
         </div>
         <div class="terms-group">
