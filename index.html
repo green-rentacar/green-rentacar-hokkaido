@@ -1349,29 +1349,56 @@ ul, ol { list-style: none; }
         </div>
         <div class="est-options-section">
           <div class="est-options-title"><span class="material-icons-round">tune</span>オプション選択（任意）</div>
+
+          <!-- 標準装備（無料） -->
+          <div style="background:#e8f5e9;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:0.87rem;color:#2e7d32">
+            <span class="material-icons-round" style="font-size:1rem;vertical-align:middle;margin-right:4px">check_circle</span>
+            <strong>無料の標準装備：</strong>寝袋・毛布・快適マットレス・車載冷蔵庫
+          </div>
+
+          <!-- ファミリー・ペット -->
           <div class="est-opt-group">
             <div class="est-opt-group-header"><span class="material-icons-round">pets</span>ファミリー・ペット</div>
             <div class="est-opt-grid">
               <label class="est-opt-card est-opt-check-card">
                 <input type="checkbox" id="opt-pet" class="est-opt-checkbox" onchange="updateOptionPreview()">
                 <span class="est-opt-check-icon"><span class="material-icons-round">check</span></span>
-                <div class="est-opt-card-body"><span class="est-opt-name">ペット同乗</span><span class="est-opt-price">¥5,000 <small>/ 1回</small></span></div>
+                <div class="est-opt-card-body"><span class="est-opt-name">ペット同乗</span><span class="est-opt-price">¥11,000 <small>/ 1回</small></span></div>
               </label>
             </div>
           </div>
+
+          <!-- 有料オプション -->
           <div class="est-opt-group">
-            <div class="est-opt-group-header"><span class="material-icons-round">forest</span>手ぶらでキャンプ</div>
+            <div class="est-opt-group-header"><span class="material-icons-round">kitchen</span>有料オプション機器</div>
             <div class="est-opt-grid">
+              <label class="est-opt-card est-opt-check-card">
+                <input type="checkbox" id="opt-ih" class="est-opt-checkbox" onchange="updateOptionPreview()">
+                <span class="est-opt-check-icon"><span class="material-icons-round">check</span></span>
+                <div class="est-opt-card-body"><span class="est-opt-name">IHコンロ</span><span class="est-opt-price">¥550 <small>/ 1台</small></span></div>
+              </label>
+              <label class="est-opt-card est-opt-check-card">
+                <input type="checkbox" id="opt-kettle" class="est-opt-checkbox" onchange="updateOptionPreview()">
+                <span class="est-opt-check-icon"><span class="material-icons-round">check</span></span>
+                <div class="est-opt-card-body"><span class="est-opt-name">電気ケトル</span><span class="est-opt-price">¥1,100 <small>/ 1台</small></span></div>
+              </label>
+              <label class="est-opt-card est-opt-check-card">
+                <input type="checkbox" id="opt-power" class="est-opt-checkbox" onchange="updateOptionPreview()">
+                <span class="est-opt-check-icon"><span class="material-icons-round">check</span></span>
+                <div class="est-opt-card-body"><span class="est-opt-name">ポータブル電源</span><span class="est-opt-price">¥3,300 <small>/ 1台</small></span></div>
+              </label>
               <div class="est-opt-card est-opt-qty-card">
-                <div class="est-opt-card-body"><span class="est-opt-name">寝袋（シュラフ）セット</span><span class="est-opt-price">¥1,500 <small>/ 1人分</small></span></div>
-                <div class="est-qty-ctrl"><button type="button" class="est-qty-btn" onclick="changeQty('opt-sleepingbag', -1)">−</button><span class="est-qty-num" id="opt-sleepingbag">0</span><button type="button" class="est-qty-btn" onclick="changeQty('opt-sleepingbag', 1)">+</button></div>
+                <div class="est-opt-card-body"><span class="est-opt-name">折りたたみテーブル</span><span class="est-opt-price">¥1,100 <small>/ 1台</small></span></div>
+                <div class="est-qty-ctrl"><button type="button" class="est-qty-btn" onclick="changeQty('opt-table', -1)">−</button><span class="est-qty-num" id="opt-table">0</span><button type="button" class="est-qty-btn" onclick="changeQty('opt-table', 1)">+</button></div>
               </div>
               <div class="est-opt-card est-opt-qty-card">
-                <div class="est-opt-card-body"><span class="est-opt-name">キャンプチェア＆テーブル</span><span class="est-opt-price">¥3,000 <small>/ 1セット</small></span></div>
-                <div class="est-qty-ctrl"><button type="button" class="est-qty-btn" onclick="changeQty('opt-campset', -1)">−</button><span class="est-qty-num" id="opt-campset">0</span><button type="button" class="est-qty-btn" onclick="changeQty('opt-campset', 1)">+</button></div>
+                <div class="est-opt-card-body"><span class="est-opt-name">ラウンジチェア</span><span class="est-opt-price">¥1,100 <small>/ 1脚</small></span></div>
+                <div class="est-qty-ctrl"><button type="button" class="est-qty-btn" onclick="changeQty('opt-chair', -1)">−</button><span class="est-qty-num" id="opt-chair">0</span><button type="button" class="est-qty-btn" onclick="changeQty('opt-chair', 1)">+</button></div>
               </div>
             </div>
           </div>
+
+          <!-- 送迎サービス -->
           <div class="est-opt-group">
             <div class="est-opt-group-header"><span class="material-icons-round">directions_car</span>送迎サービス</div>
             <div class="est-opt-grid">
@@ -1383,6 +1410,7 @@ ul, ol { list-style: none; }
             </div>
             <p style="font-size:0.8rem;color:#666;margin-top:6px;padding-left:4px"><span class="material-icons-round" style="font-size:0.95rem;vertical-align:middle">info</span> 新札幌駅までの送迎は<strong>無料</strong>です（空港送迎は有料）</p>
           </div>
+
           <div id="est-opt-running" class="est-opt-running" style="display:none;"><span class="material-icons-round">shopping_cart</span>オプション合計：<strong id="est-opt-running-total">¥0</strong></div>
           <div class="est-opt-notice"><span class="material-icons-round">info</span><span>※ 車両の返却はご来店（店舗まで）でお願いします。</span></div>
         </div>

@@ -337,12 +337,15 @@ const LONG_DISCOUNT_RATE   = 0.1; // 10%引き
 // ===== オプション定義 =====
 const OPTIONS = [
   // グループ1: ファミリー・ペット
-  { id: 'opt-pet',         type: 'check', name: 'ペット同乗料金',                price: 5000, unit: '1回' },
-  // グループ2: 手ぶらでキャンプ
-  { id: 'opt-sleepingbag', type: 'qty',   name: '寝袋（シュラフ）セット',         price: 1500, unit: '1人分' },
-  { id: 'opt-campset',     type: 'qty',   name: 'キャンプチェア＆テーブルセット', price: 3000, unit: '1セット' },
+  { id: 'opt-pet',     type: 'check', name: 'ペット同乗',           price: 11000, unit: '1回' },
+  // グループ2: 有料オプション
+  { id: 'opt-ih',      type: 'check', name: 'IHコンロ',             price:   550, unit: '1台' },
+  { id: 'opt-kettle',  type: 'check', name: '電気ケトル',           price:  1100, unit: '1台' },
+  { id: 'opt-power',   type: 'check', name: 'ポータブル電源',       price:  3300, unit: '1台' },
+  { id: 'opt-table',   type: 'qty',   name: '折りたたみテーブル',   price:  1100, unit: '1台' },
+  { id: 'opt-chair',   type: 'qty',   name: 'ラウンジチェア',       price:  1100, unit: '1脚' },
   // グループ3: 送迎サービス
-  { id: 'opt-airport',     type: 'check', name: '新千歳空港お迎えサービス',       price: 16500, unit: '1回' },
+  { id: 'opt-airport', type: 'check', name: '新千歳空港お迎えサービス', price: 16500, unit: '1回' },
 ];
 
 // 数量型オプションの値を管理
