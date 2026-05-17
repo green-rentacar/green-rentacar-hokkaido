@@ -197,32 +197,35 @@ const APPS_SCRIPT_URL = 'https://green-rentacar-proxy.shy-snow-b32c.workers.dev'
         message:     formData.get('ご質問・ご要望') || ''
       };
 
-      // ① ハイシーズン日数チェック（フロントエンド）
+      // ① 特定期間 7日間制限チェック（フロントエンド）
       const ciDate = new Date(bookingData.checkin);
       const coDate = new Date(bookingData.checkout);
       const rentalDays = Math.round((coDate - ciDate) / 86400000);
       const ciYear = ciDate.getFullYear();
+
+      // お盆（8/10〜8/16）: 7日間レンタルのみ ※nights=7 → checkin 8/10, checkout 8/17
       const bonStart = new Date(ciYear + '-08-10');
       const bonEnd   = new Date(ciYear + '-08-16');
-      const nyStart  = new Date(ciYear + '-12-29');
-      const nyEnd    = new Date((ciYear + 1) + '-01-05');
-      const nyStart2 = new Date((ciYear - 1) + '-12-29');
-      const nyEnd2   = new Date(ciYear + '-01-05');
-
-      if (ciDate <= bonEnd && coDate > bonStart && rentalDays !== 6) {
+      if (ciDate <= bonEnd && coDate > bonStart && rentalDays !== 7) {
         form.querySelectorAll('.booking-avail-error').forEach(el => el.remove());
         const errDiv = document.createElement('div');
         errDiv.className = 'booking-avail-error';
-        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span>お盆期間（8/10〜8/16）にかかるご予約は7日間のみ承っております。';
+        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><strong>お盆期間（8/10〜8/16）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 8/10・チェックアウト 8/17 でお申し込みください。';
         submitBtn.parentNode.insertBefore(errDiv, submitBtn);
         submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
-      if (((ciDate <= nyEnd && coDate > nyStart) || (ciDate <= nyEnd2 && coDate > nyStart2)) && rentalDays !== 6) {
+
+      // 冬休み（12/29〜1/4）: 7日間レンタルのみ ※nights=7 → checkin 12/29, checkout 1/5
+      const nyStart  = new Date(ciYear + '-12-29');
+      const nyEnd    = new Date((ciYear + 1) + '-01-04');
+      const nyStart2 = new Date((ciYear - 1) + '-12-29');
+      const nyEnd2   = new Date(ciYear + '-01-04');
+      if (((ciDate <= nyEnd && coDate > nyStart) || (ciDate <= nyEnd2 && coDate > nyStart2)) && rentalDays !== 7) {
         form.querySelectorAll('.booking-avail-error').forEach(el => el.remove());
         const errDiv = document.createElement('div');
         errDiv.className = 'booking-avail-error';
-        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span>年末年始期間（12/29〜1/4）にかかるご予約は7日間のみ承っております。';
+        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><strong>冬休み期間（12/29〜1/4）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 12/29・チェックアウト 1/5 でお申し込みください。';
         submitBtn.parentNode.insertBefore(errDiv, submitBtn);
         submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
@@ -464,6 +467,23 @@ function calcEstimate() {
 
   if (nights < 1) {
     errorMsg.textContent = 'ご利用終了日はご利用開始日と同じかそれより後の日付を選んでください。';
+    return;
+  }
+
+  // 特定期間 7日間制限チェック（お盆・冬休み）
+  const estYear = checkin.getFullYear();
+  const estBonStart = new Date(estYear + '-08-10');
+  const estBonEnd   = new Date(estYear + '-08-16');
+  if (checkin <= estBonEnd && checkout > estBonStart && nights !== 7) {
+    errorMsg.textContent = 'お盆期間（8/10〜8/16）のご利用は7日間レンタルのみ承っております。チェックイン 8/10・チェックアウト 8/17 でご入力ください。';
+    return;
+  }
+  const estNyStart  = new Date(estYear + '-12-29');
+  const estNyEnd    = new Date((estYear + 1) + '-01-04');
+  const estNyStart2 = new Date((estYear - 1) + '-12-29');
+  const estNyEnd2   = new Date(estYear + '-01-04');
+  if (((checkin <= estNyEnd && checkout > estNyStart) || (checkin <= estNyEnd2 && checkout > estNyStart2)) && nights !== 7) {
+    errorMsg.textContent = '冬休み期間（12/29〜1/4）のご利用は7日間レンタルのみ承っております。チェックイン 12/29・チェックアウト 1/5 でご入力ください。';
     return;
   }
 
