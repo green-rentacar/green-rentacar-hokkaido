@@ -1036,31 +1036,61 @@ ul, ol { list-style: none; }
     <div class="container">
       <h2 class="section-title animate">料金案内</h2>
       <p class="section-desc animate">HAPPY1（1号車・2号車共通）のレンタル料金です。</p>
+      <!-- 1泊あたり基本料金テーブル -->
       <div class="price-table-wrap animate">
         <table class="price-table-hokkaido">
           <thead>
             <tr>
-              <th>レンタル時間</th>
-              <th>平日<br><small>（ハイシーズン除く）</small></th>
-              <th>土日祝<br><small>（ハイシーズン除く）</small></th>
+              <th>区分</th>
+              <th>平日<br><small>（月〜金）</small></th>
+              <th>土日祝</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>当日利用（日帰り）</td><td><span class="price-num">¥23,760</span><span class="tax">（税込）</span></td><td><span class="price-num">¥28,512</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>1泊2日</td><td><span class="price-num">¥47,520</span><span class="tax">（税込）</span></td><td><span class="price-num">¥57,024</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>2泊3日</td><td><span class="price-num">¥71,280</span><span class="tax">（税込）</span></td><td><span class="price-num">¥85,024</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>3泊4日</td><td><span class="price-num">¥95,040</span><span class="tax">（税込）</span></td><td><span class="price-num">¥114,048</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>4泊5日</td><td><span class="price-num">¥106,920</span><span class="tax">（税込）</span></td><td><span class="price-num">¥128,304</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>5泊6日</td><td><span class="price-num">¥128,304</span><span class="tax">（税込）</span></td><td><span class="price-num">¥153,964</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>6泊7日</td><td><span class="price-num">¥149,688</span><span class="tax">（税込）</span></td><td><span class="price-num">¥179,625</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>7泊8日</td><td><span class="price-num">¥171,072</span><span class="tax">（税込）</span></td><td><span class="price-num">¥205,286</span><span class="tax">（税込）</span></td></tr>
-            <tr><td>以降1日（24時間）ごと</td><td><span class="price-num">¥21,384</span><span class="tax">（税込）</span></td><td><span class="price-num">¥25,660</span><span class="tax">（税込）</span></td></tr>
+            <tr>
+              <td style="text-align:left;padding-left:20px;font-weight:700;color:#333">通常期（1泊）</td>
+              <td><span class="price-num">¥27,500</span><span class="tax">（税込）</span></td>
+              <td><span class="price-num">¥33,000</span><span class="tax">（税込）</span></td>
+            </tr>
+            <tr style="background:#f0f7ff">
+              <td style="text-align:left;padding-left:20px;font-weight:700;color:#1565c0">ハイシーズン（1泊）</td>
+              <td><span class="price-num" style="color:#1565c0">¥33,000</span><span class="tax">（税込）</span></td>
+              <td><span class="price-num" style="color:#1565c0">¥37,000</span><span class="tax">（税込）</span></td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <div class="highseason-note animate">
-        <strong>※ ハイシーズン料金</strong>：上記料金に <strong>¥11,000（税込）</strong> が加算されます。<br>
-        ※ 燃料費は実費精算となります。
+
+      <!-- ハイシーズン期間・制限事項 -->
+      <div class="highseason-note animate" style="margin-top:20px">
+        <div style="font-size:1rem;font-weight:800;margin-bottom:14px;color:#1b5e20">📅 2026年度 ハイシーズン期間</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+          <span style="display:inline-flex;align-items:center;gap:6px;background:#e8f5e9;color:#1b5e20;padding:7px 16px;border-radius:20px;font-size:0.88rem;font-weight:700;border:1px solid #a5d6a7">
+            <span class="material-icons-round" style="font-size:1rem">local_florist</span>GW：4/29（火）〜 5/6（水）
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:#e3f2fd;color:#1565c0;padding:7px 16px;border-radius:20px;font-size:0.88rem;font-weight:700;border:1px solid #90caf9">
+            <span class="material-icons-round" style="font-size:1rem">wb_sunny</span>夏休み・お盆：7/18（土）〜 8/16（日）
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:#e8eaf6;color:#283593;padding:7px 16px;border-radius:20px;font-size:0.88rem;font-weight:700;border:1px solid #9fa8da">
+            <span class="material-icons-round" style="font-size:1rem">ac_unit</span>年末年始：12/25（木）〜 1/6（火）
+          </span>
+        </div>
+        <div style="background:#fff3e0;border-left:4px solid #f9a825;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:14px">
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span class="material-icons-round" style="color:#f57f17;font-size:1.4rem;flex-shrink:0;margin-top:1px">warning</span>
+            <div>
+              <div style="font-weight:800;color:#e65100;font-size:0.95rem;margin-bottom:6px">7日間レンタル限定期間</div>
+              <div style="font-size:0.9rem;color:#5d4037;line-height:1.8">
+                <span style="font-weight:700">お盆（8/10〜8/16）</span>：チェックイン 8/10・チェックアウト 8/17（7泊8日）のみ受付<br>
+                <span style="font-weight:700">冬休み（12/29〜1/4）</span>：チェックイン 12/29・チェックアウト 1/5（7泊8日）のみ受付
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.84rem;color:#666;line-height:1.9">
+          ※ 料金は1泊あたりの金額（税込）です。平日・土日祝・ハイシーズンが混在する日程は、下記「かんたん仮見積もり」で自動計算できます。<br>
+          ※ 燃料費は実費精算となります。
+        </p>
       </div>
       <div class="rental-hours-box animate" style="margin-top:32px">
         <div class="rental-hour-item"><span class="material-icons-round">login</span><div><strong>お渡し時間</strong><p>10:00〜</p></div></div>
