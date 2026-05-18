@@ -1340,6 +1340,7 @@ ul, ol { list-style: none; }
             <select id="est-pickup">
               <option value="当日10時以降">当日 10:00 以降 受け取り（通常）</option>
               <option value="前日夜18時〜（半額）">前日 18:00 以降 受け取り（前日分 半額）</option>
+              <option value="新札幌駅送迎希望">新札幌駅 お迎え（無料）</option>
             </select>
           </div>
         </div>
@@ -1486,6 +1487,7 @@ ul, ol { list-style: none; }
               <option value="">選択してください</option>
               <option value="当日10時以降">当日 10:00 以降 受け取り（通常）</option>
               <option value="前日夜18時〜（半額）">前日 18:00 以降 受け取り（前日分 半額）</option>
+              <option value="新札幌駅送迎希望">新札幌駅 お迎え（無料）</option>
             </select>
             <span class="form-err-msg">受け取り方法を選択してください。</span>
           </div>
@@ -1534,18 +1536,6 @@ ul, ol { list-style: none; }
             <div class="address-col-building"><input type="text" name="建物名・部屋番号" placeholder="建物名・部屋番号（任意）"></div>
           </div>
           <span class="form-err-msg">ご住所を入力してください。</span>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="birthdate">代表運転者の生年月日<span class="required">必須</span></label>
-            <input type="date" id="birthdate" name="代表運転者の生年月日" required>
-            <span class="form-err-msg">生年月日を入力してください（18歳〜75歳未満）。</span>
-          </div>
-          <div class="form-group">
-            <label for="license-date">免許取得年月<span class="required">必須</span></label>
-            <input type="month" id="license-date" name="免許取得年月" required>
-            <span class="form-err-msg">免許取得年月を入力してください（1年以上経過）。</span>
-          </div>
         </div>
         <div class="form-group">
           <label>運転免許証の種類<span class="required">必須</span></label>
@@ -1649,10 +1639,17 @@ ul, ol { list-style: none; }
           <tr><th>大阪本店</th><td><a href="https://green-rentacar.net" target="_blank" rel="noopener">green-rentacar.net</a></td></tr>
         </table>
       </div>
-      <div class="company-map animate" style="aspect-ratio: 16/9; max-width: 720px; margin: 40px auto 0; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 1px dashed var(--green-light); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: var(--green-dark);">
-        <span class="material-icons-round" style="font-size: 3rem;">map</span>
-        <p style="font-size: 0.9rem; font-weight: 600;">Google マップ埋め込み予定</p>
-        <p style="font-size: 0.8rem; color: var(--green); opacity: 0.7;">〒003-0835 北海道札幌市白石区北郷五条8丁目10番18号</p>
+      <div class="company-map animate" style="max-width: 720px; margin: 40px auto 0; border-radius: 10px; overflow: hidden;">
+        <iframe
+          src="https://maps.google.com/maps?q=%E5%8C%97%E6%B5%B7%E9%81%93%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E5%8C%97%E9%83%B7%E4%BA%94%E6%9D%A18%E4%B8%81%E7%9B%AE10%E7%95%AA18%E5%8F%B7&output=embed"
+          width="100%"
+          height="400"
+          style="border:0; display:block;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="グリーンレンタカー 北海道店 地図">
+        </iframe>
       </div>
     </div>
   </section>
@@ -1722,33 +1719,6 @@ ul, ol { list-style: none; }
     /* ===== ヒーローアニメーション ===== */
     document.querySelectorAll('.anim-hero').forEach(el => el.classList.add('in-view'));
 
-    /* ===== 運転者バリデーション ===== */
-    function validateDriverAge() {
-      const birthInput = document.getElementById('birthdate');
-      const licenseInput = document.getElementById('license-date');
-      const today = new Date();
-      if (birthInput && birthInput.value) {
-        const birth = new Date(birthInput.value);
-        let age = today.getFullYear() - birth.getFullYear();
-        if (today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())) age--;
-        birthInput.setCustomValidity(age < 18 ? '運転者は満18歳以上である必要があります。' : age >= 75 ? '運転者は75歳未満である必要があります。' : '');
-      }
-      if (licenseInput && licenseInput.value) {
-        const license = new Date(licenseInput.value + '-01');
-        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-        licenseInput.setCustomValidity(license > oneYearAgo ? '免許取得から1年以上経過している必要があります。' : '');
-      }
-    }
-    document.getElementById('birthdate')?.addEventListener('change', validateDriverAge);
-    document.getElementById('license-date')?.addEventListener('change', validateDriverAge);
-    (() => {
-      const t = new Date();
-      const todayStr = t.toISOString().split('T')[0];
-      const bd = document.getElementById('birthdate');
-      const ld = document.getElementById('license-date');
-      if (bd) bd.max = todayStr;
-      if (ld) ld.max = todayStr.substring(0, 7);
-    })();
   </script>
 
   <!-- 重要事項モーダル -->
