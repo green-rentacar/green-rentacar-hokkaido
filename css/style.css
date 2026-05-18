@@ -190,6 +190,7 @@ ul, ol { list-style: none; }
   width: auto;
   max-width: none;
   display: block;
+  mix-blend-mode: multiply; /* 白背景を周囲の色に馴染ませる */
 }
 
 .logo-texts {
@@ -1951,13 +1952,13 @@ ul, ol { list-style: none; }
   .confirm-modal-actions { flex-direction: column; }
 }
 
-/* ===== 空き確認エラー表示 ===== */
+/* ===== 空き確認エラー表示（ボタン前のインライン） ===== */
 .booking-avail-error {
   display: flex;
   align-items: center;
   gap: 10px;
   background: #fff3f3;
-  border: 1.5px solid #e57373;
+  border: 2px solid #e53935;
   border-radius: 10px;
   padding: 14px 18px;
   color: #c62828;
@@ -1965,11 +1966,59 @@ ul, ol { list-style: none; }
   font-weight: 600;
   margin-bottom: 16px;
   line-height: 1.6;
+  animation: errShake 0.5s ease;
 }
 .booking-avail-error .material-icons-round {
   font-size: 1.4rem;
   flex-shrink: 0;
   color: #e53935;
+}
+@keyframes errShake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-8px); }
+  40%      { transform: translateX(8px); }
+  60%      { transform: translateX(-6px); }
+  80%      { transform: translateX(6px); }
+}
+
+/* ===== 空き確認エラー：画面上部固定バナー ===== */
+.avail-top-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: #c62828;
+  color: #fff;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  animation: bannerSlide 0.3s ease;
+}
+.avail-top-banner .material-icons-round {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.avail-top-banner .banner-msg {
+  flex: 1;
+  line-height: 1.5;
+}
+.avail-top-banner .banner-close {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding: 0 4px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+.avail-top-banner .banner-close:hover { opacity: 1; }
+@keyframes bannerSlide {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
 }
 
 /* ===== 支払い方法 銀行情報 ===== */
@@ -2386,12 +2435,14 @@ ul, ol { list-style: none; }
 @media print {
   body > *:not(#print-area) { display: none !important; }
 
+  @page { size: A4 portrait; margin: 10mm 12mm; }
+
   #print-area {
     display: block !important;
     font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-    font-size: 13px;
-    color: #333;
-    line-height: 1.8;
+    font-size: 9.5px;
+    color: #222;
+    line-height: 1.45;
     padding: 0;
   }
 
@@ -2401,33 +2452,62 @@ ul, ol { list-style: none; }
     max-height: none !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 10mm 12mm !important;
+    padding: 0 !important;
     overflow: visible !important;
   }
 
-  #print-area .confirm-modal-actions { display: none !important; }
-
-  #print-area .confirm-receipt-info {
-    background: #1b5e20 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+  #print-area .confirm-modal-header h2 { font-size: 13px !important; }
+  #print-area .confirm-modal-header .material-icons-round { font-size: 1.4rem !important; }
 
   #print-area .confirm-modal-desc {
+    font-size: 8.5px !important;
+    padding: 7px 10px !important;
+    margin-bottom: 10px !important;
     background: #e8f5e9 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
+  #print-area .confirm-receipt-info {
+    padding: 8px 12px !important;
+    margin-bottom: 10px !important;
+    background: #1b5e20 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #print-area .confirm-receipt-row { font-size: 9px !important; padding: 2px 0 !important; }
+  #print-area .receipt-val-id { font-size: 10px !important; }
+  #print-area .receipt-val-date { font-size: 9px !important; }
+
+  #print-area .confirm-sep { margin: 6px 0 !important; }
+
+  #print-area .confirm-row {
+    padding: 5px 0 !important;
+    gap: 8px !important;
+    page-break-inside: avoid;
+  }
+  #print-area .confirm-label {
+    width: 110px !important;
+    font-size: 8.5px !important;
+  }
+  #print-area .confirm-value { font-size: 9px !important; }
+
   #print-area .confirm-pre {
+    font-size: 8px !important;
+    line-height: 1.5 !important;
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+    padding: 6px 8px !important;
+    margin: 0 !important;
     background: #f8f8f8 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  #print-area .confirm-row { page-break-inside: avoid; }
+  #print-area .confirm-bank-info { font-size: 8.5px !important; padding: 8px 12px !important; }
 
-  @page { size: A4 portrait; margin: 15mm; }
+  #print-area .confirm-modal-actions { display: none !important; }
+  #print-area .confirm-modal-note { display: none !important; }
 }
 
 /* ===== 重要事項モーダル ===== */

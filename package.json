@@ -1,0 +1,6 @@
+{
+  "name": "green-rentacar-hokkaido",
+  "scripts": {
+    "deploy": "wrangler pages deploy . --project-name green-rentacar-hokkaido-pages --commit-dirty=true"
+  }
+}

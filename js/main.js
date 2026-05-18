@@ -1,14 +1,52 @@
-// ===== 車両フォトギャラリー =====
-const VEHICLE_IMGS = [
-  'images/t1-main.jpg',    // 0: 全体（デフォルト）
-  'images/t1-side.jpg',    // 1: 横
-  'images/t1-front.jpg',   // 2: 前
-  'images/t1-rear.jpg',    // 3: 後
+// ===== 車両データ（1号車・2号車）=====
+const CARS = [
+  {
+    label : '北海道店 1号車（14-11）',
+    imgs  : [
+      { src: 'images/happy1-car1.png', label: '全体' },
+    ]
+  },
+  {
+    label : '北海道店 2号車（14-59）',
+    imgs  : [
+      { src: 'images/happy1-main.jpg', label: '全体' },
+    ]
+  }
 ];
 
+let _currentCar = 0;
+
+function switchVehicleTab(carIdx) {
+  _currentCar = carIdx;
+
+  // タブのアクティブ切替
+  document.querySelectorAll('.vehicle-tab').forEach((tab, i) => {
+    tab.classList.toggle('active', i === carIdx);
+  });
+
+  const car = CARS[carIdx];
+
+  // メイン画像を更新
+  const mainEl = document.getElementById('vehicleMain');
+  if (mainEl) mainEl.style.backgroundImage = `url('${car.imgs[0].src}')`;
+
+  // 号車ラベルを更新
+  const tagLabel = document.getElementById('vehicleTagLabel');
+  if (tagLabel) tagLabel.textContent = car.label;
+
+  // サムネイル一覧を再描画
+  const thumbsWrap = document.querySelector('.vehicle-thumbs');
+  if (thumbsWrap) {
+    thumbsWrap.innerHTML = car.imgs.map((img, i) =>
+      `<div class="vehicle-thumb${i === 0 ? ' active' : ''}" onclick="switchVehicleImg(${i})" style="background-image:url('${img.src}')"><span class="thumb-label">${img.label}</span></div>`
+    ).join('');
+  }
+}
+
 function switchVehicleImg(idx) {
+  const car  = CARS[_currentCar];
   const main = document.getElementById('vehicleMain');
-  if (main) main.style.backgroundImage = `url('${VEHICLE_IMGS[idx]}')`;
+  if (main && car.imgs[idx]) main.style.backgroundImage = `url('${car.imgs[idx].src}')`;
   document.querySelectorAll('.vehicle-thumb').forEach((t, i) => {
     t.classList.toggle('active', i === idx);
   });
@@ -115,6 +153,25 @@ async function fetchAddress(digits) {
 // ===== Google Apps Script URL =====
 const APPS_SCRIPT_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.workers.dev';
 
+// ===== 空き確認エラー：上部バナー表示 =====
+function showAvailErrorBanner(message) {
+  // 既存バナーを削除
+  document.querySelectorAll('.avail-top-banner').forEach(el => el.remove());
+
+  const banner = document.createElement('div');
+  banner.className = 'avail-top-banner';
+  banner.innerHTML =
+    '<span class="material-icons-round">event_busy</span>' +
+    '<span class="banner-msg">' + message + '</span>' +
+    '<button class="banner-close" aria-label="閉じる">&#x2715;</button>';
+
+  banner.querySelector('.banner-close').addEventListener('click', () => banner.remove());
+  document.body.prepend(banner);
+
+  // 8秒後に自動消去
+  setTimeout(() => { if (banner.parentNode) banner.remove(); }, 8000);
+}
+
 // ===== 予約フォーム バリデーション＆AJAX送信 =====
 (function () {
   const form = document.getElementById('contact-form');
@@ -207,11 +264,13 @@ const APPS_SCRIPT_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.wor
       const bonStart = new Date(ciYear + '-08-10');
       const bonEnd   = new Date(ciYear + '-08-16');
       if (ciDate <= bonEnd && coDate > bonStart && rentalDays !== 7) {
+        const msg = '<strong>お盆期間（8/10〜8/16）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 8/10・チェックアウト 8/17 でお申し込みください。';
         form.querySelectorAll('.booking-avail-error').forEach(el => el.remove());
         const errDiv = document.createElement('div');
         errDiv.className = 'booking-avail-error';
-        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><strong>お盆期間（8/10〜8/16）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 8/10・チェックアウト 8/17 でお申し込みください。';
+        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><span>' + msg + '</span>';
         submitBtn.parentNode.insertBefore(errDiv, submitBtn);
+        showAvailErrorBanner('お盆期間（8/10〜8/16）のご予約は7日間レンタルのみです。日程をご確認ください。');
         submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
@@ -222,11 +281,13 @@ const APPS_SCRIPT_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.wor
       const nyStart2 = new Date((ciYear - 1) + '-12-29');
       const nyEnd2   = new Date(ciYear + '-01-04');
       if (((ciDate <= nyEnd && coDate > nyStart) || (ciDate <= nyEnd2 && coDate > nyStart2)) && rentalDays !== 7) {
+        const msg = '<strong>冬休み期間（12/29〜1/4）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 12/29・チェックアウト 1/5 でお申し込みください。';
         form.querySelectorAll('.booking-avail-error').forEach(el => el.remove());
         const errDiv = document.createElement('div');
         errDiv.className = 'booking-avail-error';
-        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><strong>冬休み期間（12/29〜1/4）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 12/29・チェックアウト 1/5 でお申し込みください。';
+        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><span>' + msg + '</span>';
         submitBtn.parentNode.insertBefore(errDiv, submitBtn);
+        showAvailErrorBanner('冬休み期間（12/29〜1/4）のご予約は7日間レンタルのみです。日程をご確認ください。');
         submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
@@ -248,11 +309,13 @@ const APPS_SCRIPT_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.wor
       }
 
       if (availData.available === false) {
+        const msg = availData.message || '選択された期間はすでにご予約が入っております。別の日程をご検討ください。';
         form.querySelectorAll('.booking-avail-error').forEach(el => el.remove());
         const errDiv = document.createElement('div');
         errDiv.className = 'booking-avail-error';
-        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span>' + (availData.message || '空き確認に失敗しました');
+        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><span>' + msg + '</span>';
         submitBtn.parentNode.insertBefore(errDiv, submitBtn);
+        showAvailErrorBanner('⚠ ご指定の日程はすでに予約が入っています。別の日程をご選択ください。');
         submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
@@ -282,6 +345,12 @@ const APPS_SCRIPT_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.wor
       const bookData = JSON.parse(bookText);
 
       if (!bookData.success) throw new Error(bookData.message || bookData.error || '送信エラー');
+
+      // メール送信ステータスをコンソールに記録（診断用）
+      console.log('[予約送信結果]', bookData);
+      if (bookData.mailStatus && bookData.mailStatus !== 'sent_ok') {
+        console.warn('[お客様メール送信失敗]', bookData.mailStatus);
+      }
 
       // 成功 → 確認モーダル表示
       showConfirmationModal(formData, bookData.receiptNo, bookData.carName);
