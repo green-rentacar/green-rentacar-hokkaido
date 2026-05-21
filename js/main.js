@@ -193,10 +193,10 @@ function showAvailErrorBanner(message) {
     const standardInvalid = form.querySelectorAll('input:invalid, select:invalid, textarea:invalid');
     if (standardInvalid.length > 0) hasError = true;
 
-    // ② 運転免許証の種類（ラジオボタン）チェック
+    // ② 運転免許証の種類（セレクト）チェック
     const licenseGroup = document.getElementById('license-group');
-    const licenseChecked = form.querySelector('input[name="運転免許証の種類"]:checked');
-    if (!licenseChecked) {
+    const licenseSelect = form.querySelector('select[name="運転免許証の種類"]');
+    if (!licenseSelect || !licenseSelect.value) {
       licenseGroup.classList.add('group-error');
       hasError = true;
     } else {
@@ -384,12 +384,13 @@ function showAvailErrorBanner(message) {
     });
   });
 
-  // ラジオボタンを変更したらエラー解除
-  form.querySelectorAll('input[name="運転免許証の種類"]').forEach(radio => {
-    radio.addEventListener('change', function () {
+  // セレクトを変更したらエラー解除
+  const licenseSelectEl = form.querySelector('select[name="運転免許証の種類"]');
+  if (licenseSelectEl) {
+    licenseSelectEl.addEventListener('change', function () {
       document.getElementById('license-group').classList.remove('group-error');
     });
-  });
+  }
 })();
 
 // ===== 仮見積もり基本料金 =====
