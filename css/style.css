@@ -2742,6 +2742,29 @@ ul, ol { list-style: none; }
 }
 .ins-table td .material-icons-round { font-size: 1rem; vertical-align: middle; color: var(--green); margin-right: 6px; }
 .ins-table td small { color: #888; font-size: 0.82rem; margin-left: 8px; }
+/* 車両修理行（注意色） */
+.ins-table-caution td { background: #fff8e1; }
+.ins-table-caution td .material-icons-round { color: #e65100; }
+.ins-table-caution td:last-child { color: #c0392b; font-weight: 700; }
+
+/* ロードサービス注意書き */
+.ins-road-notes {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ins-road-note-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff3e0;
+  border-left: 3px solid #e65100;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+}
+.ins-road-note-item .material-icons-round { color: #e65100; font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+.ins-road-note-item p { font-size: 0.85rem; color: #4a2a00; line-height: 1.75; margin: 0; }
 
 /* 車両保険ハイライト */
 .ins-highlight {
