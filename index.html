@@ -199,7 +199,7 @@ ul, ol { list-style: none; }
 .est-field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 160px; }
 .est-field-pickup { flex: 1.5; min-width: 220px; }
 .est-field label { font-weight: 600; font-size: 0.9rem; color: #444; }
-.est-field input, .est-field select { padding: 11px 14px; border: 2px solid #ddd; border-radius: var(--radius); font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; background: #fff; color: #333; }
+.est-field input, .est-field select { padding: 11px 14px; border: 2px solid #ddd; border-radius: var(--radius); font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; background: #fff; color: #333; width: 100%; box-sizing: border-box; }
 .est-field input:focus, .est-field select:focus { outline: none; border-color: var(--green); }
 .est-calc-btn-wrap { display: flex; justify-content: center; margin: 24px 0 8px; }
 .est-calc-btn { padding: 14px 40px; font-size: 1rem; letter-spacing: 0.06em; gap: 8px; }
@@ -506,6 +506,10 @@ ul, ol { list-style: none; }
   .nav-list.open { display: flex; }
   .hamburger { display: flex; }
   .features-grid { grid-template-columns: 1fr; }
+  /* 仮見積もり：スマホで縦並び・iOS自動ズーム防止 */
+  .estimate-inputs { flex-direction: column; gap: 12px; }
+  .est-field, .est-field-pickup { flex: none; width: 100%; min-width: unset; }
+  .est-field input, .est-field select { font-size: 16px; padding: 13px 14px; }
   .vehicle-capacity { flex-direction: column; gap: 10px; }
   .flow-list { grid-template-columns: 1fr; }
   .flow-list::before { display: none; }
