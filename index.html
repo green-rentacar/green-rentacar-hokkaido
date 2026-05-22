@@ -3,8 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>キャンピングカーレンタル北海道｜HAPPY1で北海道の大自然を旅しよう</title>
-  <meta name="description" content="札幌・新千歳空港から35分。北海道専門キャンピングカーレンタル。HAPPY1（4人乗り/4人就寝）で北海道の大自然を自由に旅しよう。">
+  <title>北海道キャンピングカーレンタル｜グリーンレンタカー北海道店｜新千歳空港35分・富良野・知床・函館対応</title>
+  <meta name="description" content="新千歳空港から35分のキャンピングカーレンタル専門店。HAPPY1（4人乗り/4人就寝）2台ご用意。富良野・美瑛ラベンダー、道東・知床、函館夜景、宗谷岬など北海道全域のモデルコースに対応。基本保険・ロードサービス込み。">
+  <meta name="keywords" content="北海道 キャンピングカー レンタル,新千歳空港 キャンピングカー,富良野 キャンピングカー,知床 キャンピングカー,函館 キャンピングカー,北海道 ドライブ 旅行,北海道 車中泊,HAPPY1,グリーンレンタカー,北海道 家族旅行,北海道 キャンピングカー 4人,北海道 観光 レンタカー">
+  <meta property="og:title" content="北海道キャンピングカーレンタル｜グリーンレンタカー北海道店">
+  <meta property="og:description" content="新千歳空港から35分。HAPPY1（4人乗り/4人就寝）で北海道の大自然を自由に旅しよう。富良野・知床・函館など人気コース対応。基本保険・ロードサービス込み。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://green-rentacar-hokkaido-pages.pages.dev/">
+  <meta property="og:image" content="https://green-rentacar-hokkaido-pages.pages.dev/images/happy1-main.jpg">
+  <meta property="og:site_name" content="グリーンレンタカー北海道店">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="北海道キャンピングカーレンタル｜グリーンレンタカー北海道店">
+  <meta name="twitter:description" content="新千歳空港から35分。HAPPY1で北海道の大自然を自由に旅しよう。">
+  <link rel="canonical" href="https://green-rentacar-hokkaido-pages.pages.dev/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Serif+JP:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -76,11 +88,11 @@ ul, ol { list-style: none; }
 .btn-nav:hover { background: linear-gradient(135deg, #e65100, #ff6f00); transform: translateY(-2px); }
 .btn-submit { background: #fff; color: var(--green); font-size: 1.1rem; padding: 15px 52px; font-weight: 700; border-radius: 100px; cursor: pointer; transition: all 0.25s; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
 .btn-submit:hover { background: var(--green-pale); transform: translateY(-3px); }
-#header { position: fixed; top: 0; width: 100%; background: #fff; backdrop-filter: blur(12px); z-index: 100; box-shadow: 0 1px 0 rgba(0,0,0,0.06); transition: box-shadow 0.3s; }
+#header { position: fixed; top: 0; width: 100%; background: #fff; z-index: 100; box-shadow: 0 1px 0 rgba(0,0,0,0.06); transition: box-shadow 0.3s; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .logo { display: flex; align-items: center; gap: 10px; pointer-events: none; }
 .logo-mark { width: 52px; height: 44px; overflow: hidden; flex-shrink: 0; }
-.logo-mark-img { height: 44px; width: auto; max-width: none; display: block; }
+.logo-mark-img { height: 44px; width: auto; max-width: none; display: block; mix-blend-mode: multiply; }
 .logo-texts { display: flex; flex-direction: column; line-height: 1.15; }
 .logo-name { font-family: 'Shippori Mincho B1', serif; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.04em; color: var(--green-dark); }
 .logo-name-sub { font-family: 'Shippori Mincho B1', serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; color: var(--green); }
@@ -821,7 +833,36 @@ ul, ol { list-style: none; }
     .point-split.ps-reverse { grid-template-columns: 45% 55%; }
     .point-split.ps-reverse .ps-photo { order: 2; }
     .point-split.ps-reverse .ps-content { order: 1; }
-    .logo-mark-img { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.04)); }
+    .logo-mark-img { mix-blend-mode: multiply; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.04)); }
+
+    /* ===== おすすめモデルコース ===== */
+    .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .course-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.08); transition: transform 0.35s, box-shadow 0.35s; }
+    .course-card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(0,0,0,0.14); }
+    .course-card-header { padding: 20px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
+    .course-card-header.green  { background: linear-gradient(135deg, #1b5e20, #2d9c4a); }
+    .course-card-header.blue   { background: linear-gradient(135deg, #0d47a1, #1976d2); }
+    .course-card-header.purple { background: linear-gradient(135deg, #4a148c, #8e24aa); }
+    .course-card-header.orange { background: linear-gradient(135deg, #bf360c, #f4511e); }
+    .course-num { width: 44px; height: 44px; background: rgba(255,255,255,0.22); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.25rem; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.4); }
+    .course-title-wrap { flex: 1; }
+    .course-name { font-family: 'Shippori Mincho B1', serif; font-size: 1.08rem; font-weight: 900; line-height: 1.35; }
+    .course-days { font-size: 0.78rem; opacity: 0.88; margin-top: 3px; }
+    .course-card-body { padding: 20px 24px 24px; }
+    .course-route { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-bottom: 14px; }
+    .course-spot { background: var(--green-pale); color: var(--green-dark); font-size: 0.76rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .course-arrow { color: #bbb; font-size: 0.85rem; }
+    .course-desc { font-size: 0.84rem; color: #555; line-height: 1.78; }
+    .course-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .course-tag { font-size: 0.72rem; padding: 3px 9px; border: 1px solid #d0d8d0; border-radius: 12px; color: #7a8a7a; }
+    .course-note { display: flex; align-items: flex-start; gap: 10px; background: #f0f7f0; border: 1.5px solid #a5d6a7; border-radius: 12px; padding: 16px 20px; margin-top: 32px; }
+    .course-note .material-icons-round { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+    .course-note p { font-size: 0.86rem; color: #3a5a3a; line-height: 1.75; }
+    @media (max-width: 768px) {
+      .course-grid { grid-template-columns: 1fr; gap: 20px; }
+      .course-card-header { padding: 16px 18px; }
+      .course-card-body { padding: 16px 18px 20px; }
+    }
 
     @media (max-width: 900px) {
       .problems-grid-new { grid-template-columns: 1fr; gap: 18px; max-width: 460px; }
@@ -839,6 +880,46 @@ ul, ol { list-style: none; }
       .ps-sub-grid img { border-radius: 10px; }
     }
   </style>
+
+  <!-- 構造化データ（JSON-LD） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoRental",
+    "name": "グリーンレンタカー北海道店",
+    "alternateName": "Green Rent a Car 北海道店",
+    "description": "新千歳空港から35分。北海道専門キャンピングカーレンタル。HAPPY1（4人乗り/4人就寝）2台ご用意。富良野・知床・函館など全道対応。",
+    "url": "https://green-rentacar-hokkaido-pages.pages.dev/",
+    "logo": "https://green-rentacar-hokkaido-pages.pages.dev/images/logo-hokkaido.png.png",
+    "image": "https://green-rentacar-hokkaido-pages.pages.dev/images/happy1-main.jpg",
+    "telephone": "050-1720-6116",
+    "email": "info@green-rentacar.net",
+    "priceRange": "¥¥",
+    "openingHours": "Mo-Su 09:00-18:00",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "白石区北郷五条8丁目10番18号",
+      "addressLocality": "札幌市",
+      "addressRegion": "北海道",
+      "postalCode": "003-0835",
+      "addressCountry": "JP"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 43.044,
+      "longitude": 141.437
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "北海道"
+    },
+    "hasMap": "https://maps.google.com/?q=北海道札幌市白石区北郷五条8丁目10番18号",
+    "sameAs": [
+      "https://www.instagram.com/green_rentacar_osaka/",
+      "https://green-rentacar.net"
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -1025,6 +1106,152 @@ ul, ol { list-style: none; }
             <img src="https://images.unsplash.com/photo-1741935505561-d5a83195f08e?w=500&q=80&auto=format&fit=crop" alt="星空の湖">
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- おすすめモデルコース -->
+  <section id="courses" class="section">
+    <div class="container">
+      <h2 class="section-title animate">おすすめ旅行モデルコース</h2>
+      <p class="section-desc animate">新千歳空港から出発・返却（約35分）。北海道を自由に旅する4つの人気ルートをご紹介します。</p>
+      <div class="course-grid animate">
+
+        <!-- コース1: 富良野・美瑛 -->
+        <div class="course-card">
+          <div class="course-card-header green">
+            <div class="course-num">1</div>
+            <div class="course-title-wrap">
+              <div class="course-name">富良野・美瑛<br>ラベンダーコース</div>
+              <div class="course-days">🗓 3泊4日 ／ 6〜8月がベストシーズン</div>
+            </div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-route">
+              <span class="course-spot">新千歳空港</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">富良野</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">美瑛</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">旭川</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">新千歳空港</span>
+            </div>
+            <p class="course-desc">ファーム富田のラベンダー畑、美瑛の「青い池」、パッチワークの路など、北海道らしい絶景を満喫できる定番人気ルート。旭山動物園への立ち寄りも可能。総走行距離約400km。</p>
+            <div class="course-tags">
+              <span class="course-tag">ラベンダー</span>
+              <span class="course-tag">青い池</span>
+              <span class="course-tag">パッチワークの路</span>
+              <span class="course-tag">旭山動物園</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- コース2: 道東・知床 -->
+        <div class="course-card">
+          <div class="course-card-header blue">
+            <div class="course-num">2</div>
+            <div class="course-title-wrap">
+              <div class="course-name">道東・知床<br>世界遺産コース</div>
+              <div class="course-days">🗓 5泊6日 ／ 5〜10月推奨</div>
+            </div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-route">
+              <span class="course-spot">新千歳空港</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">帯広</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">釧路湿原</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">知床</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">網走</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">新千歳空港</span>
+            </div>
+            <p class="course-desc">世界自然遺産・知床半島をメインに、帯広の豚丼、釧路湿原、冬の網走流氷など道東の大自然を一周する本格ロングコース。総走行距離約1,200km。北海道の広大さを実感できます。</p>
+            <div class="course-tags">
+              <span class="course-tag">知床世界遺産</span>
+              <span class="course-tag">釧路湿原</span>
+              <span class="course-tag">帯広・豚丼</span>
+              <span class="course-tag">網走・流氷</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- コース3: 道南・函館 -->
+        <div class="course-card">
+          <div class="course-card-header purple">
+            <div class="course-num">3</div>
+            <div class="course-title-wrap">
+              <div class="course-name">道南・函館<br>夜景＆温泉コース</div>
+              <div class="course-days">🗓 3泊4日 ／ 通年人気</div>
+            </div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-route">
+              <span class="course-spot">新千歳空港</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">洞爺湖</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">函館</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">大沼公園</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">登別</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">新千歳空港</span>
+            </div>
+            <p class="course-desc">世界三大夜景の函館山、噴火湾を望む洞爺湖、地獄谷で有名な登別温泉を巡るコース。歴史ある函館の街歩き・朝市・海鮮グルメも楽しめる贅沢ルート。総走行距離約500km。</p>
+            <div class="course-tags">
+              <span class="course-tag">函館山の夜景</span>
+              <span class="course-tag">洞爺湖</span>
+              <span class="course-tag">登別温泉</span>
+              <span class="course-tag">函館朝市</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- コース4: 道北・宗谷岬 -->
+        <div class="course-card">
+          <div class="course-card-header orange">
+            <div class="course-num">4</div>
+            <div class="course-title-wrap">
+              <div class="course-name">道北・宗谷岬<br>最北端チャレンジコース</div>
+              <div class="course-days">🗓 4泊5日 ／ 6〜9月推奨</div>
+            </div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-route">
+              <span class="course-spot">新千歳空港</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">旭川</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">稚内</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">礼文・利尻</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">美瑛</span>
+              <span class="course-arrow">→</span>
+              <span class="course-spot">新千歳空港</span>
+            </div>
+            <p class="course-desc">日本最北端の地・宗谷岬を目指す本格縦断コース。稚内からフェリーで礼文島・利尻富士を望む離島へ足を延ばすことも。北の大地の圧倒的なスケールを体感できます。総走行距離約1,000km。</p>
+            <div class="course-tags">
+              <span class="course-tag">宗谷岬（日本最北端）</span>
+              <span class="course-tag">礼文島</span>
+              <span class="course-tag">利尻富士</span>
+              <span class="course-tag">北海道縦断</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="course-note animate">
+        <span class="material-icons-round">info</span>
+        <p>上記はモデルルートの例です。出発・返却は当店（北広島市）にて行います。<strong>新千歳空港から約35分</strong>、<strong>札幌市内から約30分</strong>とアクセス良好です。空港への有料送迎（¥16,500）もご利用いただけます。コースや日程はご相談ください。</p>
       </div>
     </div>
   </section>
