@@ -511,16 +511,19 @@ ul, ol { list-style: none; }
   .est-field, .est-field-pickup { flex: none; width: 100%; min-width: unset; }
   .est-field input, .est-field select { font-size: 16px; padding: 13px 14px; }
   /* お問い合わせフォーム：日程入力欄のiOS横はみ出し防止 */
-  .form-row { overflow: hidden; }
-  .form-group { overflow: hidden; min-width: 0; }
+  .contact-form { width: 100%; max-width: 100%; overflow: hidden; }
+  .form-row { width: 100%; overflow: hidden; grid-template-columns: 1fr; }
+  .form-group { width: 100%; max-width: 100%; overflow: hidden; min-width: 0; box-sizing: border-box; }
+  .form-group input,
   .form-group input[type="date"],
   .form-group input[type="text"],
   .form-group input[type="email"],
   .form-group input[type="tel"],
   .form-group select,
   .form-group textarea {
-    width: 100% !important;
-    max-width: 100% !important;
+    display: block !important;
+    width: calc(100vw - 40px) !important;
+    max-width: calc(100vw - 40px) !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
     font-size: 16px !important;
