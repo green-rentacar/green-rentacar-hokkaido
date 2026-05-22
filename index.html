@@ -2028,7 +2028,15 @@ ul, ol { list-style: none; }
     function switchVehicleTab(idx) {
       document.querySelectorAll('.vehicle-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
       const label = document.getElementById('vehicleTagLabel');
-      if (label) label.textContent = idx === 0 ? '北海道店 1号車' : '北海道店 2号車';
+      if (label) label.textContent = idx === 0 ? '北海道店 1号車（14-11）' : '北海道店 2号車（14-59）';
+      // メイン画像・サムネイルを号車ごとに切替
+      const mainImg = idx === 0 ? 'images/happy1-car1.png' : 'images/happy1-car2.jpg';
+      const main = document.getElementById('vehicleMain');
+      if (main) main.style.backgroundImage = `url('${mainImg}')`;
+      const thumbs = document.querySelectorAll('.vehicle-thumb');
+      if (thumbs[0]) thumbs[0].style.backgroundImage = `url('${mainImg}')`;
+      thumbs.forEach(t => t.classList.remove('active'));
+      if (thumbs[0]) thumbs[0].classList.add('active');
     }
 
     /* ===== サムネイル切替 ===== */
