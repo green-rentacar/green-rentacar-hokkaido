@@ -24,7 +24,7 @@
   <style id="main-style">
 /* ===== リセット & ベース ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
   color: #333;
@@ -510,6 +510,21 @@ ul, ol { list-style: none; }
   .estimate-inputs { flex-direction: column; gap: 12px; }
   .est-field, .est-field-pickup { flex: none; width: 100%; min-width: unset; }
   .est-field input, .est-field select { font-size: 16px; padding: 13px 14px; }
+  /* お問い合わせフォーム：日程入力欄のiOS横はみ出し防止 */
+  .form-row { overflow: hidden; }
+  .form-group { overflow: hidden; min-width: 0; }
+  .form-group input[type="date"],
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"],
+  .form-group select,
+  .form-group textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important;
+  }
   .vehicle-capacity { flex-direction: column; gap: 10px; }
   .flow-list { grid-template-columns: 1fr; }
   .flow-list::before { display: none; }
