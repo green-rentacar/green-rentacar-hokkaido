@@ -1316,6 +1316,12 @@ ul, ol { list-style: none; }
           <div class="vehicle-img vehicle-img-main" id="vehicleMain" style="background-image:url('images/happy1-car1.png')"></div>
           <div class="vehicle-thumbs">
             <div class="vehicle-thumb active" onclick="switchVehicleImg(0)" style="background-image:url('images/happy1-car1.png')"><span class="thumb-label">全体</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(1)" style="background-image:url('images/happy-ext-rear.png')"><span class="thumb-label">後ろ</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(2)" style="background-image:url('images/happy1-ext-front.png')"><span class="thumb-label">前</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(3)" style="background-image:url('images/happy1-ext-awning.jpg')"><span class="thumb-label">オーニング</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(4)" style="background-image:url('images/happy1-ext-right.jpeg')"><span class="thumb-label">右前</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(5)" style="background-image:url('images/happy1-int-full.png')"><span class="thumb-label">内装</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(6)" style="background-image:url('images/happy1-int-table.png')"><span class="thumb-label">テーブル</span></div>
           </div>
         </div>
         <div class="vehicle-showcase-info">
@@ -2047,23 +2053,28 @@ ul, ol { list-style: none; }
     }
 
     /* ===== 車両タブ切替 ===== */
+    let _currentCarIdx = 0;
+    const _carImages = [
+      ['images/happy1-car1.png','images/happy-ext-rear.png','images/happy1-ext-front.png','images/happy1-ext-awning.jpg','images/happy1-ext-right.jpeg','images/happy1-int-full.png','images/happy1-int-table.png'],
+      ['images/happy1-car2.jpg','images/happy-ext-rear.png','images/happy1-ext-front.png','images/happy1-ext-awning.jpg','images/happy1-ext-right.jpeg','images/happy1-int-full.png','images/happy1-int-table.png']
+    ];
     function switchVehicleTab(idx) {
+      _currentCarIdx = idx;
       document.querySelectorAll('.vehicle-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
       const label = document.getElementById('vehicleTagLabel');
       if (label) label.textContent = idx === 0 ? '北海道店 1号車（14-11）' : '北海道店 2号車（14-59）';
-      // メイン画像・サムネイルを号車ごとに切替
-      const mainImg = idx === 0 ? 'images/happy1-car1.png' : 'images/happy1-car2.jpg';
+      const imgs = _carImages[idx];
       const main = document.getElementById('vehicleMain');
-      if (main) main.style.backgroundImage = `url('${mainImg}')`;
+      if (main) main.style.backgroundImage = `url('${imgs[0]}')`;
       const thumbs = document.querySelectorAll('.vehicle-thumb');
-      if (thumbs[0]) thumbs[0].style.backgroundImage = `url('${mainImg}')`;
+      if (thumbs[0]) thumbs[0].style.backgroundImage = `url('${imgs[0]}')`;
       thumbs.forEach(t => t.classList.remove('active'));
       if (thumbs[0]) thumbs[0].classList.add('active');
     }
 
     /* ===== サムネイル切替 ===== */
     function switchVehicleImg(idx) {
-      const imgs = ['images/happy1-main.jpg','images/happy1-side.jpg','images/happy1-interior.jpg','images/happy1-bed.jpg'];
+      const imgs = _carImages[_currentCarIdx];
       document.querySelectorAll('.vehicle-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
       const main = document.getElementById('vehicleMain');
       if (main && imgs[idx]) main.style.backgroundImage = `url('${imgs[idx]}')`;
