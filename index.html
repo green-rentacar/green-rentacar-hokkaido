@@ -1318,7 +1318,7 @@ ul, ol { list-style: none; }
             <div class="vehicle-thumb active" onclick="switchVehicleImg(0)" style="background-image:url('images/happy1-car1.png')"><span class="thumb-label">全体</span></div>
             <div class="vehicle-thumb" onclick="switchVehicleImg(1)" style="background-image:url('images/happy-ext-rear.png')"><span class="thumb-label">後ろ</span></div>
             <div class="vehicle-thumb" onclick="switchVehicleImg(2)" style="background-image:url('images/happy1-ext-front.png')"><span class="thumb-label">前</span></div>
-            <div class="vehicle-thumb" onclick="switchVehicleImg(3)" style="background-image:url('images/happy1-ext-awning.jpg')"><span class="thumb-label">オーニング</span></div>
+            <div class="vehicle-thumb" onclick="switchVehicleImg(3)" style="background-image:url('images/happy1-ext-awning.png')"><span class="thumb-label">オーニング</span></div>
             <div class="vehicle-thumb" onclick="switchVehicleImg(4)" style="background-image:url('images/happy1-ext-right.jpeg')"><span class="thumb-label">右前</span></div>
             <div class="vehicle-thumb" onclick="switchVehicleImg(5)" style="background-image:url('images/happy1-int-full.png')"><span class="thumb-label">内装</span></div>
             <div class="vehicle-thumb" onclick="switchVehicleImg(6)" style="background-image:url('images/happy1-int-table.png')"><span class="thumb-label">テーブル</span></div>
@@ -2055,8 +2055,8 @@ ul, ol { list-style: none; }
     /* ===== 車両タブ切替 ===== */
     let _currentCarIdx = 0;
     const _carImages = [
-      ['images/happy1-car1.png','images/happy-ext-rear.png','images/happy1-ext-front.png','images/happy1-ext-awning.jpg','images/happy1-ext-right.jpeg','images/happy1-int-full.png','images/happy1-int-table.png'],
-      ['images/happy1-car2.jpg','images/happy-ext-rear.png','images/happy1-ext-front.png','images/happy1-ext-awning.jpg','images/happy1-ext-right.jpeg','images/happy1-int-full.png','images/happy1-int-table.png']
+      ['images/happy1-car1.png','images/happy-ext-rear.png','images/happy1-ext-front.png','images/happy1-ext-awning.png','images/happy1-ext-right.jpeg','images/happy1-int-full.png','images/happy1-int-table.png'],
+      ['images/happy1-car2.jpg','images/happy1-car2-ext-rear.jpg','images/happy1-car2-ext-front.jpg','images/happy1-car2-ext-awning.jpg','images/happy1-car2-ext-right.jpg','images/happy1-int-full.png','images/happy1-int-table.png']
     ];
     function switchVehicleTab(idx) {
       _currentCarIdx = idx;
