@@ -2067,9 +2067,10 @@ ul, ol { list-style: none; }
       const main = document.getElementById('vehicleMain');
       if (main) main.style.backgroundImage = `url('${imgs[0]}')`;
       const thumbs = document.querySelectorAll('.vehicle-thumb');
-      if (thumbs[0]) thumbs[0].style.backgroundImage = `url('${imgs[0]}')`;
-      thumbs.forEach(t => t.classList.remove('active'));
-      if (thumbs[0]) thumbs[0].classList.add('active');
+      thumbs.forEach((t, i) => {
+        if (imgs[i]) t.style.backgroundImage = `url('${imgs[i]}')`;
+        t.classList.toggle('active', i === 0);
+      });
     }
 
     /* ===== サムネイル切替 ===== */
