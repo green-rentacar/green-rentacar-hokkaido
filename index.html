@@ -9,14 +9,14 @@
   <meta property="og:title" content="北海道キャンピングカーレンタル｜グリーンレンタカー北海道店">
   <meta property="og:description" content="新千歳空港から35分。HAPPY1（4人乗り/4人就寝）で北海道の大自然を自由に旅しよう。富良野・知床・函館など人気コース対応。基本保険・ロードサービス込み。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://green-rentacar-hokkaido-pages.pages.dev/">
-  <meta property="og:image" content="https://green-rentacar-hokkaido-pages.pages.dev/images/happy1-main.jpg">
+  <meta property="og:url" content="https://hokkaido.green-rentacar.net/">
+  <meta property="og:image" content="https://hokkaido.green-rentacar.net/images/happy1-main.jpg">
   <meta property="og:site_name" content="グリーンレンタカー北海道店">
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="北海道キャンピングカーレンタル｜グリーンレンタカー北海道店">
   <meta name="twitter:description" content="新千歳空港から35分。HAPPY1で北海道の大自然を自由に旅しよう。">
-  <link rel="canonical" href="https://green-rentacar-hokkaido-pages.pages.dev/">
+  <link rel="canonical" href="https://hokkaido.green-rentacar.net/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Serif+JP:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -24,11 +24,13 @@
   <style id="main-style">
 /* ===== リセット & ベース ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+/* htmlにoverflow設定しない → AndroidのOSレベルピッカー（date/select）が正常動作する */
 body {
   font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
   color: #333;
   line-height: 1.8;
+  overflow-x: hidden; /* 横スクロール防止はbodyに設定（htmlに設定するとAndroidピッカーが壊れる） */
 }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -520,10 +522,11 @@ ul, ol { list-style: none; }
   .estimate-inputs { flex-direction: column; gap: 12px; }
   .est-field, .est-field-pickup { flex: none; width: 100%; min-width: unset; }
   .est-field input, .est-field select { font-size: 16px; padding: 13px 14px; }
-  /* お問い合わせフォーム：日程入力欄のiOS横はみ出し防止 */
-  .contact-form { width: 100%; max-width: 100%; overflow: hidden; }
-  .form-row { width: 100%; overflow: hidden; grid-template-columns: 1fr; }
-  .form-group { width: 100%; max-width: 100%; overflow: hidden; min-width: 0; box-sizing: border-box; }
+  /* お問い合わせフォーム：Android日付/セレクトピッカー対応 */
+  /* overflow:hidden / transform / opacity を全祖先から排除してネイティブピッカーを正常動作させる */
+  .contact-form { width: 100%; max-width: 100%; }
+  .form-row { width: 100%; grid-template-columns: 1fr; }
+  .form-group { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
   .form-group input,
   .form-group input[type="date"],
   .form-group input[type="text"],
@@ -537,6 +540,26 @@ ul, ol { list-style: none; }
     min-width: 0 !important;
     box-sizing: border-box !important;
     font-size: 16px !important;
+  }
+  /* Androidの日付ピッカー表示対応 */
+  /* -webkit-appearance:none はAndroid WebKitでピッカーを無効化するため使わない */
+  input[type="date"] {
+    position: relative;
+    min-height: 48px;
+    cursor: pointer;
+  }
+  /* ピッカーインジケータをinput全体に広げてタップ領域を最大化 */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
   }
   .vehicle-capacity { flex-direction: column; gap: 10px; }
   .flow-list { grid-template-columns: 1fr; }
@@ -887,6 +910,7 @@ ul, ol { list-style: none; }
     .course-desc { font-size: 0.84rem; color: #555; line-height: 1.78; }
     .course-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
     .course-tag { font-size: 0.72rem; padding: 3px 9px; border: 1px solid #d0d8d0; border-radius: 12px; color: #7a8a7a; }
+    .course-or { font-size: 0.72rem; color: #999; font-style: italic; align-self: center; padding: 0 2px; }
     .course-note { display: flex; align-items: flex-start; gap: 10px; background: #f0f7f0; border: 1.5px solid #a5d6a7; border-radius: 12px; padding: 16px 20px; margin-top: 32px; }
     .course-note .material-icons-round { color: var(--green); flex-shrink: 0; margin-top: 1px; }
     .course-note p { font-size: 0.86rem; color: #3a5a3a; line-height: 1.75; }
@@ -921,9 +945,9 @@ ul, ol { list-style: none; }
     "name": "グリーンレンタカー北海道店",
     "alternateName": "Green Rent a Car 北海道店",
     "description": "新千歳空港から35分。北海道専門キャンピングカーレンタル。HAPPY1（4人乗り/4人就寝）2台ご用意。富良野・知床・函館など全道対応。",
-    "url": "https://green-rentacar-hokkaido-pages.pages.dev/",
-    "logo": "https://green-rentacar-hokkaido-pages.pages.dev/images/logo-hokkaido.png.png",
-    "image": "https://green-rentacar-hokkaido-pages.pages.dev/images/happy1-main.jpg",
+    "url": "https://hokkaido.green-rentacar.net/",
+    "logo": "https://hokkaido.green-rentacar.net/images/logo-hokkaido.png.png",
+    "image": "https://hokkaido.green-rentacar.net/images/happy1-main.jpg",
     "telephone": "050-1720-6116",
     "email": "info@green-rentacar.net",
     "priceRange": "¥¥",
@@ -1146,7 +1170,7 @@ ul, ol { list-style: none; }
   <section id="courses" class="section">
     <div class="container">
       <h2 class="section-title animate">おすすめ旅行モデルコース</h2>
-      <p class="section-desc animate">新千歳空港から出発・返却（約35分）。北海道を自由に旅する4つの人気ルートをご紹介します。</p>
+      <p class="section-desc animate">新千歳空港（約35分）または新札幌駅（無料配車）から出発。全コース店舗返却。北海道を自由に旅する4つの人気ルートをご紹介します。</p>
       <div class="course-grid animate">
 
         <!-- コース1: 富良野・美瑛 -->
@@ -1161,6 +1185,8 @@ ul, ol { list-style: none; }
           <div class="course-card-body">
             <div class="course-route">
               <span class="course-spot">新千歳空港</span>
+              <small class="course-or">or</small>
+              <span class="course-spot">新札幌駅（無料）</span>
               <span class="course-arrow">→</span>
               <span class="course-spot">富良野</span>
               <span class="course-arrow">→</span>
@@ -1168,7 +1194,7 @@ ul, ol { list-style: none; }
               <span class="course-arrow">→</span>
               <span class="course-spot">旭川</span>
               <span class="course-arrow">→</span>
-              <span class="course-spot">新千歳空港</span>
+              <span class="course-spot">店舗（返却）</span>
             </div>
             <p class="course-desc">ファーム富田のラベンダー畑、美瑛の「青い池」、パッチワークの路など、北海道らしい絶景を満喫できる定番人気ルート。旭山動物園への立ち寄りも可能。総走行距離約400km。</p>
             <div class="course-tags">
@@ -1192,6 +1218,8 @@ ul, ol { list-style: none; }
           <div class="course-card-body">
             <div class="course-route">
               <span class="course-spot">新千歳空港</span>
+              <small class="course-or">or</small>
+              <span class="course-spot">新札幌駅（無料）</span>
               <span class="course-arrow">→</span>
               <span class="course-spot">帯広</span>
               <span class="course-arrow">→</span>
@@ -1201,7 +1229,7 @@ ul, ol { list-style: none; }
               <span class="course-arrow">→</span>
               <span class="course-spot">網走</span>
               <span class="course-arrow">→</span>
-              <span class="course-spot">新千歳空港</span>
+              <span class="course-spot">店舗（返却）</span>
             </div>
             <p class="course-desc">世界自然遺産・知床半島をメインに、帯広の豚丼、釧路湿原、冬の網走流氷など道東の大自然を一周する本格ロングコース。総走行距離約1,200km。北海道の広大さを実感できます。</p>
             <div class="course-tags">
@@ -1225,6 +1253,8 @@ ul, ol { list-style: none; }
           <div class="course-card-body">
             <div class="course-route">
               <span class="course-spot">新千歳空港</span>
+              <small class="course-or">or</small>
+              <span class="course-spot">新札幌駅（無料）</span>
               <span class="course-arrow">→</span>
               <span class="course-spot">洞爺湖</span>
               <span class="course-arrow">→</span>
@@ -1234,7 +1264,7 @@ ul, ol { list-style: none; }
               <span class="course-arrow">→</span>
               <span class="course-spot">登別</span>
               <span class="course-arrow">→</span>
-              <span class="course-spot">新千歳空港</span>
+              <span class="course-spot">店舗（返却）</span>
             </div>
             <p class="course-desc">世界三大夜景の函館山、噴火湾を望む洞爺湖、地獄谷で有名な登別温泉を巡るコース。歴史ある函館の街歩き・朝市・海鮮グルメも楽しめる贅沢ルート。総走行距離約500km。</p>
             <div class="course-tags">
@@ -1258,6 +1288,8 @@ ul, ol { list-style: none; }
           <div class="course-card-body">
             <div class="course-route">
               <span class="course-spot">新千歳空港</span>
+              <small class="course-or">or</small>
+              <span class="course-spot">新札幌駅（無料）</span>
               <span class="course-arrow">→</span>
               <span class="course-spot">旭川</span>
               <span class="course-arrow">→</span>
@@ -1267,7 +1299,7 @@ ul, ol { list-style: none; }
               <span class="course-arrow">→</span>
               <span class="course-spot">美瑛</span>
               <span class="course-arrow">→</span>
-              <span class="course-spot">新千歳空港</span>
+              <span class="course-spot">店舗（返却）</span>
             </div>
             <p class="course-desc">日本最北端の地・宗谷岬を目指す本格縦断コース。稚内からフェリーで礼文島・利尻富士を望む離島へ足を延ばすことも。北の大地の圧倒的なスケールを体感できます。総走行距離約1,000km。</p>
             <div class="course-tags">
@@ -1283,7 +1315,7 @@ ul, ol { list-style: none; }
 
       <div class="course-note animate">
         <span class="material-icons-round">info</span>
-        <p>上記はモデルルートの例です。出発・返却は当店（北広島市）にて行います。<strong>新千歳空港から約35分</strong>、<strong>札幌市内から約30分</strong>とアクセス良好です。空港への有料送迎（¥16,500）もご利用いただけます。コースや日程はご相談ください。</p>
+        <p>上記はモデルルートの例です。<strong>返却はすべて当店（北広島市）</strong>にて行います。出発は<strong>新千歳空港へのお届け（有料）</strong>または<strong>新札幌駅へのお届け（無料）</strong>にも対応しており、お支払い状況等によっては店舗にお越しいただかずにご出発いただける場合もございます。コースや日程はお気軽にご相談ください。</p>
       </div>
     </div>
   </section>
@@ -1318,8 +1350,8 @@ ul, ol { list-style: none; }
       <h2 class="section-title animate">ご用意している車両</h2>
       <p class="section-desc animate">JP STAR製「HAPPY1」を2台ご用意しています。</p>
       <div class="vehicle-tab-wrap animate">
-        <button class="vehicle-tab active" onclick="switchVehicleTab(0)">1号車（14-11）</button>
-        <button class="vehicle-tab" onclick="switchVehicleTab(1)">2号車（14-59）</button>
+        <button class="vehicle-tab active" onclick="switchVehicleTab(0)">アイスグリーン（14-11）</button>
+        <button class="vehicle-tab" onclick="switchVehicleTab(1)">カーキ（14-59）</button>
       </div>
       <div class="vehicle-showcase animate">
         <div class="vehicle-showcase-img">
@@ -1335,7 +1367,7 @@ ul, ol { list-style: none; }
           </div>
         </div>
         <div class="vehicle-showcase-info">
-          <span class="vehicle-tag" id="vehicleTagLabel">北海道店 1号車（14-11）</span>
+          <span class="vehicle-tag" id="vehicleTagLabel">HAPPY1 アイスグリーン（14-11）</span>
           <div class="jpstar-badge"><span class="material-icons-round">verified</span>JP STAR取扱店</div>
           <h3 class="vehicle-name">HAPPY1</h3>
           <p class="vehicle-base">ダイハツ ハイゼットトラックベース &nbsp;|&nbsp; JP STAR製</p>
@@ -1383,7 +1415,7 @@ ul, ol { list-style: none; }
   <section id="price" class="section">
     <div class="container">
       <h2 class="section-title animate">料金案内</h2>
-      <p class="section-desc animate">HAPPY1（1号車・2号車共通）のレンタル料金です。</p>
+      <p class="section-desc animate">HAPPY1（アイスグリーン・カーキ共通）のレンタル料金です。</p>
       <!-- 1泊あたり基本料金テーブル -->
       <div class="price-table-wrap animate">
         <table class="price-table-hokkaido">
@@ -1493,8 +1525,8 @@ ul, ol { list-style: none; }
       </div>
 
       <div class="ins-card animate">
-        <div class="ins-card-head"><span class="material-icons-round">support_agent</span><h3>24時間ロードサービス</h3><span class="ins-badge ins-badge-blue">24h対応</span></div>
-        <p class="ins-card-desc">万が一のトラブル時も、24時間体制でサポートいたします。北海道全域カバー。</p>
+        <div class="ins-card-head"><span class="material-icons-round">support_agent</span><h3>ロードサービスについて</h3><span class="ins-badge ins-badge-blue">加入済み</span></div>
+        <p class="ins-card-desc">万が一のトラブルに備え、ロードサービスに加入しています。下記のようなトラブルが発生した際は、すぐに緊急連絡先へご連絡ください。</p>
         <div class="ins-roadservice-icons">
           <span><span class="material-icons-round">car_crash</span>事故対応</span>
           <span><span class="material-icons-round">battery_alert</span>バッテリー上がり</span>
@@ -1617,7 +1649,7 @@ ul, ol { list-style: none; }
     <div class="container">
       <h2 class="section-title animate">予約状況カレンダー</h2>
       <p class="section-desc animate">
-        1号車・2号車の空き状況をご確認の上、お気軽にお問い合わせください。<br>
+        アイスグリーン・カーキの空き状況をご確認の上、お気軽にお問い合わせください。<br>
         <small style="color:#888;">※ 色がついている日は予約済みです。空白の日はご予約いただけます。</small>
       </p>
 
@@ -1625,11 +1657,11 @@ ul, ol { list-style: none; }
       <div class="cal-tab-wrap animate">
         <button class="cal-tab active" onclick="switchCal(0)">
           <span class="material-icons-round" style="font-size:1.1rem;">directions_car</span>
-          HAPPY1 1号車
+          HAPPY1 アイスグリーン
         </button>
         <button class="cal-tab" onclick="switchCal(1)">
           <span class="material-icons-round" style="font-size:1.1rem;">directions_car</span>
-          HAPPY1 2号車
+          HAPPY1 カーキ
         </button>
       </div>
 
@@ -1637,15 +1669,15 @@ ul, ol { list-style: none; }
       <div class="cal-panel active" id="cal-0">
         <div class="cal-iframe-wrap">
           <iframe
-            src="https://calendar.google.com/calendar/embed?src=c_4f4bdd27d55ca2e3e2bf4c69d84d8557505a0c72a66f93e5df13ebed8de0c3bf%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=ja"
+            src="https://calendar.google.com/calendar/embed?src=c_4f4bdd27d55ca2e3e2bf4c69d84d8557505a0c72a66f93e5df13ebed8de0c3bf%40group.calendar.google.com&src=c_4d575bbc110c0befb8ff7a16e8e6f1065a4f62daa29c46318e7e561c98323fde%40group.calendar.google.com&src=ja.japanese%23holiday%40group.v.calendar.google.com&ctz=Asia%2FTokyo&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=ja"
             frameborder="0"
             scrolling="no"
-            title="HAPPY1 1号車 予約カレンダー">
+            title="HAPPY1 アイスグリーン 予約カレンダー">
           </iframe>
         </div>
         <p class="cal-note">
           <span class="material-icons-round">info</span>
-          HAPPY1 1号車の予約状況です。空き日程はお気軽にお問い合わせください。
+          HAPPY1 アイスグリーンの予約状況です。空き日程はお気軽にお問い合わせください。
         </p>
       </div>
 
@@ -1653,15 +1685,15 @@ ul, ol { list-style: none; }
       <div class="cal-panel" id="cal-1">
         <div class="cal-iframe-wrap">
           <iframe
-            src="https://calendar.google.com/calendar/embed?src=c_022cdd25380999739aa57c3fcfbaaf654226fde6e1ed28dd3607f86a0d8154e4%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=ja"
+            src="https://calendar.google.com/calendar/embed?src=c_022cdd25380999739aa57c3fcfbaaf654226fde6e1ed28dd3607f86a0d8154e4%40group.calendar.google.com&src=c_4d575bbc110c0befb8ff7a16e8e6f1065a4f62daa29c46318e7e561c98323fde%40group.calendar.google.com&src=ja.japanese%23holiday%40group.v.calendar.google.com&ctz=Asia%2FTokyo&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=ja"
             frameborder="0"
             scrolling="no"
-            title="HAPPY1 2号車 予約カレンダー">
+            title="HAPPY1 カーキ 予約カレンダー">
           </iframe>
         </div>
         <p class="cal-note">
           <span class="material-icons-round">info</span>
-          HAPPY1 2号車の予約状況です。空き日程はお気軽にお問い合わせください。
+          HAPPY1 カーキの予約状況です。空き日程はお気軽にお問い合わせください。
         </p>
       </div>
 
@@ -1694,7 +1726,7 @@ ul, ol { list-style: none; }
     <div class="container">
       <h2 class="section-title animate">かんたん仮見積もり</h2>
       <p class="section-desc animate">日程とオプションを入力すると、料金の目安を確認できます。</p>
-      <div class="estimate-box animate" id="estimate-box" style="margin-top: 64px;">
+      <div class="estimate-box" id="estimate-box" style="margin-top: 64px;">
         <div style="text-align:center; margin-bottom: 28px;">
           <h3 style="font-family: 'Shippori Mincho B1', serif; font-size: clamp(1.3rem, 2.6vw, 1.8rem); color: var(--green-dark); font-weight: 800; letter-spacing: 0.06em;">
             <span class="material-icons-round" style="vertical-align: middle; color: var(--green);">calculate</span>
@@ -1709,7 +1741,7 @@ ul, ol { list-style: none; }
             <select id="est-pickup">
               <option value="当日10時以降">当日 10:00 以降 受け取り（通常）</option>
               <option value="前日夜18時〜（半額）">前日 18:00 以降 受け取り（前日分 半額）</option>
-              <option value="新札幌駅送迎希望">新札幌駅 お迎え（無料）</option>
+              <option value="新札幌駅配車希望">新札幌駅 お迎え（無料）</option>
             </select>
           </div>
         </div>
@@ -1768,17 +1800,17 @@ ul, ol { list-style: none; }
             </div>
           </div>
 
-          <!-- 送迎サービス -->
+          <!-- 配車サービス -->
           <div class="est-opt-group">
-            <div class="est-opt-group-header"><span class="material-icons-round">directions_car</span>送迎サービス</div>
+            <div class="est-opt-group-header"><span class="material-icons-round">directions_car</span>配車サービス</div>
             <div class="est-opt-grid">
               <label class="est-opt-card est-opt-check-card">
                 <input type="checkbox" id="opt-airport" class="est-opt-checkbox" onchange="updateOptionPreview()">
                 <span class="est-opt-check-icon"><span class="material-icons-round">check</span></span>
-                <div class="est-opt-card-body"><span class="est-opt-name">新千歳空港お迎え</span><span class="est-opt-price">¥16,500 <small>/ 1回</small></span></div>
+                <div class="est-opt-card-body"><span class="est-opt-name">新千歳空港お届け</span><span class="est-opt-price">¥16,500 <small>/ 1回</small></span></div>
               </label>
             </div>
-            <p style="font-size:0.8rem;color:#666;margin-top:6px;padding-left:4px"><span class="material-icons-round" style="font-size:0.95rem;vertical-align:middle">info</span> 新札幌駅までの送迎は<strong>無料</strong>です（空港送迎は有料）</p>
+            <p style="font-size:0.8rem;color:#666;margin-top:6px;padding-left:4px"><span class="material-icons-round" style="font-size:0.95rem;vertical-align:middle">info</span> 新札幌駅までの配車は<strong>無料</strong>です（空港配車は有料）</p>
           </div>
 
           <div id="est-opt-running" class="est-opt-running" style="display:none;"><span class="material-icons-round">shopping_cart</span>オプション合計：<strong id="est-opt-running-total">¥0</strong></div>
@@ -1816,7 +1848,7 @@ ul, ol { list-style: none; }
         <span class="material-icons-round">event_busy</span>
         <p>2027年以降のご予約は別途お電話・メールでお問い合わせください。</p>
       </div>
-      <form id="contact-form" class="contact-form animate" action="https://formspree.io/f/mdaboaka" method="POST" novalidate>
+      <form id="contact-form" class="contact-form" action="https://formspree.io/f/mdaboaka" method="POST" novalidate>
         <div class="form-est-attach-wrap">
           <div id="form-est-attach-empty" class="form-est-attach-empty">
             <span class="material-icons-round">attach_file</span>
@@ -1856,7 +1888,7 @@ ul, ol { list-style: none; }
               <option value="">選択してください</option>
               <option value="当日10時以降">当日 10:00 以降 受け取り（通常）</option>
               <option value="前日夜18時〜（半額）">前日 18:00 以降 受け取り（前日分 半額）</option>
-              <option value="新札幌駅送迎希望">新札幌駅 お迎え（無料）</option>
+              <option value="新札幌駅配車希望">新札幌駅 お迎え（無料）</option>
             </select>
             <span class="form-err-msg">受け取り方法を選択してください。</span>
             <p class="form-note-small"><span class="material-icons-round">info</span> ※ 車両のご返却は必ず店舗までお願いします。</p>
@@ -1865,8 +1897,8 @@ ul, ol { list-style: none; }
             <label for="vehicle-select">ご希望の車両</label>
             <select id="vehicle-select" name="ご希望の車両">
               <option value="どちらでも可">どちらでも可</option>
-              <option value="HAPPY1（北海道店 1号車）">HAPPY1（北海道店 1号車）</option>
-              <option value="HAPPY1（北海道店 2号車）">HAPPY1（北海道店 2号車）</option>
+              <option value="HAPPY1 アイスグリーン">HAPPY1 アイスグリーン</option>
+              <option value="HAPPY1 カーキ">HAPPY1 カーキ</option>
             </select>
           </div>
         </div>
@@ -1995,7 +2027,7 @@ ul, ol { list-style: none; }
       <p class="section-desc animate">グリーンレンタカー北海道店のご案内</p>
       <div class="access-grid animate">
         <div class="access-card"><span class="material-icons-round">place</span><div><h4>住所</h4><p>〒003-0835<br>北海道札幌市白石区<br>北郷五条8丁目10番18号</p></div></div>
-        <div class="access-card"><span class="material-icons-round">flight</span><div><h4>新千歳空港から</h4><p>電車で約35分<br><small style="color:#2d6a9f;font-weight:700">✈ 空港お迎え：¥16,500（税込）</small><br><small style="color:#2d9c4a;font-weight:700">🚉 新札幌駅まで無料送迎</small></p></div></div>
+        <div class="access-card"><span class="material-icons-round">flight</span><div><h4>新千歳空港から</h4><p>電車で約35分<br><small style="color:#2d6a9f;font-weight:700">✈ 空港お届け：¥16,500（税込）</small><br><small style="color:#2d9c4a;font-weight:700">🚉 新札幌駅まで無料配車</small></p></div></div>
         <div class="access-card"><span class="material-icons-round">schedule</span><div><h4>営業時間</h4><p>9:00〜18:00</p></div></div>
         <div class="access-card"><span class="material-icons-round">directions_car</span><div><h4>マイカー預かり</h4><p>キャンピングカー1台につき<br>お車1台を<strong>無料</strong>でお預かり</p></div></div>
       </div>
@@ -2008,7 +2040,7 @@ ul, ol { list-style: none; }
           <tr><th>メール</th><td><a href="mailto:info@green-rentacar.net">info@green-rentacar.net</a></td></tr>
           <tr><th>営業時間</th><td>9:00〜18:00</td></tr>
           <tr><th>取扱車両</th><td>JP STAR製「HAPPY1」（2台）</td></tr>
-          <tr><th>送迎</th><td>新千歳空港お迎え：¥16,500（税込）／ 新札幌駅まで無料送迎</td></tr>
+          <tr><th>配車</th><td>新千歳空港お届け：¥16,500（税込）／ 新札幌駅まで無料配車</td></tr>
           <tr><th>マイカー預かり</th><td>キャンピングカー1台につき、お車1台を無料でお預かり</td></tr>
           <tr><th>大阪本店</th><td><a href="https://green-rentacar.net" target="_blank" rel="noopener">green-rentacar.net</a></td></tr>
         </table>
@@ -2084,7 +2116,7 @@ ul, ol { list-style: none; }
       _currentCarIdx = idx;
       document.querySelectorAll('.vehicle-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
       const label = document.getElementById('vehicleTagLabel');
-      if (label) label.textContent = idx === 0 ? '北海道店 1号車（14-11）' : '北海道店 2号車（14-59）';
+      if (label) label.textContent = idx === 0 ? 'HAPPY1 アイスグリーン（14-11）' : 'HAPPY1 カーキ（14-59）';
       const imgs = _carImages[idx];
       const main = document.getElementById('vehicleMain');
       if (main) main.style.backgroundImage = `url('${imgs[0]}')`;
@@ -2231,6 +2263,35 @@ ul, ol { list-style: none; }
       </div>
     </div>
   </div>
+
+<script>
+/* ===== Android日付ピッカー showPicker() フォールバック ===== */
+(function () {
+  // タップ時に showPicker() を呼び出す（Android Chrome 99+ 対応）
+  document.addEventListener('click', function (e) {
+    var el = e.target;
+    if (el && el.matches && el.matches('input[type="date"]')) {
+      try {
+        if (typeof el.showPicker === 'function') {
+          el.showPicker();
+        }
+      } catch (err) { /* showPicker()非対応環境は無視 */ }
+    }
+  }, true);
+
+  // フォーカス時にも呼び出す（キーボードナビ対応）
+  document.addEventListener('focus', function (e) {
+    var el = e.target;
+    if (el && el.matches && el.matches('input[type="date"]')) {
+      try {
+        if (typeof el.showPicker === 'function') {
+          el.showPicker();
+        }
+      } catch (err) { /* ignore */ }
+    }
+  }, true);
+})();
+</script>
 
 </body>
 </html>

@@ -1,13 +1,13 @@
-// ===== 車両データ（1号車・2号車）=====
+// ===== 車両データ（アイスグリーン・カーキ）=====
 const CARS = [
   {
-    label : '北海道店 1号車（14-11）',
+    label : 'HAPPY1 アイスグリーン（14-11）',
     imgs  : [
       { src: 'images/happy1-car1.png', label: '全体' },
     ]
   },
   {
-    label : '北海道店 2号車（14-59）',
+    label : 'HAPPY1 カーキ（14-59）',
     imgs  : [
       { src: 'images/happy1-main.jpg', label: '全体' },
     ]
@@ -414,8 +414,8 @@ const OPTIONS = [
   { id: 'opt-power',   type: 'check', name: 'ポータブル電源',       price:  3300, unit: '1台' },
   { id: 'opt-table',   type: 'qty',   name: '折りたたみテーブル',   price:  1100, unit: '1台' },
   { id: 'opt-chair',   type: 'qty',   name: 'ラウンジチェア',       price:  1100, unit: '1脚' },
-  // グループ3: 送迎サービス
-  { id: 'opt-airport', type: 'check', name: '新千歳空港お迎えサービス', price: 16500, unit: '1回' },
+  // グループ3: 配車サービス
+  { id: 'opt-airport', type: 'check', name: '新千歳空港お届けサービス', price: 16500, unit: '1回' },
 ];
 
 // 数量型オプションの値を管理
