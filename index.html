@@ -21,6 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Serif+JP:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="preload" as="image" href="images/hero1.jpg.jpeg.webp" type="image/webp">
   <style id="main-style">
 /* ===== リセット & ベース ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -114,9 +115,11 @@ ul, ol { list-style: none; }
 .hero-title { font-family: 'Shippori Mincho B1', serif; font-size: clamp(2.4rem, 6vw, 4.8rem); font-weight: 800; line-height: 1.25; margin-bottom: 28px; text-shadow: 0 2px 24px rgba(0,0,0,0.35); letter-spacing: 0.06em; }
 .hero-desc { font-size: 1.25rem; opacity: 0.9; margin-bottom: 44px; line-height: 1.9; }
 .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.hero-slides { position: absolute; inset: 0; z-index: 0; }
-.hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.2s ease; }
-.hero-slide.active { opacity: 1; }
+.hero-slides { position: absolute; inset: 0; z-index: 0; background: #0d2b14; }
+.hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease; will-change: opacity, transform; }
+.hero-slide.active { opacity: 1; z-index: 1; animation: heroKenburns 7s ease-out forwards; }
+@keyframes heroKenburns { from { transform: scale(1.0); } to { transform: scale(1.09); } }
+@media (prefers-reduced-motion: reduce) { .hero-slide.active { animation: none; } }
 .hero-dots { position: absolute; bottom: 68px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 10px; }
 .hero-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.45); cursor: pointer; transition: background 0.3s, transform 0.3s; border: none; }
 .hero-dot.active { background: #fff; transform: scale(1.3); }
@@ -571,6 +574,7 @@ ul, ol { list-style: none; }
   #hero { min-height: unset; display: block; }
   .hero-slides { position: relative; width: 100%; padding-top: 66.67%; background-color: #d6ecd2; }
   .hero-slide { background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #d6ecd2; }
+  .hero-slide.active { animation: none; transform: none; }
   .hero-overlay { position: absolute; top: 0; left: 0; right: 0; height: 66.67vw; }
   .hero-content { position: relative; z-index: 2; padding: 28px 20px 40px; background: #d6ecd2; }
   .hero-content .hero-sub,
@@ -2163,7 +2167,7 @@ ul, ol { list-style: none; }
       _slides[_slideIdx].classList.add('active');
       _dots[_slideIdx].classList.add('active');
     }
-    setInterval(() => goSlide(_slideIdx + 1), 5000);
+    setInterval(() => goSlide(_slideIdx + 1), 7000);
 
     /* ===== ヒーローアニメーション ===== */
     document.querySelectorAll('.anim-hero').forEach(el => el.classList.add('in-view'));
