@@ -571,18 +571,13 @@ ul, ol { list-style: none; }
   .hero-actions { flex-direction: column; align-items: center; }
   .nav-social { display: none; }
   .est-opt-grid { grid-template-columns: 1fr; }
-  #hero { min-height: unset; display: block; }
-  .hero-slides { position: relative; width: 100%; padding-top: 66.67%; background-color: #d6ecd2; }
-  .hero-slide { background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #d6ecd2; }
-  .hero-slide.active { animation: none; transform: none; }
-  .hero-overlay { position: absolute; top: 0; left: 0; right: 0; height: 66.67vw; }
-  .hero-content { position: relative; z-index: 2; padding: 28px 20px 40px; background: #d6ecd2; }
-  .hero-content .hero-sub,
-  .hero-content .hero-title,
-  .hero-content .hero-desc { color: #1a4020; text-shadow: none; }
-  .hero-content .hokkaido-badge { background: rgba(30,90,40,0.12); border-color: rgba(30,90,40,0.35); color: #1a4020; }
-  .hero-content .btn-secondary { color: #1a4020; border-color: #1a4020; background: rgba(255,255,255,0.4); }
-  .hero-dots { bottom: 8px; }
+  /* スマホも全画面の没入型ヒーロー（カバー画像＋暗オーバーレイ＋白文字＋ゆっくりズーム） */
+  #hero { min-height: 100vh; min-height: 100svh; display: flex; }
+  .hero-slides { position: absolute; inset: 0; width: auto; padding-top: 0; background: #0d2b14; }
+  .hero-slide { background-size: cover; background-repeat: no-repeat; background-position: center; background-color: #0d2b14; }
+  .hero-overlay { position: absolute; inset: 0; height: auto; }
+  .hero-content { position: relative; z-index: 2; background: transparent; padding: 24px 20px; }
+  .hero-dots { bottom: 16px; }
   .hero-scroll-hint { display: none; }
   .hero-desc { font-size: 1rem; margin-bottom: 24px; }
 }
