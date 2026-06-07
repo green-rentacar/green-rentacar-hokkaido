@@ -575,6 +575,10 @@ ul, ol { list-style: none; }
   #hero { min-height: 100vh; min-height: 100svh; display: flex; }
   .hero-slides { position: absolute; inset: 0; width: auto; padding-top: 0; background: #0d2b14; }
   .hero-slide { background-size: cover; background-repeat: no-repeat; background-position: center; background-color: #0d2b14; }
+  /* スマホは縦長画面で横長写真の左右が切れるため、主役（車・丼）に表示位置を寄せる */
+  .hero-slide:nth-child(1) { background-position: 78% center; }
+  .hero-slide:nth-child(3) { background-position: 75% center; }
+  .hero-slide:nth-child(4) { background-position: 64% center; }
   .hero-overlay { position: absolute; inset: 0; height: auto; }
   .hero-content { position: relative; z-index: 2; background: transparent; padding: 24px 20px; }
   .hero-dots { bottom: 16px; }
