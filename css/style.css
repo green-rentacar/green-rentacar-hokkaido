@@ -93,7 +93,7 @@ ul, ol { list-style: none; }
   color: #fff;
 }
 .section-title-white::after { background: rgba(255,255,255,0.7); }
-.section-desc { text-align: center; color: #666; margin-bottom: 56px; font-size: 1.15rem; }
+.section-desc { text-align: center; color: #666; margin-bottom: 56px; font-size: 1.15rem; text-wrap: balance; max-width: 760px; margin-left: auto; margin-right: auto; line-height: 1.9; }
 .section-desc-white { color: rgba(255,255,255,0.85); }
 
 /* ===== ボタン ===== */
@@ -175,7 +175,7 @@ ul, ol { list-style: none; }
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 /* ===== ヘッダーロゴ ===== */
-.logo { display: flex; align-items: center; gap: 10px; pointer-events: none; }
+.logo { display: flex; align-items: center; gap: 13px; pointer-events: none; margin-right: 24px; }
 
 /* 山マーク：PNG左端のアイコン部分だけをクロップ表示 */
 /* ヘッダー背景を#fffにしたのでPNGの白背景と完全一致 */
@@ -196,7 +196,8 @@ ul, ol { list-style: none; }
 .logo-texts {
   display: flex;
   flex-direction: column;
-  line-height: 1.15;
+  line-height: 1.3;
+  flex-shrink: 0;
 }
 .logo-name {
   font-family: 'Shippori Mincho B1', serif;
@@ -204,6 +205,7 @@ ul, ol { list-style: none; }
   font-weight: 800;
   letter-spacing: 0.04em;
   color: var(--green-dark);
+  white-space: nowrap;
 }
 .logo-name-sub {
   font-family: 'Shippori Mincho B1', serif;
@@ -1626,6 +1628,7 @@ ul, ol { list-style: none; }
   font-weight: 800;
   letter-spacing: 0.06em;
   color: var(--green-dark);
+  white-space: nowrap;
 }
 .footer-logo-name-sub {
   font-family: 'Shippori Mincho B1', serif;
