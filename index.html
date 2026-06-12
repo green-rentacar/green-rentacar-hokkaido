@@ -16,6 +16,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="北海道キャンピングカーレンタル｜グリーンレンタカー北海道店">
   <meta name="twitter:description" content="新千歳空港から35分。HAPPY1で北海道の大自然を自由に旅しよう。">
+  <meta name="twitter:image" content="https://hokkaido.green-rentacar.net/images/happy1-main.jpg">
   <link rel="canonical" href="https://hokkaido.green-rentacar.net/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -619,6 +620,12 @@ ul, ol { list-style: none; }
       margin-bottom: 16px;
       backdrop-filter: blur(4px);
     }
+    .badge-br { display: none; }
+    @media (max-width: 640px) {
+      .hokkaido-badge { font-size: 0.75rem; max-width: 94%; text-align: center; line-height: 1.7; padding: 6px 14px; }
+      .badge-sep { display: none; }
+      .badge-br { display: inline; }
+    }
     .vehicle-tab-wrap {
       display: flex;
       gap: 12px;
@@ -981,6 +988,64 @@ ul, ol { list-style: none; }
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "普通免許で運転できますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "はい、普通自動車免許（AT限定可）で運転していただけます。ご運転は18歳〜75歳未満で、免許取得から1年以上経過している方に限らせていただきます。" }
+      },
+      {
+        "@type": "Question",
+        "name": "新千歳空港から店舗へのアクセス方法は？",
+        "acceptedAnswer": { "@type": "Answer", "text": "店舗（札幌市白石区）は新千歳空港から車で約35分です。新札幌駅までは無料でお迎えにあがります。また、新千歳空港へ車両をお届けする配車サービス（¥16,500/1回）もご利用いただけます。" }
+      },
+      {
+        "@type": "Question",
+        "name": "ペット同伴はOKですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "はい、可能です。小型犬2匹、または中・大型犬1匹まで同乗いただけます。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。" }
+      },
+      {
+        "@type": "Question",
+        "name": "車内での宿泊は本当に快適ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "大人4名様まで就寝可能なフルフラットベッドを展開できます。人数分の寝袋や毛布、マットレスを無料でご用意。冬季はFFヒーターを完備しておりポカポカです。" }
+      },
+      {
+        "@type": "Question",
+        "name": "保険はありますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "基本料金に自動車保険（対人・対物無制限 ※対物免責¥150,000）が含まれております。万が一の事故時は免責金額（¥150,000）をお客様にご負担いただきます。" }
+      },
+      {
+        "@type": "Question",
+        "name": "宿を予約しなくても旅ができるって本当？",
+        "acceptedAnswer": { "@type": "Answer", "text": "はい、本当です。キャンピングカーがあれば宿ごと移動できるので、旅行のたびに宿を探したり予約を取る必要がありません。" }
+      },
+      {
+        "@type": "Question",
+        "name": "キャンセル料はいつから発生しますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "ご出発日の29日前から発生いたします。（29〜15日前：30%、14〜8日前：50%、7〜1日前：80%、当日：100%）" }
+      },
+      {
+        "@type": "Question",
+        "name": "はじめてのキャンピングカーで使い方が不安です…。",
+        "acceptedAnswer": { "@type": "Answer", "text": "ご出発前に必ず「30分の無料レクチャー」を実施いたします。車の操作からベッドの展開方法、ヒーターの使い方まで丁寧にご説明いたします。" }
+      },
+      {
+        "@type": "Question",
+        "name": "どこで車中泊してもいいんですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "「RVパーク」や「オートキャンプ場」のご利用をおすすめしております。ご出発時にスタッフからおすすめの場所もご案内可能です。" }
+      },
+      {
+        "@type": "Question",
+        "name": "キャンプ用品や調理器具のレンタル（オプション）はありますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "【無料の標準装備】寝袋・毛布・快適マットレス・車載冷蔵庫。【有料オプション例】IHコンロ（550円）・電気ケトル（1,100円）・ポータブル電源（3,300円）・折りたたみテーブル・ラウンジチェア（各1,100円）。" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -1035,7 +1100,7 @@ ul, ol { list-style: none; }
     <div class="hero-content">
       <div class="hokkaido-badge anim-hero">
         <span class="material-icons-round" style="font-size:16px">place</span>
-        札幌・新千歳空港35分｜北海道専門店
+        <span>札幌・新千歳空港35分<span class="badge-sep">｜</span><br class="badge-br">北海道キャンピングカーレンタル専門店</span>
       </div>
       <p class="hero-sub anim-hero">北の大地を、自由に。</p>
       <h1 class="hero-title anim-hero d1">キャンピングカーで<br>北海道を旅しよう</h1>
@@ -1068,19 +1133,19 @@ ul, ol { list-style: none; }
       <div class="problems-grid-new">
         <div class="problem-card-new animate">
           <span class="problem-num">01</span>
-          <div class="problem-icon-new"><img src="images/problem1.png" alt="" style="width:64px;height:64px;object-fit:contain;position:relative;z-index:1;"></div>
+          <div class="problem-icon-new"><img loading="lazy" decoding="async" src="images/problem1.png" alt="" style="width:64px;height:64px;object-fit:contain;position:relative;z-index:1;"></div>
           <h3>行きたい場所に<br>行けなかった</h3>
           <p>観光地は点在しているため、<br>公共交通機関だけでは<br>アクセスが不便。</p>
         </div>
         <div class="problem-card-new animate">
           <span class="problem-num">02</span>
-          <div class="problem-icon-new"><img src="images/problem2.png" alt="" style="width:64px;height:64px;object-fit:contain;position:relative;z-index:1;"></div>
+          <div class="problem-icon-new"><img loading="lazy" decoding="async" src="images/problem2.png" alt="" style="width:64px;height:64px;object-fit:contain;position:relative;z-index:1;"></div>
           <h3>時間に縛られて<br>バタバタ移動</h3>
           <p>時刻表に合わせた移動で、<br>景色をゆっくり<br>楽しめない。</p>
         </div>
         <div class="problem-card-new animate">
           <span class="problem-num">03</span>
-          <div class="problem-icon-new"><img src="images/problem3.png" alt="" style="width:64px;height:64px;object-fit:contain;position:relative;z-index:1;"></div>
+          <div class="problem-icon-new"><img loading="lazy" decoding="async" src="images/problem3.png" alt="" style="width:64px;height:64px;object-fit:contain;position:relative;z-index:1;"></div>
           <h3>宿と移動の両方で<br>コストが二重に</h3>
           <p>ホテル代とレンタカー代が、<br>二重で発生してしまう<br>ケースも。</p>
         </div>
@@ -1103,7 +1168,7 @@ ul, ol { list-style: none; }
       <!-- Point 1: 観る ── 写真左・テキスト右 -->
       <div class="point-split animate">
         <div class="ps-photo">
-          <img src="https://images.unsplash.com/photo-1629725593792-727bbe2255b2?w=900&q=80&auto=format&fit=crop" alt="北海道の花畑">
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1629725593792-727bbe2255b2?w=900&q=80&auto=format&fit=crop" alt="北海道の花畑">
           <div class="ps-num-badge">
             <span style="font-size:0.52rem;letter-spacing:0.05em">Point</span>
             <span style="font-size:1.5rem;font-weight:900;line-height:1">1</span>
@@ -1117,8 +1182,8 @@ ul, ol { list-style: none; }
             <p>キャンピングカーなら観光スポット近くに宿泊でき、現地入りも自由自在。人が少ない時間帯に絶景を満喫！</p>
           </div>
           <div class="ps-sub-grid">
-            <img src="https://images.unsplash.com/photo-1525330220090-a2399bcd12eb?w=500&q=80&auto=format&fit=crop" alt="北海道の自然">
-            <img src="https://images.unsplash.com/photo-1540126556370-fae1500ef91b?w=500&q=80&auto=format&fit=crop" alt="紅葉">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1525330220090-a2399bcd12eb?w=500&q=80&auto=format&fit=crop" alt="北海道の自然">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1540126556370-fae1500ef91b?w=500&q=80&auto=format&fit=crop" alt="紅葉">
           </div>
         </div>
       </div>
@@ -1126,7 +1191,7 @@ ul, ol { list-style: none; }
       <!-- Point 2: 食べる ── 写真右・テキスト左 -->
       <div class="point-split ps-reverse animate">
         <div class="ps-photo">
-          <picture><source srcset="images/point-taberu.jpeg.webp" type="image/webp"><img src="images/point-taberu.jpeg" alt="北海道グルメ"></picture>
+          <picture><source srcset="images/point-taberu.jpeg.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/point-taberu.jpeg" alt="北海道グルメ"></picture>
           <div class="ps-num-badge">
             <span style="font-size:0.52rem;letter-spacing:0.05em">Point</span>
             <span style="font-size:1.5rem;font-weight:900;line-height:1">2</span>
@@ -1140,8 +1205,8 @@ ul, ol { list-style: none; }
             <p>景色の良い場所で食事を楽しんで、朝は湖畔で朝食を。夜は星空の下でジンギスカンを！</p>
           </div>
           <div class="ps-sub-grid">
-            <img src="https://images.unsplash.com/photo-1649687040603-74d2ae81cf51?w=500&q=80&auto=format&fit=crop" alt="函館朝市">
-            <img src="https://images.unsplash.com/photo-1755211549925-cab4ca6d8998?w=500&q=80&auto=format&fit=crop" alt="夏の静かな湖畔">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1649687040603-74d2ae81cf51?w=500&q=80&auto=format&fit=crop" alt="函館朝市">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1755211549925-cab4ca6d8998?w=500&q=80&auto=format&fit=crop" alt="夏の静かな湖畔">
           </div>
         </div>
       </div>
@@ -1149,7 +1214,7 @@ ul, ol { list-style: none; }
       <!-- Point 3: 泊まる ── 写真左・テキスト右 -->
       <div class="point-split animate">
         <div class="ps-photo">
-          <picture><source srcset="images/point-tomaru.jpeg.webp" type="image/webp"><img src="images/point-tomaru.jpeg" alt="北海道キャンピングカー泊まる"></picture>
+          <picture><source srcset="images/point-tomaru.jpeg.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/point-tomaru.jpeg" alt="北海道キャンピングカー泊まる"></picture>
           <div class="ps-num-badge">
             <span style="font-size:0.52rem;letter-spacing:0.05em">Point</span>
             <span style="font-size:1.5rem;font-weight:900;line-height:1">3</span>
@@ -1163,8 +1228,8 @@ ul, ol { list-style: none; }
             <p>レンタル期間内なら延泊も気ままにOK。予約の取れない人気観光地も、キャンピングカーなら駐車場やキャンプ場で宿泊可能。</p>
           </div>
           <div class="ps-sub-grid">
-            <img src="https://images.unsplash.com/photo-1693975524886-2938d6a71905?w=500&q=80&auto=format&fit=crop" alt="キャンピングカー車内">
-            <img src="https://images.unsplash.com/photo-1626923533342-6ebef8ff9080?w=500&q=80&auto=format&fit=crop" alt="北海道の山々">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1693975524886-2938d6a71905?w=500&q=80&auto=format&fit=crop" alt="キャンピングカー車内">
+            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1626923533342-6ebef8ff9080?w=500&q=80&auto=format&fit=crop" alt="北海道の山々">
           </div>
         </div>
       </div>
@@ -1208,7 +1273,7 @@ ul, ol { list-style: none; }
               <span class="course-tag">パッチワークの路</span>
               <span class="course-tag">旭山動物園</span>
             </div>
-            <a href="/course/furano.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 20px;background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border-radius:100px;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+            <a href="/course/furano" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 20px;background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border-radius:100px;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
               📖 2泊3日カップルコースを見る →
             </a>
           </div>
@@ -1246,7 +1311,7 @@ ul, ol { list-style: none; }
               <span class="course-tag">帯広・豚丼</span>
               <span class="course-tag">網走・流氷</span>
             </div>
-            <a href="/course/shiretoko.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 20px;background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff;border-radius:100px;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+            <a href="/course/shiretoko" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 20px;background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff;border-radius:100px;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
               📖 5泊6日世界遺産コースを見る →
             </a>
           </div>
@@ -1624,7 +1689,7 @@ ul, ol { list-style: none; }
               </li>
               <li class="flow-line-item">
                 <a href="https://line.me/R/ti/p/@100meonr" target="_blank" rel="noopener">
-                  <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="LINE友だち追加" height="32" border="0">
+                  <img loading="lazy" decoding="async" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="LINE友だち追加" height="32" border="0">
                 </a>
                 <span>友だち追加後LINEでお申し込み</span>
               </li>
@@ -1724,6 +1789,7 @@ ul, ol { list-style: none; }
       <h2 class="section-title animate">よくあるご質問</h2>
       <div class="faq-list">
         <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>普通免許で運転できますか？</span></summary><p>はい、普通自動車免許（AT限定可）で運転していただけます。ご運転は18歳〜75歳未満で、免許取得から1年以上経過している方に限らせていただきます。</p></details>
+        <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>新千歳空港から店舗へのアクセス方法は？</span></summary><p>店舗（札幌市白石区）は新千歳空港から車で約35分です。<strong>新札幌駅までは無料でお迎え</strong>にあがります。また、新千歳空港へ車両をお届けする配車サービス（¥16,500/1回）もご利用いただけます。</p></details>
         <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>ペット同伴はOKですか？</span></summary><p>はい、可能です！小型犬2匹、または中・大型犬1匹まで同乗いただけます。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。</p></details>
         <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>車内での宿泊は本当に快適ですか？</span></summary><p>大人4名様まで就寝可能なフルフラットベッドを展開できます。人数分の寝袋や毛布、マットレスを無料でご用意。冬季はFFヒーターを完備しておりポカポカです。</p></details>
         <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>保険はありますか？</span></summary><p>基本料金に自動車保険（対人・対物無制限 ※対物免責¥150,000）が含まれております。万が一の事故時は免責金額（¥150,000）をお客様にご負担いただきます。</p></details>
@@ -2082,7 +2148,7 @@ ul, ol { list-style: none; }
   <footer id="footer">
     <div class="container footer-inner">
       <div class="footer-logo">
-        <picture><source srcset="images/logo-hokkaido.png.png.webp" type="image/webp"><img src="images/logo-hokkaido.png.png" class="logo-mark-img" alt="グリーンレンタカー北海道店ロゴ" style="width:48px;height:44px;object-fit:contain"></picture>
+        <picture><source srcset="images/logo-hokkaido.png.png.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/logo-hokkaido.png.png" class="logo-mark-img" alt="グリーンレンタカー北海道店ロゴ" style="width:48px;height:44px;object-fit:contain"></picture>
         <div>
           <span class="logo-name" style="color:var(--green-dark)">グリーンレンタカー</span>
           <span class="logo-name-sub" style="color:var(--green)">北海道店</span>
@@ -2095,7 +2161,7 @@ ul, ol { list-style: none; }
       </div>
       <div class="footer-links">
         <a href="https://green-rentacar.net" target="_blank" rel="noopener">大阪本店HP</a>
-        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="privacy">プライバシーポリシー</a>
       </div>
       <div class="footer-social">
         <a href="https://www.instagram.com/green_rentacar_jp/" class="social-btn instagram" aria-label="Instagram" target="_blank" rel="noopener">
@@ -2103,7 +2169,7 @@ ul, ol { list-style: none; }
           Instagram
         </a>
         <a href="https://line.me/R/ti/p/@100meonr" class="line-add-btn" target="_blank" rel="noopener">
-          <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="44" border="0">
+          <img loading="lazy" decoding="async" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="44" border="0">
         </a>
       </div>
       <p class="footer-jpstar">
