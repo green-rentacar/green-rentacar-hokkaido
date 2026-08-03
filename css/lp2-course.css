@@ -1,0 +1,180 @@
+/* ============================================================
+   LP試作2 モデルコース用スタイル（lp2.cssの後に読み込む）
+   ============================================================ */
+
+/* ---------- ヒーロー ---------- */
+.pc-hero {
+  position: relative; overflow: hidden; text-align: center;
+  background: linear-gradient(to bottom, #b8def2 0%, var(--p2-sky) 60%, #e2f1e2 100%);
+  padding: clamp(150px, 20vh, 210px) 24px 90px;
+}
+.pc-hero-label { font: 800 13px/1 var(--p2-en); letter-spacing: 0.26em; color: var(--p2-green); margin: 0 0 18px; position: relative; }
+.pc-hero h1 {
+  font: 900 clamp(32px, 5.4vw, 60px)/1.45 var(--p2-round);
+  letter-spacing: 0.04em; color: var(--p2-ink); margin: 0 0 18px; position: relative;
+}
+.pc-hero-sub { font: 700 clamp(13px, 1.5vw, 16px)/2 var(--p2-round); color: #46543f; margin: 0 0 26px; position: relative; }
+.pc-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative; margin-bottom: 44px; }
+.pc-badge {
+  background: #fff; border: 2px solid var(--p2-line); border-radius: 999px;
+  padding: 10px 18px; font: 700 12.5px/1 var(--p2-round); color: var(--p2-ink);
+  box-shadow: 0 3px 0 var(--p2-line);
+}
+.pc-hero-photo { position: relative; max-width: 780px; margin: 0 auto; }
+.pc-hero-photo img {
+  width: 100%; height: clamp(240px, 36vw, 400px); object-fit: cover; display: block;
+  border-radius: 28px; border: 5px solid #fff;
+  box-shadow: 0 16px 40px rgba(34,48,31,0.2);
+  transform: rotate(-1.2deg);
+}
+.pc-hero-photo figcaption {
+  position: absolute; left: 18px; bottom: 16px;
+  background: rgba(255,255,255,0.94); border-radius: 999px; padding: 9px 18px;
+  font: 700 12px/1.5 var(--p2-round); color: var(--p2-ink);
+}
+.pc-hero-photo .pc-attr { position: absolute; right: 20px; bottom: -26px; font: 500 10px/1 var(--p2-round); color: #8a917f; }
+.pc-hero-photo .pc-attr a { color: #8a917f; }
+
+/* ---------- ルート ---------- */
+.pc-route {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px;
+  max-width: 900px; margin: 50px auto 0; position: relative;
+}
+.pc-route .spot {
+  background: #fff; border: 2px solid var(--p2-green); color: var(--p2-green-deep);
+  font: 800 13px/1 var(--p2-round); padding: 11px 20px; border-radius: 999px;
+  box-shadow: 0 3px 0 var(--p2-green);
+}
+.pc-route .spot.start { background: var(--p2-green); color: #fff; }
+.pc-route .material-icons-round { color: var(--p2-green); font-size: 18px; }
+
+/* ---------- 本文 ---------- */
+.pc-lead { font: 700 14.5px/2.3 var(--p2-round); color: #46543f; max-width: 780px; margin: 0 auto 20px; }
+
+.pc-ov { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
+.pc-ov-item {
+  background: #fff; border: 2px solid var(--p2-line); border-radius: 20px;
+  padding: 20px 14px; text-align: center; box-shadow: 0 4px 0 var(--p2-line);
+}
+.pc-ov-item .em { font-size: 28px; display: block; margin-bottom: 8px; }
+.pc-ov-item .lb { font: 700 10.5px/1 var(--p2-round); letter-spacing: 0.14em; color: #7d8577; display: block; margin-bottom: 8px; }
+.pc-ov-item .vl { font: 900 15px/1.5 var(--p2-round); color: var(--p2-ink); }
+.pc-ov-item small { font-weight: 700; color: #7d8577; font-size: 10.5px; }
+
+/* ---------- DAYカード ---------- */
+.pc-day { margin-top: 60px; }
+.pc-day-label { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.pc-day-label em { font: 800 44px/1 var(--p2-en); font-style: normal; color: var(--p2-yellow); -webkit-text-stroke: 2px var(--p2-ink); }
+.pc-day-label h2 { font: 900 clamp(21px, 2.6vw, 28px)/1.5 var(--p2-round); color: var(--p2-ink); margin: 0; }
+.pc-day-route { font: 700 13px/1.8 var(--p2-round); color: #7d8577; margin: 0 0 22px; }
+.pc-day-card {
+  background: #fff; border: 3px solid var(--p2-ink); border-radius: 26px;
+  box-shadow: 0 6px 0 var(--p2-ink); overflow: hidden;
+}
+.pc-day-head {
+  background: var(--p2-green); color: #fff; padding: 16px 26px;
+  font: 800 13.5px/1.6 var(--p2-round); display: flex; align-items: center; gap: 10px;
+}
+.pc-day-head .material-icons-round { font-size: 18px; }
+.pc-day-body { padding: 28px 26px; }
+
+.pc-tl { list-style: none; margin: 0; padding: 0; position: relative; }
+.pc-tl::before { content: ''; position: absolute; left: 21px; top: 8px; bottom: 8px; border-left: 3px dashed #cfd8c5; }
+.pc-tl li { display: flex; gap: 18px; padding-bottom: 26px; position: relative; }
+.pc-tl li:last-child { padding-bottom: 0; }
+.pc-tl-dot {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  background: var(--p2-cream); border: 2.5px solid var(--p2-green);
+  display: flex; align-items: center; justify-content: center; font-size: 19px;
+  position: relative; z-index: 1;
+}
+.pc-tl-time { font: 800 11px/1 var(--p2-en); letter-spacing: 0.14em; color: var(--p2-orange); display: inline-block; background: #fdeee2; border-radius: 999px; padding: 6px 12px; margin-bottom: 8px; }
+.pc-tl-title { font: 900 15.5px/1.6 var(--p2-round); color: var(--p2-ink); margin: 0 0 6px; }
+.pc-tl-desc { font: 500 13px/2 var(--p2-round); color: #5a6852; margin: 0; }
+.pc-tip {
+  display: inline-flex; align-items: flex-start; gap: 8px; margin-top: 10px;
+  background: #fdf7dd; border: 2px solid #ecd98a; border-radius: 14px;
+  padding: 9px 14px; font: 700 12px/1.8 var(--p2-round); color: #7a6428;
+}
+.pc-stay {
+  margin-top: 24px; background: var(--p2-cream); border: 2px solid var(--p2-line);
+  border-radius: 18px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;
+}
+.pc-stay .em { font-size: 26px; }
+.pc-stay h4 { font: 900 14px/1.6 var(--p2-round); color: var(--p2-ink); margin: 0 0 4px; }
+.pc-stay p { font: 500 12.5px/1.9 var(--p2-round); color: #5a6852; margin: 0; }
+
+/* ---------- シーン写真 ---------- */
+.pc-scene { position: relative; margin: 46px auto 0; max-width: 860px; }
+.pc-scene img {
+  width: 100%; height: clamp(220px, 32vw, 360px); object-fit: cover; display: block;
+  border-radius: 26px; border: 4px solid #fff; box-shadow: 0 12px 30px rgba(34,48,31,0.16);
+  transform: rotate(1deg);
+}
+.pc-scene figcaption {
+  position: absolute; left: 16px; bottom: 14px;
+  background: rgba(255,255,255,0.94); border-radius: 999px; padding: 8px 16px;
+  font: 700 12px/1.5 var(--p2-round); color: var(--p2-ink); max-width: 86%;
+}
+.pc-scene .pc-attr { position: absolute; right: 18px; bottom: -24px; font: 500 10px/1 var(--p2-round); color: #8a917f; }
+.pc-scene .pc-attr a { color: #8a917f; }
+
+/* ---------- 現地スナップ（3枚並び） ---------- */
+.pc-trio {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  max-width: 860px; margin: 34px auto 0;
+}
+.pc-trio figure { position: relative; margin: 0; }
+.pc-trio img {
+  width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block;
+  border-radius: 22px; border: 4px solid #fff; box-shadow: 0 12px 28px rgba(34,48,31,0.16);
+}
+.pc-trio figure:nth-child(1) img { transform: rotate(-1.4deg); }
+.pc-trio figure:nth-child(3) img { transform: rotate(1.4deg); }
+.pc-trio figcaption {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: 12px;
+  background: rgba(255,255,255,0.94); border-radius: 999px; padding: 7px 14px;
+  font: 700 11.5px/1.4 var(--p2-round); color: var(--p2-ink); white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .pc-trio { grid-template-columns: 1fr; gap: 26px; }
+  .pc-trio img { aspect-ratio: 4 / 3; }
+  .pc-trio figure:nth-child(n) img { transform: none; }
+}
+
+/* ---------- 費用テーブル ---------- */
+.pc-cost-wrap {
+  background: #fff; border: 3px solid var(--p2-ink); border-radius: 26px;
+  box-shadow: 0 6px 0 var(--p2-ink); overflow: hidden; margin-top: 40px;
+}
+.pc-cost { width: 100%; border-collapse: collapse; font: 700 13px/1.7 var(--p2-round); }
+.pc-cost th { background: var(--p2-green); color: #fff; padding: 14px 18px; text-align: left; font-weight: 800; }
+.pc-cost td { padding: 12px 18px; border-bottom: 2px dashed var(--p2-line); color: #46543f; }
+.pc-cost tr:last-child td { border-bottom: 0; background: var(--p2-cream); font-weight: 900; color: var(--p2-ink); }
+.pc-cost .free { color: var(--p2-green); font-weight: 900; }
+.pc-cost small { font-weight: 500; color: #7d8577; }
+
+/* ---------- 他コース・戻り ---------- */
+.pc-other {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 60px;
+}
+.pc-other a {
+  flex: 1 1 300px; max-width: 420px; text-decoration: none;
+  background: #fff; border: 2px solid var(--p2-line); border-radius: 22px;
+  padding: 22px 24px; box-shadow: 0 4px 0 var(--p2-line);
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.pc-other a:hover { transform: translateY(-4px); }
+.pc-other .em { font-size: 30px; display: block; }
+.pc-other h3 { font: 900 15px/1.6 var(--p2-round); color: var(--p2-ink); margin: 10px 0 4px; }
+.pc-other p { font: 700 12px/1.6 var(--p2-round); color: var(--p2-green); margin: 0; }
+
+/* ---------- フッター ---------- */
+.pc-foot { background: var(--p2-ink); color: rgba(255,255,255,0.75); text-align: center; padding: 40px 24px; font: 700 12px/2 var(--p2-round); }
+.pc-foot a { color: #fff; text-decoration: none; }
+
+@media (max-width: 700px) {
+  .pc-ov { grid-template-columns: repeat(2, 1fr); }
+  .pc-day-body { padding: 20px 16px; }
+  .pc-tl li { gap: 12px; }
+}
