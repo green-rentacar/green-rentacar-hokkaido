@@ -124,6 +124,9 @@ body.p2-body {
 }
 .p2-hero-title span { display: block; }
 .p2-hero-sub { font: 700 clamp(13px, 1.5vw, 17px)/2 var(--p2-round); color: #46543f; margin: 1em 0 34px; }
+/* 旧 h1 内の <br> を 2要素に分割（h1 を主題行にするため）。見た目は 1要素時と同一に保つ */
+.p2-hero-sub--lead { margin-bottom: 0; }
+.p2-hero-sub--main { margin-top: 0; }
 .p2-hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 .p2-btn {
