@@ -1,0 +1,94 @@
+/* 保険詳細ページ（hoken.html）用 — index.html のインライン .ins-* を移植・自己完結 */
+:root {
+  --green: #2e7d32;
+  --green-light: #43a047;
+  --green-pale: #e8f5e9;
+  --green-dark: #1b5e20;
+  --gray-bg: #f5f5f5;
+  --text: #333;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.section { padding: 72px 0; }
+.section-gray { background: var(--gray-bg); }
+.section-title {
+  font-family: 'Shippori Mincho B1', serif;
+  text-align: center;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: 0.06em;
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 48px; height: 4px;
+  background: linear-gradient(90deg, var(--green), var(--green-light));
+  margin: 14px auto 0; border-radius: 2px;
+}
+.section-desc { text-align: center; color: #666; margin-bottom: 40px; font-size: 1.05rem; }
+
+.ins-intro { text-align: center; color: #666; margin-bottom: 40px; font-size: 0.95rem; }
+.ins-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px 34px; margin-bottom: 24px; }
+.ins-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.ins-card-head .material-icons-round { font-size: 1.8rem; color: var(--green); }
+.ins-card-head h3 { font-size: 1.1rem; font-weight: 700; color: var(--green-dark); flex: 1; }
+.ins-badge { background: var(--green); color: #fff; font-size: 0.78rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+.ins-badge-blue { background: #1565c0; }
+.ins-card-desc { color: #666; margin-bottom: 20px; font-size: 0.92rem; }
+.ins-roadservice-icons { display: flex; flex-wrap: wrap; gap: 10px 20px; background: var(--green-pale); border-radius: 10px; padding: 16px 20px; }
+.ins-roadservice-icons span { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; color: var(--green-dark); }
+.ins-roadservice-icons .material-icons-round { font-size: 1.2rem; color: var(--green); }
+.ins-road-notes { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.ins-road-note-item { display: flex; align-items: flex-start; gap: 10px; background: #fff8f0; border: 1px solid #ffcc80; border-radius: 8px; padding: 12px 14px; }
+.ins-road-note-item .material-icons-round { color: #e65100; font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+.ins-road-note-item p { font-size: 0.88rem; color: #444; line-height: 1.6; }
+.ins-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.ins-table th { background: var(--green-pale); color: var(--green-dark); font-weight: 700; padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--green); }
+.ins-table td { padding: 14px 16px; border-bottom: 1px solid #eee; vertical-align: middle; }
+.ins-table td .material-icons-round { font-size: 1rem; vertical-align: middle; color: var(--green); margin-right: 6px; }
+.ins-table td small { color: #888; font-size: 0.82rem; margin-left: 8px; }
+.ins-table-caution td { background: #fff8f0; }
+.ins-highlight { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%); border-radius: var(--radius); padding: 32px 34px; margin-bottom: 24px; color: #fff; }
+.ins-highlight-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.ins-highlight-head .material-icons-round { font-size: 2rem; color: #ffd54f; }
+.ins-highlight-head h3 { font-size: 1.1rem; font-weight: 700; line-height: 1.5; }
+.ins-highlight p { color: rgba(255,255,255,0.9); margin-bottom: 12px; font-size: 0.95rem; }
+.ins-highlight strong { color: #ffd54f; }
+.ins-highlight-point { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.15); border-radius: 8px; padding: 16px 20px; margin-top: 20px; font-size: 1rem; }
+.ins-highlight-point .material-icons-round { font-size: 1.8rem; color: #ffd54f; }
+.ins-terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; }
+.ins-term-box { background: var(--green-pale); border-radius: 10px; padding: 24px; }
+.ins-term-label { font-size: 0.82rem; font-weight: 700; background: var(--green); color: #fff; padding: 4px 12px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+.ins-term-sub { font-weight: 700; color: var(--green-dark); margin-bottom: 10px; font-size: 0.95rem; }
+.ins-term-box > p { font-size: 0.88rem; color: #555; margin-bottom: 16px; line-height: 1.8; }
+.ins-amount-grid { display: flex; flex-direction: column; gap: 8px; }
+.ins-amount-item { display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 6px; padding: 10px 14px; gap: 8px; }
+.ins-amount-label { font-size: 0.83rem; color: #555; display: flex; flex-direction: column; }
+.ins-amount-label small { font-size: 0.75rem; color: #888; }
+.ins-amount-val { font-weight: 700; color: var(--green-dark); font-size: 1rem; white-space: nowrap; }
+.ins-license { background: #fffde7; border: 2px solid #f9a825; border-radius: var(--radius); padding: 32px 34px; margin-bottom: 24px; }
+.ins-license .ins-warning-head .material-icons-round { color: #f57f17; }
+.ins-license .ins-warning-head h3 { color: #e65100; }
+.ins-license .ins-warning-list li .material-icons-round { color: #f57f17; }
+.ins-warning { background: #fff8f0; border: 2px solid #e65100; border-radius: var(--radius); padding: 32px 34px; }
+.ins-warning-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.ins-warning-head .material-icons-round { font-size: 2rem; color: #e65100; }
+.ins-warning-head h3 { font-size: 1.1rem; font-weight: 700; color: #bf360c; }
+.ins-warning-desc { color: #555; margin-bottom: 20px; font-size: 0.92rem; }
+.ins-warning-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.ins-warning-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem; color: #333; }
+.ins-warning-list li .material-icons-round { color: #e65100; font-size: 1.1rem; margin-top: 3px; flex-shrink: 0; }
+.ins-warning-list li small { display: block; color: #888; font-size: 0.8rem; margin-top: 2px; }
+
+@media (max-width: 640px) {
+  .ins-card, .ins-highlight, .ins-warning, .ins-license { padding: 24px 20px; }
+  .ins-terms-grid { grid-template-columns: 1fr; }
+  .section { padding: 56px 0; }
+}

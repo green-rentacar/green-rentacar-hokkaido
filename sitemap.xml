@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hokkaido.green-rentacar.net/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -14,14 +14,20 @@
   </url>
   <url>
     <loc>https://hokkaido.green-rentacar.net/course/furano</loc>
-    <lastmod>2026-06-08</lastmod>
+    <lastmod>2026-07-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hokkaido.green-rentacar.net/course/shiretoko</loc>
-    <lastmod>2026-06-08</lastmod>
+    <lastmod>2026-07-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hokkaido.green-rentacar.net/hoken</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>お礼カード（名刺10面）| グリーンレンタカー北海道店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2e7d32;
+    --green-light:#43a047;
+    --green-pale:#e8f5e9;
+    --green-dark:#1b5e20;
+    --orange:#ff6f00;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  /* ===== A4 名刺10面（コクヨ KJ-10 等）===== */
+  /* カード 91×55mm を 横2 × 縦5。外側余白 上下11mm / 左右14mm、カード間0 */
+  @page{ size:A4; margin:0; }
+
+  body{
+    background:#9e9e9e;
+    font-family:'Shippori Mincho B1',serif;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .sheet{
+    width:210mm; height:297mm;
+    margin:0 auto; background:#fff;
+    padding:11mm 14mm;            /* コクヨ標準余白 */
+    display:grid;
+    grid-template-columns:repeat(2, 91mm);
+    grid-template-rows:repeat(5, 55mm);
+    gap:0;
+  }
+
+  /* ===== カード1枚 91×55mm ===== */
+  .card{
+    width:91mm; height:55mm;
+    background:linear-gradient(150deg,#ffffff 0%,#f6fbf6 55%,var(--green-pale) 100%);
+    position:relative; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center;
+    padding:3mm 3.5mm 2.5mm;
+    color:var(--green-dark);
+  }
+  .card::before{   /* 上の緑バー */
+    content:""; position:absolute; top:0; left:0; right:0; height:2mm;
+    background:linear-gradient(90deg,var(--green-dark),var(--green-light));
+  }
+
+  .logo{ height:6mm; width:auto; display:block; position:absolute; right:3mm; bottom:2mm; mix-blend-mode:multiply; }
+  .thanks{
+    font-size:9pt; font-weight:800; color:var(--green-dark);
+    letter-spacing:.03em; margin-top:3.5mm; line-height:1.2; text-align:center;
+  }
+
+  .body{
+    display:flex; align-items:center; gap:11mm; margin-top:1.5mm; width:100%;
+    justify-content:center;
+  }
+  .qr-box{ display:flex; flex-direction:column; align-items:center; }
+  .qr-box img{ width:17mm; height:17mm; display:block; }
+  .qr-title{ font-size:6pt; font-weight:800; margin-top:.6mm; letter-spacing:.02em; }
+  .qr-gg .qr-title{ color:var(--green); }
+  .qr-ig .qr-title{ color:#c13584; }
+  .qr-sub{ font-size:4.3pt; color:#999; font-weight:500; }
+
+  .gift{
+    margin-top:1.5mm;
+    background:linear-gradient(135deg,var(--orange),#ff9800);
+    color:#fff; font-size:5.6pt; font-weight:800; letter-spacing:.02em;
+    padding:1mm 3.5mm; border-radius:10mm; text-align:center;
+  }
+  .note{ font-size:4pt; color:#999; font-weight:500; margin-top:1mm; text-align:center; }
+  .foot{ font-size:4.5pt; color:var(--green-dark); font-weight:700; margin-top:.5mm; letter-spacing:.03em; text-align:center; line-height:1.5; }
+
+  /* 画面表示時だけ枠線（印刷では消す） */
+  @media screen{
+    .card{ outline:.2mm dashed #cfcfcf; outline-offset:-.2mm; }
+    .hint{ font-family:sans-serif; font-size:12px; color:#fff; text-align:center; padding:8px; }
+  }
+  @media print{ .hint{ display:none; } }
+</style>
+</head>
+<body>
+
+  <p class="hint">
+    <b>北海道店 用</b>｜用紙：<b>コクヨ KJ-10</b>（インクジェット用 名刺カード A4 10面 / 55×91mm / 両面マイクロミシン）。レーザーなら <b>LBP-VP10</b>。<br>
+    ⚠️ 左の「クチコミ」QRは<b>仮（北海道HPトップ）</b>です。北海道店のGoogleクチコミリンク（g.page/r/…）取得後に差し替えてください。<br>
+    印刷：Ctrl+P → 余白「なし」・拡大縮小100% で実寸。まず普通紙で試し刷り→用紙に重ねて位置確認を。
+  </p>
+
+  <div class="sheet" id="sheet"></div>
+
+  <template id="card-tpl">
+    <div class="card">
+      <img class="logo" src="images/logo-hokkaido.png" alt="グリーンレンタカー北海道店">
+      <div class="thanks">ご利用ありがとうございました</div>
+      <div class="body">
+        <div class="qr-box qr-gg">
+          <!-- ▼▼▼ 北海道店のGoogleクチコミリンク(g.page/r/…/review)に差し替え。現在は仮で北海道HPトップ ▼▼▼ -->
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fhokkaido.green-rentacar.net%2F" alt="Google口コミ QR">
+          <div class="qr-title">クチコミ</div>
+          <div class="qr-sub">Google マップ</div>
+        </div>
+        <div class="qr-box qr-ig">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.instagram.com%2Fgreen_rentacar_jp%2F" alt="Instagram QR">
+          <div class="qr-title">フォロー</div>
+          <div class="qr-sub">Instagram</div>
+        </div>
+      </div>
+      <div class="gift">ご感想の投稿でウェットティッシュ進呈🚙</div>
+      <div class="note">★の数・内容は問いません</div>
+      <div class="foot">グリーンレンタカー北海道店<br>TEL 050-1720-6116 ｜ hokkaido.green-rentacar.net</div>
+    </div>
+  </template>
+
+  <script>
+    const sheet = document.getElementById('sheet');
+    const tpl   = document.getElementById('card-tpl');
+    for(let i=0;i<10;i++){ sheet.appendChild(tpl.content.cloneNode(true)); }
+  </script>
+
+</body>
+</html>

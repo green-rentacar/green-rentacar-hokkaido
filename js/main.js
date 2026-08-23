@@ -88,12 +88,18 @@ navList.querySelectorAll('a').forEach(link => {
 });
 
 // ===== ヘッダースクロール =====
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('header');
-  header.style.boxShadow = window.scrollY > 10
-    ? '0 2px 20px rgba(0,0,0,0.12)'
-    : '0 1px 0 rgba(0,0,0,0.06)';
-});
+const headerEl = document.getElementById('header');
+if (headerEl && !headerEl.classList.contains('p2-header')) {
+  let headerLifted = null;
+  window.addEventListener('scroll', () => {
+    const lifted = window.scrollY > 10;
+    if (lifted === headerLifted) return;
+    headerLifted = lifted;
+    headerEl.style.boxShadow = lifted
+      ? '0 2px 20px rgba(0,0,0,0.12)'
+      : '0 1px 0 rgba(0,0,0,0.06)';
+  }, { passive: true });
+}
 
 // ===== スクロールアニメーション =====
 const observer = new IntersectionObserver((entries) => {
@@ -218,8 +224,20 @@ function showAvailErrorBanner(message) {
       }
     }
 
+    // ④ 仮見積もりの添付チェック（必須）— 見積りなし予約を禁止
+    const estAttachEl   = document.getElementById('est-attached-text');
+    const estAttachWrap = form.querySelector('.form-est-attach-wrap');
+    const estAttached   = estAttachEl && estAttachEl.value.trim() !== '';
+    if (!estAttached) {
+      if (estAttachWrap) estAttachWrap.classList.add('est-required-error');
+      hasError = true;
+    } else if (estAttachWrap) {
+      estAttachWrap.classList.remove('est-required-error');
+    }
+
     if (hasError) {
       const firstError =
+        form.querySelector('.form-est-attach-wrap.est-required-error') ||
         form.querySelector('.group-error') ||
         form.querySelector('input:invalid, select:invalid');
       if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -336,6 +354,7 @@ function showAvailErrorBanner(message) {
       postBody.append('運転免許証の種類',    bookingData.license);
       postBody.append('同乗者運転の事前申告',bookingData.extraDriver);
       postBody.append('お支払い方法',        formData.get('お支払い方法') || '');
+      postBody.append('認知経路',            formData.get('認知経路') || '');
       postBody.append('仮見積もり内容',      bookingData.estimate);
       postBody.append('ご質問・ご要望',      bookingData.message);
       postBody.append('合計金額',            _lastEstimate ? String(_lastEstimate.grandTotal) : '0');
@@ -391,7 +410,25 @@ function showAvailErrorBanner(message) {
       document.getElementById('license-group').classList.remove('group-error');
     });
   }
+
+  // 受け取り方法が配車サービスのとき「来店時間」→「引き渡し時間」に切替
+  const rentalTypeEl = document.getElementById('rental-type');
+  if (rentalTypeEl) {
+    rentalTypeEl.addEventListener('change', updateArrivalTimeLabel);
+    updateArrivalTimeLabel();
+  }
 })();
+
+// 受け取り方法に応じて来店時間ラベルを切り替える（配車＝引き渡し時間）
+function updateArrivalTimeLabel() {
+  const rt    = document.getElementById('rental-type');
+  const label = document.getElementById('arrival-time-label');
+  const note  = document.getElementById('arrival-haisha-note');
+  if (!rt || !label) return;
+  const isHaisha = rt.value.indexOf('配車') >= 0 || rt.value.indexOf('お届け') >= 0;
+  label.textContent = isHaisha ? '引き渡し時間' : '来店時間';
+  if (note) note.style.display = isHaisha ? 'flex' : 'none';
+}
 
 // ===== 仮見積もり基本料金 =====
 const BASE_WEEKDAY   = 23760;
@@ -414,9 +451,11 @@ const OPTIONS = [
   { id: 'opt-power',   type: 'check', name: 'ポータブル電源',       price:  3300, unit: '1台' },
   { id: 'opt-table',   type: 'qty',   name: '折りたたみテーブル',   price:  1100, unit: '1台' },
   { id: 'opt-chair',   type: 'qty',   name: 'ラウンジチェア',       price:  1100, unit: '1脚' },
-  // グループ3: 配車サービス
-  { id: 'opt-airport', type: 'check', name: '新千歳空港お届けサービス', price: 16500, unit: '1回' },
+  // ※ 新千歳空港お届け（¥16,500）は「受け取り方法」で選択。calcEstimate内で加算
 ];
+
+// 新千歳空港お届けサービス料金（受け取り方法で選択）
+const AIRPORT_DELIVERY_FEE = 16500;
 
 // 数量型オプションの値を管理
 const qtyValues = {};
@@ -516,6 +555,13 @@ function formatDate(dateStr) {
   return `${y}/${m}/${day}（${dow}）`;
 }
 
+// 見積セクションの受け取り方法を変更したら即再計算（日程入力済みのとき）
+function onEstPickupChange() {
+  const ci = document.getElementById('est-checkin');
+  const co = document.getElementById('est-checkout');
+  if (ci && co && ci.value && co.value) calcEstimate();
+}
+
 // ===== 見積もり計算（メイン） =====
 let _lastEstimate = null;
 
@@ -611,7 +657,16 @@ function calcEstimate() {
   }
 
   // ---- オプション合計 ----
-  const { total: optionTotal, lines: optionLines } = getOptionResults();
+  let { total: optionTotal, lines: optionLines } = getOptionResults();
+
+  // ---- 新千歳空港お届け（受け取り方法で選択）¥16,500 を加算 ----
+  const isAirport = pickupVal.indexOf('新千歳空港お届け') >= 0;
+  if (isAirport) {
+    optionLines = optionLines.concat([
+      { name: '新千歳空港お届けサービス', qty: 1, unit: '1回', price: AIRPORT_DELIVERY_FEE, amt: AIRPORT_DELIVERY_FEE }
+    ]);
+    optionTotal += AIRPORT_DELIVERY_FEE;
+  }
 
   const grandTotal = rentalSubtotal + optionTotal;
 
@@ -760,11 +815,14 @@ function attachEstimateToForm() {
 
   // 受け取り方法セレクトを同期
   const rt = document.getElementById('rental-type');
-  if (rt && pickupVal) rt.value = pickupVal;
+  if (rt && pickupVal) { rt.value = pickupVal; updateArrivalTimeLabel(); }
 
   // 添付エリアの表示切り替え
   document.getElementById('form-est-attach-empty').style.display  = 'none';
   document.getElementById('form-est-attach-filled').style.display = 'block';
+  // 添付できたら必須エラー表示を解除
+  const _estWrap = document.querySelector('.form-est-attach-wrap');
+  if (_estWrap) _estWrap.classList.remove('est-required-error');
 
   // 添付ボタンを「済み」に変更
   const btn     = document.getElementById('est-attach-btn');
@@ -854,6 +912,10 @@ function showConfirmationModal(formData, receiptNo, carName) {
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  // 受け取り方法が配車サービスなら「来店時間」→「引き渡し時間」表示
+  const _pickup    = formData.get('受け取り方法') || '';
+  const _isHaisha  = _pickup.indexOf('配車') >= 0 || _pickup.indexOf('お届け') >= 0;
+
   // 表示フィールド定義
   const fields = [
     { label: 'お名前',               val: formData.get('お名前') },
@@ -862,7 +924,7 @@ function showConfirmationModal(formData, receiptNo, carName) {
     { label: 'ご住所',               val: address },
     { label: 'ご利用開始日',         val: fmtDate(formData.get('ご利用開始日')) },
     { label: 'ご利用終了日',         val: fmtDate(formData.get('ご利用終了日')) },
-    { label: '来店時間',             val: formData.get('来店時間') },
+    { label: _isHaisha ? '引き渡し時間' : '来店時間', val: formData.get('来店時間') },
     { label: '返却時間',             val: formData.get('返却時間') },
     { label: '受け取り方法',         val: formData.get('受け取り方法') },
     { label: 'ご希望の車両',         val: formData.get('ご希望の車両') },
@@ -900,7 +962,7 @@ function showConfirmationModal(formData, receiptNo, carName) {
       <span class="material-icons-round">account_balance</span>
       <div>
         <strong>お振込先</strong><br>
-        三井住友銀行　普通口座　4180470<br>
+        三井住友銀行　藤井寺支店（店番162）<br>普通口座　4180470<br>
         カ）トーワオート<br>
         <small>※ご予約確定後、3営業日以内にお振り込みください。</small>
       </div>`;
@@ -1195,5 +1257,100 @@ async function confirmCancel() {
   } finally {
     btn.disabled = false;
     btn.innerHTML = '<span class="material-icons-round">delete_forever</span>キャンセルを確定する';
+  }
+}
+
+// ===== 空き状況チェッカー（日程→即判定・複数車両対応）=====
+function _acFmtRange(a, b) {
+  function f(s) { const d = s.split('-'); return d[1] + '/' + d[2]; }
+  return f(a) + '〜' + f(b);
+}
+function _acCarLabel(v) { return (v || '').replace('HAPPY1 ', '').trim() || v; }
+async function _acQuery(ci, co, car) {
+  const url = APPS_SCRIPT_URL + '?action=check'
+    + '&checkin=' + encodeURIComponent(ci)
+    + '&checkout=' + encodeURIComponent(co)
+    + '&car=' + encodeURIComponent(car);
+  const res = await fetch(url, { redirect: 'follow' });
+  return JSON.parse(await res.text());
+}
+function acGoEstimate(ci, co, car) {
+  const e1 = document.getElementById('est-checkin');
+  const e2 = document.getElementById('est-checkout');
+  if (e1) { e1.value = ci; e1.dispatchEvent(new Event('change', { bubbles: true })); }
+  if (e2) { e2.value = co; e2.dispatchEvent(new Event('change', { bubbles: true })); }
+  if (car && car !== 'どちらでも可') {
+    const radio = document.querySelector('input[name="ご希望の車両"][value="' + car + '"]');
+    if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
+    const sel = document.querySelector('select[name="ご希望の車両"]');
+    if (sel) { sel.value = car; sel.dispatchEvent(new Event('change', { bubbles: true })); }
+  }
+  const s = document.getElementById('estimate');
+  if (s) s.scrollIntoView({ behavior: 'smooth' });
+}
+function _acShowOk(box, range, carLabelText, ci, co, car) {
+  box.className = 'ac-result show ac-ok';
+  box.innerHTML = '<div class="ac-big">🎉 空いています！</div>'
+    + '<p>' + range + ' ' + carLabelText + ' は<strong>ご予約可能</strong>です</p>'
+    + '<button type="button" class="ac-cta" onclick="acGoEstimate(\'' + ci + '\',\'' + co + '\',\'' + (car || '') + '\')"><span class="material-icons-round">calculate</span>この日程で見積り→予約する</button>';
+}
+function _acShowNg(box, range, message) {
+  box.className = 'ac-result show ac-ng';
+  box.innerHTML = '<div class="ac-big">満車です</div>'
+    + '<p>' + range + ' は<strong>予約済み</strong>です</p>'
+    + '<p class="ac-sub">' + (message || '別の日程でお試しください') + '</p>'
+    + '<button type="button" class="ac-cta ac-cta-blue" onclick="openAvailModal()"><span class="material-icons-round">mail</span>空き状況を問い合わせる</button>';
+}
+async function runAvailCheck() {
+  const ciEl = document.getElementById('ac-checkin');
+  const coEl = document.getElementById('ac-checkout');
+  const carEl = document.getElementById('ac-car');
+  const box = document.getElementById('ac-result');
+  if (!ciEl || !coEl || !box) return;
+  if (!ciEl.value || !coEl.value) {
+    box.className = 'ac-result show ac-warn';
+    box.innerHTML = '出発日と返却日を選んでください';
+    return;
+  }
+  if (coEl.value <= ciEl.value) {
+    box.className = 'ac-result show ac-warn';
+    box.innerHTML = '返却日は出発日より後の日付を選んでください';
+    return;
+  }
+  box.className = 'ac-result show ac-loading';
+  box.innerHTML = '<span class="material-icons-round spin">hourglass_empty</span> 空き状況を確認しています…';
+  const ci = ciEl.value, co = coEl.value, range = _acFmtRange(ci, co);
+  try {
+    const cars = carEl ? Array.from(carEl.options).map(o => o.value).filter(v => v && v !== 'どちらでも可') : [];
+    const selected = carEl ? carEl.value : 'どちらでも可';
+
+    // 特定車を選択 or 車両が1台のサイト → 単一チェック
+    if (selected !== 'どちらでも可' || cars.length < 2) {
+      const car = (selected === 'どちらでも可' && cars.length === 1) ? cars[0] : selected;
+      const data = await _acQuery(ci, co, car);
+      const carLabelText = (car && car !== 'どちらでも可') ? '（' + _acCarLabel(car) + '）' : '';
+      if (data.available) _acShowOk(box, range, carLabelText, ci, co, car === 'どちらでも可' ? '' : car);
+      else _acShowNg(box, range, data.message);
+      return;
+    }
+
+    // 「どちらでも可」→ 各車を個別チェックし、空車があればその車を案内
+    const results = await Promise.all(cars.map(async c => ({ car: c, ok: (await _acQuery(ci, co, c)).available })));
+    const free = results.filter(r => r.ok).map(r => r.car);
+    if (free.length === 0) {
+      _acShowNg(box, range, '選択された期間はすべての車両がご予約済みです。別の日程をご検討ください。');
+    } else if (free.length === cars.length) {
+      _acShowOk(box, range, '（' + cars.map(_acCarLabel).join('・') + ' どちらも空車）', ci, co, '');
+    } else {
+      const rec = free[0], recL = _acCarLabel(rec);
+      const bookedL = results.filter(r => !r.ok).map(r => _acCarLabel(r.car)).join('・');
+      box.className = 'ac-result show ac-ok';
+      box.innerHTML = '<div class="ac-big">✅ ' + recL + ' が空いています！</div>'
+        + '<p>' + range + ' は <strong>' + recL + '</strong> でご予約いただけます<br><span class="ac-sub">（' + bookedL + ' は予約済みです）</span></p>'
+        + '<button type="button" class="ac-cta" onclick="acGoEstimate(\'' + ci + '\',\'' + co + '\',\'' + rec + '\')"><span class="material-icons-round">calculate</span>' + recL + 'で見積り→予約する</button>';
+    }
+  } catch (e) {
+    box.className = 'ac-result show ac-warn';
+    box.innerHTML = '確認できませんでした。お手数ですが<a href="tel:050-1720-6116">お電話</a>、または「空き状況を問い合わせる」からご連絡ください';
   }
 }
