@@ -1,0 +1,57 @@
+/* ============================================================
+   ハイシーズン期間のミニカレンダー（3拠点共通・料金セクション内）
+   日付は各サイトの main.js の HIGH_SEASONS が唯一の出どころ
+   ============================================================ */
+
+.hsx {
+  margin: 26px 0 10px;
+  padding: 18px 20px 14px;
+  background: #fff;
+  border: 2px solid var(--p2-line, #dfd9c8);
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(34, 48, 31, .06);
+}
+
+.hsx-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.hsx-head b { font: 900 15px/1 var(--p2-round, sans-serif); letter-spacing: .04em; color: var(--p2-ink, #22301f); }
+.hsx-head .material-icons-round { font-size: 20px; color: var(--p2-orange, #f0813c); }
+
+.hsx-tabs { margin-left: auto; display: flex; gap: 6px; }
+.hsx-tab {
+  font: 800 12px/1 var(--p2-round, sans-serif); color: #6c7a66;
+  background: #f3f1e8; border: 1.5px solid transparent; border-radius: 999px;
+  padding: 7px 14px; cursor: pointer;
+}
+.hsx-tab:hover { background: #e9e6d9; }
+.hsx-tab.is-on { background: var(--p2-green, #2e7d4f); border-color: var(--p2-green, #2e7d4f); color: #fff; }
+
+.hsx-months { display: flex; flex-wrap: wrap; gap: 14px 18px; }
+.hsx-m { width: 154px; }
+.hsx-mt { font: 800 12px/1 var(--p2-round, sans-serif); letter-spacing: .06em; color: #6c7a66; margin-bottom: 6px; }
+.hsx-g { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.hsx-w { font: 800 9.5px/16px var(--p2-round, sans-serif); color: #b3a99a; text-align: center; }
+.hsx-d { font: 700 10.5px/17px var(--p2-round, sans-serif); color: #4c5a45; text-align: center; border-radius: 5px; }
+.hsx-blank { visibility: hidden; }
+.hsx-d.hsx-sun { color: #d4776a; }
+.hsx-d.hsx-sat { color: #6f93b8; }
+.hsx-d.hsx-hs { background: var(--p2-green, #2e7d4f); color: #fff; font-weight: 800; }
+.hsx-d.hsx-lim { background: var(--p2-orange, #f0813c); color: #fff; font-weight: 800; }
+
+.hsx-foot {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+  margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--p2-line, #dfd9c8);
+}
+.hsx-leg { display: inline-flex; align-items: center; gap: 6px; font: 700 11.5px/1 var(--p2-round, sans-serif); color: #6c7a66; }
+.hsx-sw { width: 13px; height: 13px; border-radius: 4px; display: inline-block; }
+.hsx-sw-hs { background: var(--p2-green, #2e7d4f); }
+.hsx-sw-lim { background: var(--p2-orange, #f0813c); }
+.hsx-list { flex: 1 1 100%; font: 700 11.5px/1.9 var(--p2-round, sans-serif); color: #7d8577; }
+.hsx-list b { font-weight: 800; color: var(--p2-ink, #22301f); }
+.hsx-list i { font-style: normal; color: #c96a2e; font-weight: 800; }
+
+@media (max-width: 640px) {
+  .hsx { padding: 16px 14px 12px; border-radius: 16px; }
+  .hsx-tabs { margin-left: 0; width: 100%; }
+  .hsx-months { gap: 12px; justify-content: center; }
+  .hsx-m { width: calc(50% - 6px); max-width: 168px; }
+}

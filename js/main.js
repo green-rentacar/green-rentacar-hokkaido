@@ -1,3 +1,37 @@
+// ===== ハイシーズン期間（年度ごとの絶対日付）=====
+// rule: 'exact7' = 7泊限定 / 'min7' = 7日間（6泊7日）以上
+const HIGH_SEASONS = [
+  // 2026年度
+  { s: '2026-04-29', e: '2026-05-06', label: 'GW',       disp: '4/29〜5/6' },
+  { s: '2026-07-18', e: '2026-08-09', label: '夏休み',   disp: '7/18〜8/9' },
+  { s: '2026-08-10', e: '2026-08-16', label: 'お盆',     disp: '8/10〜8/16', rule: 'exact7', ci: '8/10', co: '8/17' },
+  { s: '2026-12-25', e: '2026-12-28', label: '年末',     disp: '12/25〜12/28' },
+  { s: '2026-12-29', e: '2027-01-04', label: '冬休み',   disp: '12/29〜1/4',  rule: 'exact7', ci: '12/29', co: '1/5' },
+  { s: '2027-01-05', e: '2027-01-06', label: '年始',     disp: '1/5〜1/6' },
+  // 2027年度
+  { s: '2027-04-29', e: '2027-05-05', label: 'GW',       disp: '4/29〜5/5' },
+  { s: '2027-07-17', e: '2027-08-06', label: '夏休み',   disp: '7/17〜8/6' },
+  { s: '2027-08-07', e: '2027-08-15', label: 'お盆',     disp: '2027/8/7〜8/15',        rule: 'min7' },
+  { s: '2027-12-25', e: '2027-12-28', label: '冬休み',   disp: '12/25〜12/28' },
+  { s: '2027-12-29', e: '2028-01-04', label: '年末年始', disp: '2027/12/29〜2028/1/4',  rule: 'min7' },
+  { s: '2028-01-05', e: '2028-01-06', label: '年始',     disp: '2028/1/5〜1/6' }
+];
+
+// 期間にかかる予約の日数条件をチェック。問題なければ null、違反なら { season, message } を返す
+function checkSeasonRule(checkinStr, checkoutStr, nights) {
+  for (const s of HIGH_SEASONS) {
+    if (!s.rule) continue;
+    if (!(checkinStr <= s.e && checkoutStr > s.s)) continue;
+    if (s.rule === 'exact7' && nights !== 7) {
+      return { season: s, message: s.label + '期間（' + s.disp + '）のご予約は7日間レンタルのみ承っております。チェックイン ' + s.ci + '・チェックアウト ' + s.co + ' でお申し込みください。' };
+    }
+    if (s.rule === 'min7' && nights < 6) {
+      return { season: s, message: s.label + '期間（' + s.disp + '）にかかるご予約は7日間（6泊7日）以上から承っております。' };
+    }
+  }
+  return null;
+}
+
 // ===== 車両データ（アイスグリーン・カーキ）=====
 const CARS = [
   {
@@ -52,17 +86,116 @@ function switchVehicleImg(idx) {
   });
 }
 
-// ===== 2027年以降 注意書きバナー（案A・案B）=====
+// ===== 2028年以降 注意書きバナー（案A・案B）=====
 function checkFutureYear(inputIds, noticeId) {
   const notice = document.getElementById(noticeId);
   if (!notice) return;
   const isFuture = inputIds.some(id => {
     const el = document.getElementById(id);
     if (!el || !el.value) return false;
-    return parseInt(el.value.split('-')[0], 10) >= 2027;
+    return parseInt(el.value.split('-')[0], 10) >= 2028;
   });
   notice.classList.toggle('visible', isFuture);
 }
+
+// ===== ハイシーズンカレンダー（年度切り替え）=====
+const HS_DOW = ['日', '月', '火', '水', '木', '金', '土'];
+
+function hsSeasonAt(ymd, seasons) {
+  return seasons.find(s => ymd >= s.s && ymd <= s.e);
+}
+
+function renderHsMonth(key, seasons) {
+  const y = parseInt(key.slice(0, 4), 10);
+  const m = parseInt(key.slice(5, 7), 10);
+  const daysInMonth = new Date(y, m, 0).getDate();
+  const lead = new Date(y, m - 1, 1).getDay();
+  const dowLabels = document.documentElement.lang === 'en'
+    ? ['S', 'M', 'T', 'W', 'T', 'F', 'S'] : HS_DOW;
+
+  let cells = '';
+  for (let i = 0; i < lead; i++) cells += '<span class="hsc-d hsc-blank"></span>';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ymd = y + '-' + String(m).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    const hit = hsSeasonAt(ymd, seasons);
+    const dow = new Date(y, m - 1, d).getDay();
+    let cls = 'hsc-d';
+    if (hit) cls += (hit.min7 || hit.rule) ? ' hsc-lim' : ' hsc-hs';
+    else if (dow === 0) cls += ' hsc-sun';
+    else if (dow === 6) cls += ' hsc-sat';
+    const title = hit ? ' title="' + hit.label + '"' : '';
+    cells += '<span class="' + cls + '"' + title + '>' + d + '</span>';
+  }
+
+  const mtitle = document.documentElement.lang === 'en'
+    ? ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m - 1]
+    : m + '月';
+
+  return '<div class="hsc-month">'
+    + '<div class="hsc-mtitle">' + mtitle + '</div>'
+    + '<div class="hsc-grid">'
+    + dowLabels.map((w, i) => '<span class="hsc-w' + (i === 0 ? ' hsc-sun' : i === 6 ? ' hsc-sat' : '') + '">' + w + '</span>').join('')
+    + cells
+    + '</div></div>';
+}
+
+function renderHsCalendar(fy, container) {
+  if (!container) return;
+  const fyStart = fy + '-04-01';
+  const fyEnd   = (fy + 1) + '-03-31';
+  const seasons = HIGH_SEASONS.filter(s => s.s >= fyStart && s.s <= fyEnd);
+
+  // ハイシーズンを含む月だけを抽出（年度順）
+  const months = [];
+  seasons.forEach(s => {
+    const cur = new Date(s.s + 'T00:00:00');
+    const end = new Date(s.e + 'T00:00:00');
+    while (cur <= end) {
+      const key = cur.getFullYear() + '-' + String(cur.getMonth() + 1).padStart(2, '0');
+      if (months.indexOf(key) === -1) months.push(key);
+      cur.setDate(cur.getDate() + 1);
+    }
+  });
+  months.sort();
+
+  // 暦年ごとに区切る（年度は2つの暦年にまたがるため）
+  const isEn = document.documentElement.lang === 'en';
+  const groups = [];
+  months.forEach(key => {
+    const y = key.slice(0, 4);
+    let g = groups.filter(x => x.y === y)[0];
+    if (!g) { g = { y: y, keys: [] }; groups.push(g); }
+    g.keys.push(key);
+  });
+
+  container.innerHTML = groups.map(g =>
+    '<div class="hsc-year">'
+      + '<div class="hsc-yhead"><span>' + g.y + (isEn ? '' : '年') + '</span></div>'
+      + '<div class="hsc-months">' + g.keys.map(key => renderHsMonth(key, seasons)).join('') + '</div>'
+    + '</div>'
+  ).join('');
+}
+
+function showHsYear(year) {
+  document.querySelectorAll('.hs-tab').forEach(b => {
+    const on = b.dataset.hsYear === year;
+    b.classList.toggle('is-active', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  document.querySelectorAll('[data-hs-panel]').forEach(p => {
+    p.hidden = p.dataset.hsPanel !== year;
+  });
+  renderHsCalendar(parseInt(year, 10), document.getElementById('hsCal'));
+}
+
+function initHsTabs() {
+  const tabs = document.querySelectorAll('.hs-tab');
+  if (!tabs.length) return;
+  tabs.forEach(btn => btn.addEventListener('click', () => showHsYear(btn.dataset.hsYear)));
+  const active = document.querySelector('.hs-tab.is-active') || tabs[0];
+  showHsYear(active.dataset.hsYear);
+}
+document.addEventListener('DOMContentLoaded', initHsTabs);
 
 // 仮見積もり（案A）
 ['est-checkin', 'est-checkout'].forEach(id => {
@@ -276,36 +409,14 @@ function showAvailErrorBanner(message) {
       const ciDate = new Date(bookingData.checkin);
       const coDate = new Date(bookingData.checkout);
       const rentalDays = Math.round((coDate - ciDate) / 86400000);
-      const ciYear = ciDate.getFullYear();
-
-      // お盆（8/10〜8/16）: 7日間レンタルのみ ※nights=7 → checkin 8/10, checkout 8/17
-      const bonStart = new Date(ciYear + '-08-10');
-      const bonEnd   = new Date(ciYear + '-08-16');
-      if (ciDate <= bonEnd && coDate > bonStart && rentalDays !== 7) {
-        const msg = '<strong>お盆期間（8/10〜8/16）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 8/10・チェックアウト 8/17 でお申し込みください。';
+      const violation = checkSeasonRule(bookingData.checkin, bookingData.checkout, rentalDays);
+      if (violation) {
         form.querySelectorAll('.booking-avail-error').forEach(el => el.remove());
         const errDiv = document.createElement('div');
         errDiv.className = 'booking-avail-error';
-        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><span>' + msg + '</span>';
+        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><span><strong>' + violation.message + '</strong></span>';
         submitBtn.parentNode.insertBefore(errDiv, submitBtn);
-        showAvailErrorBanner('お盆期間（8/10〜8/16）のご予約は7日間レンタルのみです。日程をご確認ください。');
-        submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-
-      // 冬休み（12/29〜1/4）: 7日間レンタルのみ ※nights=7 → checkin 12/29, checkout 1/5
-      const nyStart  = new Date(ciYear + '-12-29');
-      const nyEnd    = new Date((ciYear + 1) + '-01-04');
-      const nyStart2 = new Date((ciYear - 1) + '-12-29');
-      const nyEnd2   = new Date(ciYear + '-01-04');
-      if (((ciDate <= nyEnd && coDate > nyStart) || (ciDate <= nyEnd2 && coDate > nyStart2)) && rentalDays !== 7) {
-        const msg = '<strong>冬休み期間（12/29〜1/4）のご予約は7日間レンタルのみ</strong>承っております。チェックイン 12/29・チェックアウト 1/5 でお申し込みください。';
-        form.querySelectorAll('.booking-avail-error').forEach(el => el.remove());
-        const errDiv = document.createElement('div');
-        errDiv.className = 'booking-avail-error';
-        errDiv.innerHTML = '<span class="material-icons-round">event_busy</span><span>' + msg + '</span>';
-        submitBtn.parentNode.insertBefore(errDiv, submitBtn);
-        showAvailErrorBanner('冬休み期間（12/29〜1/4）のご予約は7日間レンタルのみです。日程をご確認ください。');
+        showAvailErrorBanner(violation.message + ' 日程をご確認ください。');
         submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
@@ -522,19 +633,15 @@ function updateOptionPreview() {
 }
 
 // ===== ユーティリティ =====
+function toYmd(date) {
+  return date.getFullYear() + '-'
+    + String(date.getMonth() + 1).padStart(2, '0') + '-'
+    + String(date.getDate()).padStart(2, '0');
+}
+
 function isPeak(date) {
-  const m = date.getMonth();
-  const d = date.getDate();
-  // GW: 4/29〜5/6
-  if (m === 3 && d >= 29)  return true;
-  if (m === 4 && d <= 6)   return true;
-  // 夏休み・お盆: 7/18〜8/16
-  if (m === 6 && d >= 18)  return true;
-  if (m === 7 && d <= 16)  return true;
-  // 年末年始: 12/25〜1/6
-  if (m === 11 && d >= 25) return true;
-  if (m === 0 && d <= 6)   return true;
-  return false;
+  const key = toYmd(date);
+  return HIGH_SEASONS.some(s => key >= s.s && key <= s.e);
 }
 
 function isWeekend(date) {
@@ -595,20 +702,10 @@ function calcEstimate() {
     return;
   }
 
-  // 特定期間 7日間制限チェック（お盆・冬休み）
-  const estYear = checkin.getFullYear();
-  const estBonStart = new Date(estYear + '-08-10');
-  const estBonEnd   = new Date(estYear + '-08-16');
-  if (checkin <= estBonEnd && checkout > estBonStart && nights !== 7) {
-    errorMsg.textContent = 'お盆期間（8/10〜8/16）のご利用は7日間レンタルのみ承っております。チェックイン 8/10・チェックアウト 8/17 でご入力ください。';
-    return;
-  }
-  const estNyStart  = new Date(estYear + '-12-29');
-  const estNyEnd    = new Date((estYear + 1) + '-01-04');
-  const estNyStart2 = new Date((estYear - 1) + '-12-29');
-  const estNyEnd2   = new Date(estYear + '-01-04');
-  if (((checkin <= estNyEnd && checkout > estNyStart) || (checkin <= estNyEnd2 && checkout > estNyStart2)) && nights !== 7) {
-    errorMsg.textContent = '冬休み期間（12/29〜1/4）のご利用は7日間レンタルのみ承っております。チェックイン 12/29・チェックアウト 1/5 でご入力ください。';
+  // 特定期間の日数制限チェック（お盆・年末年始）
+  const estViolation = checkSeasonRule(checkinVal, checkoutVal, nights);
+  if (estViolation) {
+    errorMsg.textContent = estViolation.message;
     return;
   }
 

@@ -24,20 +24,6 @@
   var vpW = window.innerWidth;
   var vpH = window.innerHeight;
 
-  /* ---- ストーリー：スクロール量で言葉とバンが進む ---- */
-  var story = document.getElementById('story');
-  var lines = story ? story.querySelectorAll('.p2-story-line') : [];
-  var van = story ? story.querySelector('.p2-van-story') : null;
-  /* 各行の表示区間 [イン開始, イン完了, アウト開始, アウト完了] */
-  var zones = [
-    [0.02, 0.10, 0.24, 0.31],
-    [0.33, 0.41, 0.55, 0.62],
-    [0.64, 0.72, 0.84, 0.90],
-    [0.92, 0.97, 1.01, 1.02]
-  ];
-  function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
-  function seg(p, a, b) { return clamp01((p - a) / (b - a)); }
-
   /* ---- コラージュ：写真とイラストが違う速度で動いて重なる ---- */
   var collages = Array.prototype.slice.call(document.querySelectorAll('.p2-collage')).map(function (box) {
     return {
@@ -49,8 +35,6 @@
   });
 
   var ticking = false;
-  var vanW = 0;
-  var lastP = null;
 
   /* 計測(getBoundingClientRect)と反映(style書き込み)を交互にやると
      1フレームに何度も強制レイアウトが走り、スマホで描画が遅れて揺れる。
@@ -68,16 +52,6 @@
         : cr.top + cr.height / 2 - vh / 2; /* 画面中央からのズレ */
     }
 
-    var p = null;
-    if (story) {
-      var r = story.getBoundingClientRect();
-      if (r.bottom >= 0 && r.top <= vh) {
-        var total = story.offsetHeight - vh;
-        if (total > 0) p = clamp01(-r.top / total);
-      }
-    }
-    if (van && !vanW) vanW = van.offsetWidth || 230;
-
     /* --- 書き込みフェーズ --- */
     for (var j = 0; j < collages.length; j++) {
       var c = offsets[j];
@@ -90,21 +64,6 @@
         items[k].el.style.setProperty('--dy', v);
       }
     }
-
-    if (p === null || p === lastP) return;
-    lastP = p;
-
-    lines.forEach(function (line, i) {
-      var z = zones[i];
-      var o = seg(p, z[0], z[1]) * (1 - seg(p, z[2], z[3]));
-      line.style.opacity = o;
-      line.style.transform = 'translateY(' + (34 * (1 - seg(p, z[0], z[1]))) + 'px)';
-    });
-
-    if (van) {
-      var x = (1 - p) * (vpW + vanW * 2 + 60);
-      van.style.transform = 'translateX(' + x.toFixed(1) + 'px)';
-    }
   }
   function requestTick() {
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
@@ -112,7 +71,6 @@
   function onResize() {
     if (!isMobile || window.innerWidth !== vpW) { vpH = window.innerHeight; }
     vpW = window.innerWidth;
-    vanW = 0;
     requestTick();
   }
   window.addEventListener('scroll', requestTick, { passive: true });

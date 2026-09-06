@@ -1,0 +1,86 @@
+/* ============================================================
+   折りたたみ（3拠点共通）
+   長いブロックは既定で閉じ、必要な人だけ開く
+   ============================================================ */
+
+.fold {
+  border: 2px solid var(--p2-line, #dfd9c8);
+  border-radius: 18px;
+  background: #fff;
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: 900px;
+  text-align: left;
+}
+.fold > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px 14px;
+  flex-wrap: wrap;
+  font: 800 14.5px/1.6 var(--p2-round, sans-serif);
+  color: var(--p2-ink, #22301f);
+}
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary:hover { background: #fafaf5; }
+.fold > summary::after {
+  content: "expand_more";
+  font-family: 'Material Icons Round';
+  font-size: 22px; font-weight: 400;
+  color: var(--p2-green, #2e7d4f);
+  margin-left: auto;
+  transition: transform .25s ease;
+}
+.fold[open] > summary::after { transform: rotate(180deg); }
+.fold[open] > summary { border-bottom: 1px dashed var(--p2-line, #dfd9c8); }
+.fold-sum-note {
+  flex: 1 1 100%;
+  font: 700 12px/1.7 var(--p2-round, sans-serif);
+  color: #7d8577;
+  margin: 0;
+}
+.fold-tag {
+  display: inline-block;
+  font: 800 11.5px/1 var(--p2-round, sans-serif);
+  color: #4c5a45;
+  background: #f1f4ec;
+  border-radius: 999px;
+  padding: 6px 11px;
+}
+.fold-body { padding: 20px; }
+
+/* ---- 予約フォーム ---- */
+.est-consult-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font: 800 13.5px/1 var(--p2-round, sans-serif);
+  background: #fff; color: var(--p2-green, #2e7d4f);
+  border: 2px solid var(--p2-green, #2e7d4f); border-radius: 999px;
+  padding: 13px 22px; cursor: pointer; white-space: nowrap;
+}
+.est-consult-btn:hover { background: #f0f7f2; }
+.est-consult-btn .material-icons-round { font-size: 18px; }
+
+/* フォーム本体は緑背景前提の白文字なので、箱に色を敷かない（見出しバーだけ白） */
+.rsv-fold { border-color: rgba(255, 255, 255, .5); background: transparent; }
+.rsv-fold > summary { background: #fff; }
+.rsv-fold[open] > summary { border-bottom: 0; }
+.rsv-fold > summary b { font: 900 16px/1.4 var(--p2-round, sans-serif); }
+.rsv-fold > summary .material-icons-round { font-size: 22px; color: var(--p2-green, #2e7d4f); }
+.rsv-fold .fold-body { padding: 0; }
+.rsv-fold .contact-form { margin: 0; }
+
+/* ---- 仮見積もりの結果から相談へ ---- */
+.est-to-form-wrap { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; }
+.est-consult-hint {
+  flex: 1 1 100%;
+  font: 700 12px/1.7 var(--p2-round, sans-serif);
+  color: #7d8577; margin: 2px 0 0;
+}
+
+@media (max-width: 640px) {
+  .fold > summary { padding: 14px 16px; font-size: 13.5px; }
+  .fold-body { padding: 16px; }
+  .est-consult-btn { width: 100%; justify-content: center; }
+}

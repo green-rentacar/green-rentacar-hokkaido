@@ -360,7 +360,37 @@ ul, ol { list-style: none; }
 .hs-chips li.hs-lim small { color:#c62828; font-size:.68rem; font-weight:700; }
 .hs-note { text-align:center; font-size:.82rem; color:#8d6e00; margin:12px 0 0; }
 .hs-note a { color:#e65100; font-weight:700; text-decoration:underline; }
-@media (max-width:520px){ .hs-chips { grid-template-columns:repeat(2,1fr); } }
+.hs-tabs { display:flex; justify-content:center; gap:6px; margin:0 0 12px; }
+.hs-tab { appearance:none; border:1.5px solid #ffd54f; background:#fff; color:#8d6e00; font-family:inherit; font-size:.78rem; font-weight:800; padding:6px 16px; border-radius:999px; cursor:pointer; transition:background .2s, color .2s, border-color .2s; }
+.hs-tab:hover { background:#fff3d0; }
+.hs-tab.is-active { background:#f9a825; border-color:#f9a825; color:#fff; }
+.hsc-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:14px; margin:14px 0 10px; }
+.hsc-leg { display:flex; align-items:center; gap:5px; font-size:.74rem; font-weight:700; color:#8d6e00; }
+.hsc-sw { width:13px; height:13px; border-radius:4px; display:inline-block; }
+.hsc-sw-hs { background:#ffcc80; border:1.5px solid #f9a825; }
+.hsc-sw-lim { background:#ffcdd2; border:1.5px solid #e53935; }
+.hs-chips[hidden], .hs-cal[hidden] { display:none !important; }
+.hs-cal { display:block; }
+.hsc-year + .hsc-year { margin-top:16px; }
+.hsc-yhead { display:flex; align-items:center; gap:10px; margin:0 0 8px; }
+.hsc-yhead span { font-size:.8rem; font-weight:800; color:#8d6e00; letter-spacing:.04em; }
+.hsc-yhead::before, .hsc-yhead::after { content:''; flex:1; height:2px; background:#ffd54f; border-radius:2px; }
+.hsc-months { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.hsc-month { background:#fff; border:1.5px solid #ffe082; border-radius:10px; padding:8px 6px; }
+.hsc-mtitle { text-align:center; font-size:.76rem; font-weight:800; color:#8d6e00; margin-bottom:6px; }
+.hsc-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.hsc-w { font-size:.58rem; font-weight:700; color:#a1861a; text-align:center; padding-bottom:2px; }
+.hsc-d { font-size:.64rem; font-weight:700; color:#5d4a00; text-align:center; line-height:1.7; border-radius:4px; }
+.hsc-blank { visibility:hidden; }
+.hsc-sun, .hsc-w.hsc-sun { color:#d84315; }
+.hsc-sat, .hsc-w.hsc-sat { color:#1565c0; }
+.hsc-hs { background:#ffcc80; color:#5d4a00; }
+.hsc-lim { background:#ffcdd2; color:#b71c1c; }
+@media (max-width:520px){
+  .hs-chips { grid-template-columns:repeat(2,1fr); }
+  .hsc-months { grid-template-columns:repeat(2,1fr); gap:8px; }
+  .hsc-d { font-size:.6rem; line-height:1.6; }
+}
 .cal-collapse { max-width:760px; margin:0 auto 4px; }
 .cal-collapse > summary { cursor:pointer; list-style:none; text-align:center; font-weight:700; color:#2e7d32; padding:11px; border:1px dashed #a5d6a7; border-radius:10px; background:#fff; }
 .cal-collapse > summary::-webkit-details-marker { display:none; }
@@ -1128,7 +1158,7 @@ ul, ol { list-style: none; }
       .ps-sub-grid img { border-radius: 10px; }
     }
   </style>
-  <link rel="stylesheet" href="css/lp2.css?v=20260819">
+  <link rel="stylesheet" href="css/lp2.css?v=20260906f">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/favicon.png">
   <style>
@@ -1520,11 +1550,12 @@ ul, ol { list-style: none; }
       </div>
       <ul class="p2-price-notes pop">
         <li><span class="material-icons-round">currency_yen</span>All prices are in <strong>Japanese yen (JPY)</strong>, tax included. Payment is in yen — overseas credit cards are converted automatically by your card issuer</li>
-        <li><span class="material-icons-round">local_florist</span>Golden Week: Apr 29 – May 6 (2026)</li>
-        <li><span class="material-icons-round">wb_sunny</span>Summer &amp; Obon: Jul 18 – Aug 16 (2026)</li>
-        <li><span class="material-icons-round">ac_unit</span>New Year: Dec 25 – Jan 6 (2026)</li>
+        <li><span class="material-icons-round">local_florist</span>Golden Week: Apr 29 – May 6 (FY2026) / Apr 29 – May 5 (FY2027)</li>
+        <li><span class="material-icons-round">wb_sunny</span>Summer &amp; Obon: Jul 18 – Aug 16 (FY2026) / Jul 17 – Aug 15 (FY2027)</li>
+        <li><span class="material-icons-round">ac_unit</span>New Year: Dec 25 – Jan 6 (FY2026 and FY2027)</li>
         <li><span class="material-icons-round">sell</span><strong>10% off the rental fee</strong> for 5 nights or more</li>
-        <li><span class="material-icons-round">warning</span>Obon (Aug 10–16) and the New Year peak (Dec 29–Jan 4) are accepted as <strong>7-night packages only</strong></li>
+        <li><span class="material-icons-round">warning</span>FY2026: Obon (Aug 10–16) and the New Year peak (Dec 29–Jan 4) are accepted as <strong>7-night packages only</strong></li>
+        <li><span class="material-icons-round">warning</span>FY2027: Obon (Aug 7–15) and the New Year peak (Dec 29–Jan 4) require <strong>7 days (6 nights) or more</strong></li>
         <li><span class="material-icons-round">schedule</span>Pickup from 10:00 / return by 18:00 (office hours 9:00–18:00)</li>
         <li><span class="material-icons-round">local_gas_station</span>Fuel is not included — please refill before returning</li>
         <li><span class="material-icons-round">calculate</span>Dates spanning both seasons are calculated automatically in the quote tool below</li>
@@ -1822,8 +1853,12 @@ ul, ol { list-style: none; }
 
       <!-- ハイシーズン期間のご案内 -->
       <div class="hs-info animate">
-        <div class="hs-info-head"><span class="material-icons-round">wb_sunny</span>High-season periods<span class="hs-year">2026</span></div>
-        <ul class="hs-chips">
+        <div class="hs-info-head"><span class="material-icons-round">wb_sunny</span>High-season periods</div>
+        <div class="hs-tabs" role="tablist">
+          <button type="button" class="hs-tab is-active" data-hs-year="2026" role="tab" aria-selected="true">FY2026</button>
+          <button type="button" class="hs-tab" data-hs-year="2027" role="tab" aria-selected="false">FY2027</button>
+        </div>
+        <ul class="hs-chips" data-hs-panel="2026">
           <li><em>🌸 Golden Week</em>Apr 29 – May 6</li>
           <li><em>☀️ Summer</em>Jul 18 – Aug 9</li>
           <li class="hs-lim"><em>🌻 Obon</em>Aug 10 – 16<small>7-night packages only</small></li>
@@ -1831,6 +1866,19 @@ ul, ol { list-style: none; }
           <li class="hs-lim"><em>🎍 Winter break</em>Dec 29 – Jan 4<small>7-night packages only</small></li>
           <li><em>🎍 New Year</em>Jan 5 – 6</li>
         </ul>
+        <ul class="hs-chips" data-hs-panel="2027" hidden>
+          <li><em>🌸 Golden Week</em>Apr 29 – May 5</li>
+          <li><em>☀️ Summer</em>Jul 17 – Aug 6</li>
+          <li class="hs-lim"><em>🌻 Obon</em>Aug 7 – 15<small>7 days (6 nights) or more</small></li>
+          <li><em>🎄 Winter break</em>Dec 25 – 28</li>
+          <li class="hs-lim"><em>🎍 New Year</em>Dec 29 – Jan 4<small>7 days (6 nights) or more</small></li>
+          <li><em>🎍 New Year</em>Jan 5 – 6</li>
+        </ul>
+        <div class="hsc-legend">
+          <span class="hsc-leg"><i class="hsc-sw hsc-sw-hs"></i>High-season rate</span>
+          <span class="hsc-leg"><i class="hsc-sw hsc-sw-lim"></i>Minimum-stay rule applies (see above)</span>
+        </div>
+        <div class="hs-cal" id="hsCal"></div>
         <p class="hs-note"><a href="#price">High-season rates</a> apply during these periods (this is separate from availability)</p>
       </div>
 
@@ -1935,7 +1983,7 @@ ul, ol { list-style: none; }
         </div>
         <div id="estFutureYearNotice" class="notice-future-year">
           <span class="material-icons-round">event_busy</span>
-          <p>For bookings in 2027 or later, please contact us by email.</p>
+          <p>For bookings in 2028 or later, please contact us by email.</p>
         </div>
         <div class="est-options-section">
           <div class="est-options-title"><span class="material-icons-round">tune</span>Options (optional)</div>
@@ -2022,7 +2070,7 @@ ul, ol { list-style: none; }
       <p class="section-desc section-desc-white animate">Fill in the form below to request a booking. Our staff will contact you to confirm (email is fine for overseas guests).</p>
       <div id="formFutureYearNotice" class="notice-future-year">
         <span class="material-icons-round">event_busy</span>
-        <p>For bookings in 2027 or later, please contact us by email.</p>
+        <p>For bookings in 2028 or later, please contact us by email.</p>
       </div>
       <form id="contact-form" class="contact-form" action="https://formspree.io/f/mdaboaka" method="POST" novalidate>
         <div class="form-est-attach-wrap">
@@ -2316,7 +2364,7 @@ ul, ol { list-style: none; }
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260819"></script>
+  <script src="js/main.js?v=20260906f"></script>
   <script>
     /* ===== カレンダータブ切替 ===== */
     function switchCal(idx) {
@@ -2616,15 +2664,18 @@ ul, ol { list-style: none; }
     </div>
   </div>
 
-  <script src="js/lp2.js?v=20260819"></script>
+  <script src="js/lp2.js?v=20260906f"></script>
   <script>
   /* ===== EN i18n shim: main.js が動的生成する日本語をこのページ内だけ英訳する（main.jsは無改変） ===== */
   (function(){
     var R = [
       [/日程を両方入力してください。/g,'Please enter both dates.'],
       [/ご利用終了日はご利用開始日と同じかそれより後の日付を選んでください。/g,'The end date must be the same as or after the start date.'],
-      [/お盆期間（8\/10〜8\/16）のご利用は7日間レンタルのみ承っております。チェックイン 8\/10・チェックアウト 8\/17 でご入力ください。/g,'During Obon (Aug 10–16) only 7-night rentals are accepted. Please enter check-in Aug 10 and check-out Aug 17.'],
-      [/冬休み期間（12\/29〜1\/4）のご利用は7日間レンタルのみ承っております。チェックイン 12\/29・チェックアウト 1\/5 でご入力ください。/g,'During the New Year period (Dec 29–Jan 4) only 7-night rentals are accepted. Please enter check-in Dec 29 and check-out Jan 5.'],
+      [/お盆期間（([^）]+)）のご予約は7日間レンタルのみ承っております。チェックイン ([^・]+)・チェックアウト (\S+) でお申し込みください。/g,'During Obon ($1) only 7-night rentals are accepted. Please enter check-in $2 and check-out $3.'],
+      [/冬休み期間（([^）]+)）のご予約は7日間レンタルのみ承っております。チェックイン ([^・]+)・チェックアウト (\S+) でお申し込みください。/g,'During the New Year period ($1) only 7-night rentals are accepted. Please enter check-in $2 and check-out $3.'],
+      [/お盆期間（([^）]+)）にかかるご予約は7日間（6泊7日）以上から承っております。/g,'Bookings overlapping Obon ($1) require a minimum of 7 days (6 nights).'],
+      [/年末年始期間（([^）]+)）にかかるご予約は7日間（6泊7日）以上から承っております。/g,'Bookings overlapping the New Year period ($1) require a minimum of 7 days (6 nights).'],
+      [/ 日程をご確認ください。/g,' Please check your dates.'],
       [/(\d+)泊（(\d+)日間分 \/ /g,'$1 nights ($2 days / '],
       [/(\d+)泊（(\d+)日間分）/g,'$1 nights ($2 days)'],
       [/通常期・平日/g,'Regular weekday'],

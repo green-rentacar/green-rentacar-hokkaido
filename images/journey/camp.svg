@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" width="700" height="320">
+  <defs>
+    <g id="tr">
+      <path d="M0,0 l-26,-46 l14,0 l-20,-40 l12,0 l-18,-40 l18,-40 l18,40 l12,0 l-20,40 l14,0 l-20,46 z" fill="#4f7a55"/>
+      <rect x="-4" y="-4" width="8" height="14" fill="#5a4632"/>
+    </g>
+  </defs>
+  <g fill="#3f6247" opacity=".85">
+    <path d="M0,320 L70,190 L140,320 Z"/>
+    <path d="M250,320 L340,176 L430,320 Z"/>
+    <path d="M540,320 L620,196 L700,320 Z"/>
+  </g>
+  <use href="#tr" transform="translate(70,300) scale(1.15)"/>
+  <use href="#tr" transform="translate(150,304) scale(.9)"/>
+  <use href="#tr" transform="translate(300,300) scale(1.3)"/>
+  <use href="#tr" transform="translate(392,304) scale(.95)"/>
+  <use href="#tr" transform="translate(560,300) scale(1.2)"/>
+  <use href="#tr" transform="translate(646,304) scale(.85)"/>
+  <g>
+    <path d="M198,304 L232,238 L266,304 Z" fill="#e2a45a"/>
+    <path d="M232,238 L232,304 L214,304 Z" fill="#c98942"/>
+    <path d="M216,304 L232,268 L248,304 Z" fill="#5b4a35"/>
+  </g>
+  <g>
+    <rect x="470" y="248" width="8" height="56" rx="4" fill="#5a4632"/>
+    <rect x="440" y="232" width="68" height="20" rx="6" fill="#e9e2cc"/>
+    <rect x="448" y="239" width="52" height="6" rx="3" fill="#8fa389"/>
+  </g>
+  <g>
+    <rect x="356" y="256" width="6" height="48" rx="3" fill="#4b4b45"/>
+    <circle cx="359" cy="252" r="9" fill="#f6d98a"/>
+  </g>
+  <rect x="0" y="300" width="700" height="20" fill="#4a6b4c"/>
+</svg>

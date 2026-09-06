@@ -1,0 +1,230 @@
+/* ============================================================
+   ストーリー：スクロールで旅が進むジオラマ（lp2.cssの後に読み込む）
+   進行度・時間帯はすべて #journey のCSS変数にJSが書き込む
+   ============================================================ */
+
+.p2-story { height: 340vh; height: 340svh; }
+
+.p2-story {
+  --bgFar: 0px; --bgNear: 0px; --bgRoad: 0px;
+  --vanX: -400px;
+  --oCity: 1; --oMid: 0; --oCamp: 0;
+  --oDusk: 0; --oNight: 0; --oGrade: 0; --oStar: 0;
+  --oLit: 0; --oBeam: 0;
+  --sunY: 0px; --sunX: 0px;
+}
+#journey { background: #cde9f6; }
+
+.jr-stage { position: absolute; inset: 0; overflow: hidden; }
+.jr-stage > * { position: absolute; }
+
+/* ---- 空：昼の上に夕・夜を重ねてフェードさせる ---- */
+.jr-sky { inset: 0; }
+.jr-sky-day  { background: linear-gradient(#a9dcf2 0%, #cde9f6 52%, #eaf6e3 100%); }
+.jr-sky-dusk { background: linear-gradient(#5b7fb5 0%, #e79a5a 55%, #f7d08a 100%); opacity: var(--oDusk); }
+.jr-sky-night{ background: linear-gradient(#0d1730 0%, #1c2c4e 58%, #2f3f5e 100%); opacity: var(--oNight); }
+
+.jr-stars { inset: 0 0 28% 0; opacity: var(--oStar, 0); }
+.jr-stars i { position: absolute; inset: 0; display: block; }
+.jr-star-a {
+  background-image:
+    radial-gradient(1.6px 1.6px at 12% 22%, #fff, transparent),
+    radial-gradient(1.4px 1.4px at 28% 46%, #fff, transparent),
+    radial-gradient(1.8px 1.8px at 41% 14%, #fff, transparent),
+    radial-gradient(1.3px 1.3px at 57% 38%, #fff, transparent),
+    radial-gradient(1.7px 1.7px at 68% 18%, #fff, transparent),
+    radial-gradient(1.4px 1.4px at 79% 52%, #fff, transparent),
+    radial-gradient(1.9px 1.9px at 88% 26%, #fff, transparent),
+    radial-gradient(1.3px 1.3px at 34% 66%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 62% 62%, #fff, transparent);
+  animation: jrTwinkle 5.4s ease-in-out infinite reverse;
+}
+.jr-star-b {
+  background-image:
+    radial-gradient(1.3px 1.3px at 6% 40%, #eaf2ff, transparent),
+    radial-gradient(1.6px 1.6px at 21% 12%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 36% 32%, #dfe9ff, transparent),
+    radial-gradient(1.5px 1.5px at 47% 58%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 52% 8%, #eaf2ff, transparent),
+    radial-gradient(1.7px 1.7px at 73% 34%, #fff, transparent),
+    radial-gradient(1.3px 1.3px at 83% 12%, #dfe9ff, transparent),
+    radial-gradient(1.5px 1.5px at 92% 48%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 45% 76%, #eaf2ff, transparent),
+    radial-gradient(1.4px 1.4px at 17% 68%, #fff, transparent);
+  animation: jrTwinkle 3.7s ease-in-out infinite;
+}
+@keyframes jrTwinkle { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+
+/* 流れ星：夜になったときだけ流す。3本の周期をずらして規則的に見せない */
+.jr-shoot { inset: 0 0 44% 0; opacity: var(--oStar, 0); pointer-events: none; }
+.jr-shoot i {
+  position: absolute; display: block; height: 3px; border-radius: 3px;
+  background: linear-gradient(270deg, #fff, rgba(226, 240, 255, .7) 22%, rgba(255, 255, 255, 0));
+  filter: drop-shadow(0 0 6px rgba(190, 220, 255, .95));
+  opacity: 0; animation: jrShoot 9s linear infinite; animation-play-state: paused;
+}
+.jr-shoot i:nth-child(1) { top: 13%; left: 6%;  width: clamp(70px, 9vw, 130px); animation-duration: 9s;  animation-delay: .6s; }
+.jr-shoot i:nth-child(2) { top: 6%;  left: 46%; width: clamp(56px, 7vw, 104px); animation-duration: 13s; animation-delay: 4.2s; }
+.jr-shoot i:nth-child(3) { top: 30%; left: 62%; width: clamp(64px, 8vw, 116px); animation-duration: 11s; animation-delay: 7.8s; }
+.jr-shoot i::after {
+  content: ""; position: absolute; right: -2px; top: -2px;
+  width: 7px; height: 7px; border-radius: 50%; background: #fff;
+  box-shadow: 0 0 10px 3px rgba(198, 226, 255, .9);
+}
+.jr-nightsky .jr-shoot i { animation-play-state: running; }
+@keyframes jrShoot {
+  0%   { opacity: 0; transform: rotate(19deg) translateX(0); }
+  3%   { opacity: 1; }
+  14%  { opacity: 1; transform: rotate(19deg) translateX(32vw); }
+  20%  { opacity: 0; transform: rotate(19deg) translateX(40vw); }
+  100% { opacity: 0; transform: rotate(19deg) translateX(40vw); }
+}
+
+/* 太陽が沈み、同じ玉が月として青白く残る */
+.jr-sun {
+  width: clamp(56px, 7vw, 96px); aspect-ratio: 1; border-radius: 50%;
+  right: 14vw; top: 12vh; opacity: calc(1 - var(--oNight));
+  transform: translate3d(var(--sunX), var(--sunY), 0);
+  background: #ffe9a8; box-shadow: 0 0 46px 16px rgba(255, 224, 150, .55);
+}
+.jr-moon {
+  width: clamp(44px, 5.4vw, 74px); aspect-ratio: 1; border-radius: 50%;
+  left: 16vw; top: 11vh; opacity: var(--oStar);
+  background: #eef3ff; box-shadow: 0 0 34px 10px rgba(215, 228, 255, .4);
+}
+
+/* ---- 背景の帯：横スクロールで前進を見せる ---- */
+.jr-band {
+  left: 0; right: 0; bottom: 90px;
+  background-repeat: repeat-x;
+  will-change: background-position;
+}
+.jr-far { height: clamp(190px, 34vh, 320px); }
+.jr-far-city  { background-image: url("../images/journey/city.svg");  background-size: auto 100%; background-position: var(--bgFar) bottom; opacity: var(--oCity); }
+/* その土地のランドマーク。街の情景と同じ速度で1回だけ流れる */
+.jr-landmark {
+  height: clamp(320px, 58vh, 540px);
+  background-image: url("../images/journey/landmark.svg");
+  background-size: auto 100%; background-repeat: no-repeat;
+  background-position: calc(var(--bgFar) + 58vw) bottom;
+  opacity: var(--oCity);
+}
+.jr-far-mid   { background-image: url("../images/journey/mid.svg");   background-size: auto 100%; background-position: var(--bgFar) bottom; opacity: var(--oMid); }
+.jr-far-camp  { background-image: url("../images/journey/camp.svg");  background-size: auto 100%; background-position: var(--bgFar) bottom; opacity: var(--oCamp); }
+
+/* 到着する飛行機（仙台空港店のみ）。ランドマークと同じ速度で流しつつ、機体だけ着陸させる */
+.jr-plane {
+  left: 0; width: 0; height: clamp(320px, 58vh, 540px);
+  transform: translateX(calc(var(--bgFar) + 58vw));
+  opacity: var(--oCity);
+}
+.jr-plane i {
+  position: absolute; left: 0; top: 0; display: block;
+  width: clamp(48px, 6.2vw, 92px); aspect-ratio: 2.31;
+  background: url("../images/journey/plane.svg") no-repeat center / contain;
+  animation: jrLand 9s cubic-bezier(.35, 0, .55, 1) infinite;
+}
+@keyframes jrLand {
+  0%   { opacity: 0; transform: translate(430px, -40px) scale(1); }
+  9%   { opacity: 1; }
+  68%  { opacity: 1; transform: translate(202px, 198px) scale(.78); }
+  84%  { opacity: 0; transform: translate(168px, 256px) scale(.72); }
+  100% { opacity: 0; transform: translate(168px, 256px) scale(.72); }
+}
+
+.jr-near {
+  height: clamp(64px, 11vh, 112px); bottom: 58px;
+  background-image: url("../images/journey/roadside.svg");
+  background-size: auto 100%;
+  background-position: var(--bgNear) bottom;
+}
+
+/* ---- 道路 ---- */
+.jr-road { left: 0; right: 0; bottom: 0; height: 88px; background: #5b5b56; }
+.jr-road::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px;
+  background: rgba(255, 255, 255, .18);
+}
+.jr-road::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 42px; height: 6px;
+  background-image: repeating-linear-gradient(90deg, #fff 0 64px, transparent 64px 148px);
+  background-position: var(--bgRoad) 0; background-repeat: repeat-x;
+  will-change: background-position;
+}
+
+/* ---- 車：位置はJS、走り方はCSSアニメーション ---- */
+.jr-van {
+  bottom: 44px; left: 0;
+  width: clamp(186px, 24vw, 330px);
+  transform: translate3d(var(--vanX), 0, 0);
+  will-change: transform;
+}
+.jr-van svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.jr-wheel { transform-box: fill-box; transform-origin: 50% 50%; }
+@keyframes jrSpin  { to { transform: rotate(360deg); } }
+@keyframes jrBounce{ 0%,100% { transform: translateY(0) rotate(0deg); } 28% { transform: translateY(-2.6px) rotate(-.5deg); } 62% { transform: translateY(1.4px) rotate(.35deg); } }
+@keyframes jrShadow{ 0%,100% { transform: scaleX(1); opacity: .16; } 45% { transform: scaleX(.93); opacity: .1; } }
+
+.jr-drive .jr-wheel  { animation: jrSpin .46s linear infinite; }
+.jr-drive .jr-shake  { animation: jrBounce 1.05s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.jr-drive .jr-shadow { animation: jrShadow 1.05s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 50%; }
+
+/* 窓の明かり・ヘッドライト */
+.jr-lit { opacity: var(--oLit, 0); filter: blur(1.2px); }
+.jr-lamp { opacity: var(--oBeam, 0); }
+.jr-beam {
+  left: 0; bottom: 74px;
+  width: clamp(150px, 26vw, 420px); height: clamp(46px, 7vw, 90px);
+  transform: translate3d(calc(var(--vanX) + clamp(176px, 22.6vw, 312px)), 0, 0);
+  background: linear-gradient(90deg, rgba(255, 244, 198, .95), rgba(255, 240, 186, .34) 52%, rgba(255, 240, 186, 0));
+  clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 62%);
+  filter: blur(2px); opacity: var(--oBeam); will-change: transform; mix-blend-mode: screen;
+}
+
+/* ---- 支店の車（HAPPY1）は素材が左向き。左右反転して大阪と同じ向き・同じ進行方向にそろえる ---- */
+.jr-flip .jr-van { width: clamp(158px, 20.4vw, 280px); }
+.jr-flip .jr-van svg,
+.p2-van.jr-flip > svg { transform: scaleX(-1); }
+.jr-flip .jr-beam {
+  bottom: 52px;
+  transform: translate3d(calc(var(--vanX) + clamp(145px, 18.8vw, 258px)), 0, 0);
+}
+
+/* ---- 時間帯の色温度：情景の上からまとめて掛ける ---- */
+.jr-grade { inset: 0; pointer-events: none; opacity: var(--oGrade);
+  background: linear-gradient(180deg, rgba(255, 146, 60, .32), rgba(255, 96, 40, .5)); mix-blend-mode: multiply; }
+.jr-nightfall { inset: 0; pointer-events: none; opacity: var(--oNight);
+  background: linear-gradient(180deg, rgba(12, 22, 48, .62), rgba(16, 28, 58, .42)); mix-blend-mode: multiply; }
+.jr-vignette { inset: 0; pointer-events: none;
+  background: radial-gradient(120% 80% at 50% 42%, transparent 52%, rgba(20, 26, 40, .28)); }
+
+/* ---- コピー ---- */
+.p2-story-lines { z-index: 6; }
+.p2-story-line { color: var(--jr-ink, var(--p2-ink)); text-shadow: 0 2px 18px var(--jr-shadow, transparent); }
+
+@media (max-width: 900px) {
+  .p2-story { height: 280vh; height: 280svh; }
+  .jr-band { bottom: 72px; }
+  .jr-landmark { height: clamp(250px, 46vh, 400px); background-position: calc(var(--bgFar) + 66vw) bottom; }
+  .jr-plane { height: clamp(250px, 46vh, 400px); transform: translateX(calc(var(--bgFar) + 66vw)); }
+  .jr-near { bottom: 46px; }
+  .jr-road { height: 70px; }
+  .jr-road::after { top: 32px; height: 5px; }
+  .jr-van { bottom: 34px; width: clamp(160px, 44vw, 240px); }
+  .jr-beam { bottom: 58px; transform: translate3d(calc(var(--vanX) + clamp(150px, 41.5vw, 226px)), 0, 0); }
+  .jr-flip .jr-van  { width: clamp(140px, 38vw, 210px); }
+  .jr-flip .jr-beam { bottom: 50px; transform: translate3d(calc(var(--vanX) + clamp(129px, 35vw, 193px)), 0, 0); }
+  .p2-story-line { font-size: clamp(21px, 5.8vw, 32px); padding: 0 16px; letter-spacing: .03em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jr-shoot { display: none; }
+  .jr-stars i { animation: none; }
+  .jr-plane i { animation: none; opacity: 1; transform: translate(300px, 40px); }
+  .p2-story { height: auto; }
+  .p2-story-sticky { position: static; height: auto; padding: 80px 0 0; }
+  .jr-stage { position: relative; inset: auto; height: 62vh; }
+  .jr-van { --vanX: 12vw; }
+  .jr-beam { display: none; }
+}

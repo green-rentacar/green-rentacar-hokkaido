@@ -374,7 +374,37 @@ ul, ol { list-style: none; }
 .hs-chips li.hs-lim small { color:#c62828; font-size:.68rem; font-weight:700; }
 .hs-note { text-align:center; font-size:.82rem; color:#8d6e00; margin:12px 0 0; }
 .hs-note a { color:#e65100; font-weight:700; text-decoration:underline; }
-@media (max-width:520px){ .hs-chips { grid-template-columns:repeat(2,1fr); } }
+.hs-tabs { display:flex; justify-content:center; gap:6px; margin:0 0 12px; }
+.hs-tab { appearance:none; border:1.5px solid #ffd54f; background:#fff; color:#8d6e00; font-family:inherit; font-size:.78rem; font-weight:800; padding:6px 16px; border-radius:999px; cursor:pointer; transition:background .2s, color .2s, border-color .2s; }
+.hs-tab:hover { background:#fff3d0; }
+.hs-tab.is-active { background:#f9a825; border-color:#f9a825; color:#fff; }
+.hsc-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:14px; margin:14px 0 10px; }
+.hsc-leg { display:flex; align-items:center; gap:5px; font-size:.74rem; font-weight:700; color:#8d6e00; }
+.hsc-sw { width:13px; height:13px; border-radius:4px; display:inline-block; }
+.hsc-sw-hs { background:#ffcc80; border:1.5px solid #f9a825; }
+.hsc-sw-lim { background:#ffcdd2; border:1.5px solid #e53935; }
+.hs-chips[hidden], .hs-cal[hidden] { display:none !important; }
+.hs-cal { display:block; }
+.hsc-year + .hsc-year { margin-top:16px; }
+.hsc-yhead { display:flex; align-items:center; gap:10px; margin:0 0 8px; }
+.hsc-yhead span { font-size:.8rem; font-weight:800; color:#8d6e00; letter-spacing:.04em; }
+.hsc-yhead::before, .hsc-yhead::after { content:''; flex:1; height:2px; background:#ffd54f; border-radius:2px; }
+.hsc-months { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.hsc-month { background:#fff; border:1.5px solid #ffe082; border-radius:10px; padding:8px 6px; }
+.hsc-mtitle { text-align:center; font-size:.76rem; font-weight:800; color:#8d6e00; margin-bottom:6px; }
+.hsc-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.hsc-w { font-size:.58rem; font-weight:700; color:#a1861a; text-align:center; padding-bottom:2px; }
+.hsc-d { font-size:.64rem; font-weight:700; color:#5d4a00; text-align:center; line-height:1.7; border-radius:4px; }
+.hsc-blank { visibility:hidden; }
+.hsc-sun, .hsc-w.hsc-sun { color:#d84315; }
+.hsc-sat, .hsc-w.hsc-sat { color:#1565c0; }
+.hsc-hs { background:#ffcc80; color:#5d4a00; }
+.hsc-lim { background:#ffcdd2; color:#b71c1c; }
+@media (max-width:520px){
+  .hs-chips { grid-template-columns:repeat(2,1fr); }
+  .hsc-months { grid-template-columns:repeat(2,1fr); gap:8px; }
+  .hsc-d { font-size:.6rem; line-height:1.6; }
+}
 .cal-collapse { max-width:760px; margin:0 auto 4px; }
 .cal-collapse > summary { cursor:pointer; list-style:none; text-align:center; font-weight:700; color:#2e7d32; padding:11px; border:1px dashed #a5d6a7; border-radius:10px; background:#fff; }
 .cal-collapse > summary::-webkit-details-marker { display:none; }
@@ -529,6 +559,8 @@ ul, ol { list-style: none; }
 .footer-jpstar .material-icons-round { font-size: 1rem; color: var(--green); }
 @media (max-width: 640px) { .footer-social { flex-direction: column; gap: 10px; } .social-btn { width: 200px; justify-content: center; } }
 .company-table-wrap { max-width: 720px; margin: 40px auto 0; }
+.company-fold { max-width: 720px; margin: 40px auto 0; }
+.company-fold .company-table-wrap { margin-top: 0; }
 .company-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .company-table th, .company-table td { padding: 14px 20px; border-bottom: 1px solid #e0e0e0; text-align: left; vertical-align: top; line-height: 1.7; }
 .company-table th { width: 200px; color: var(--green-dark); font-weight: 600; white-space: nowrap; }
@@ -1142,7 +1174,11 @@ ul, ol { list-style: none; }
       .ps-sub-grid img { border-radius: 10px; }
     }
   </style>
-  <link rel="stylesheet" href="css/lp2.css?v=20260823">
+  <link rel="stylesheet" href="css/lp2.css?v=20260906f">
+  <link rel="stylesheet" href="css/hs-cal.css?v=20260906f">
+  <link rel="stylesheet" href="css/fold.css?v=20260906f">
+  <link rel="stylesheet" href="css/journey.css?v=20260906f">
+<style>@media(max-width:640px){.h1-sep{display:block;height:0;overflow:hidden}}</style>
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/favicon.png">
   <style>
@@ -1220,7 +1256,7 @@ ul, ol { list-style: none; }
       <p class="p2-hero-en t-pop">WHY DO WE DRIVE ACROSS HOKKAIDO ?</p>
       <p class="p2-hero-title"><span class="t-pop d1">なぜ、北の大地を</span><span class="t-pop d2">走るのか</span></p>
       <p class="p2-hero-sub p2-hero-sub--lead t-pop d3">その答えは 窓の外いっぱいに広がっている</p>
-      <h1 class="p2-hero-sub p2-hero-sub--main t-pop d3">札幌発・北海道キャンピングカーレンタル ── 軽キャンパー「HAPPY1」で自由な旅を</h1>
+      <h1 class="p2-hero-sub p2-hero-sub--main t-pop d3">札幌発・北海道キャンピングカーレンタル<span class="h1-sep"> ── </span>軽キャンパー「HAPPY1」で自由な旅を</h1>
       <div class="p2-hero-cta t-pop d4">
         <a href="#estimate" class="p2-btn p2-btn-big"><span class="material-icons-round">calculate</span>旅の見積もりをする</a>
         <a href="#vehicles" class="p2-btn p2-btn-big p2-btn-white">クルマを見る</a>
@@ -1258,7 +1294,7 @@ ul, ol { list-style: none; }
       <path d="M0,300 L1440,300 L1440,320 L0,320 Z" fill="#5b5b56"/>
       <path d="M0,308 L60,308 L60,312 L0,312 Z M120,308 L180,308 L180,312 L120,312 Z M240,308 L300,308 L300,312 L240,312 Z M360,308 L420,308 L420,312 L360,312 Z M480,308 L540,308 L540,312 L480,312 Z M600,308 L660,308 L660,312 L600,312 Z M720,308 L780,308 L780,312 L720,312 Z M840,308 L900,308 L900,312 L840,312 Z M960,308 L1020,308 L1020,312 L960,312 Z M1080,308 L1140,308 L1140,312 L1080,312 Z M1200,308 L1260,308 L1260,312 L1200,312 Z M1320,308 L1380,308 L1380,312 L1320,312 Z" fill="#fff" opacity="0.8"/>
     </svg>
-    <div class="p2-van p2-van-hero" aria-hidden="true">
+    <div class="p2-van p2-van-hero jr-flip" aria-hidden="true">
       <svg viewBox="0 0 200 130">
           <ellipse cx="100" cy="119" rx="84" ry="7" fill="rgba(0,0,0,0.13)"/>
           <rect x="20" y="101" width="162" height="9" rx="4" fill="#b8cdbd"/>
@@ -1287,6 +1323,33 @@ ul, ol { list-style: none; }
           <rect x="150" y="44" width="30" height="26" rx="4" fill="#cfe7f5" stroke="#3d4a42" stroke-width="2.5"/>
           <path d="M154,68 L168,46" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
           <path d="M165,57.5 c-1.7,-2.1 -5,-0.6 -5,1.9 0,2.5 3,4.2 5,5.9 2,-1.7 5,-3.4 5,-5.9 0,-2.5 -3.3,-4 -5,-1.9 Z" fill="#fff" stroke="#8bb0c4" stroke-width="0.9"/>
+          <g class="jr-dogs">
+            <g transform="translate(34.8,61.3) scale(0.56)">
+              <ellipse cx="7.2" cy="12.4" rx="5.3" ry="7" transform="rotate(-30 7.2 12.4)" fill="#6e7478"/>
+              <ellipse cx="32.8" cy="12.4" rx="5.3" ry="7" transform="rotate(30 32.8 12.4)" fill="#6e7478"/>
+              <circle cx="20" cy="21" r="15" fill="#8f9599" stroke="#3a3a36" stroke-width="1.6"/>
+              <ellipse cx="20" cy="27.5" rx="10.5" ry="8" fill="#d9dee0"/>
+              <path d="M10.5,13.6 q3.8,-1.8 7.4,0 M22.1,13.6 q3.8,-1.8 7.4,0" stroke="#e7ebec" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <circle cx="14.6" cy="18.4" r="2.7" fill="#1f2226"/>
+              <circle cx="25.4" cy="18.4" r="2.7" fill="#1f2226"/>
+              <ellipse cx="20" cy="24.4" rx="3.6" ry="2.7" fill="#1a1c1f"/>
+              <path d="M20,27.1 q-2.6,3.1 -5.2,0.6 M20,27.1 q2.6,3.1 5.2,0.6" stroke="#5a6064" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <rect x="7.5" y="34.6" width="25" height="5" rx="2.5" fill="#f2c53d" stroke="#3a3a36" stroke-width="0.9"/>
+            </g>
+            <g transform="translate(106.2,48.8) scale(0.54)">
+              <ellipse cx="7.2" cy="12.4" rx="5.3" ry="7" transform="rotate(-30 7.2 12.4)" fill="#24272b"/>
+              <ellipse cx="32.8" cy="12.4" rx="5.3" ry="7" transform="rotate(30 32.8 12.4)" fill="#24272b"/>
+              <circle cx="20" cy="21" r="15" fill="#3a3e44" stroke="#1b1d20" stroke-width="1.6"/>
+              <ellipse cx="20" cy="27.5" rx="10" ry="7.6" fill="#4e535a"/>
+              <circle cx="14.6" cy="18.4" r="3" fill="#f3ead6"/>
+              <circle cx="25.4" cy="18.4" r="3" fill="#f3ead6"/>
+              <circle cx="15.1" cy="18.8" r="1.5" fill="#1b1d20"/>
+              <circle cx="25.9" cy="18.8" r="1.5" fill="#1b1d20"/>
+              <ellipse cx="20" cy="24.4" rx="3.6" ry="2.7" fill="#141619"/>
+              <path d="M20,27.1 q-2.6,3.1 -5.2,0.6 M20,27.1 q2.6,3.1 5.2,0.6" stroke="#7b8189" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <rect x="7.5" y="34.6" width="25" height="5" rx="2.5" fill="#d4483b" stroke="#3a3a36" stroke-width="0.9"/>
+            </g>
+          </g>
           <rect x="150" y="80" width="17" height="7" rx="2" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.2"/>
           <rect x="150" y="90" width="11" height="5" rx="2" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.2"/>
           <circle cx="50" cy="108" r="15" fill="#2f3430"/>
@@ -1301,54 +1364,121 @@ ul, ol { list-style: none; }
   </section>
 
   <!-- ストーリー -->
+  <!-- ストーリー：スクロールで旅が進む（出発→夕暮れの道中→夜の到着） -->
   <section id="story" class="p2-story" data-scrub>
     <div class="p2-story-sticky">
-      <div class="p2-grid-paper"></div>
+      <div class="jr-stage jr-flip" id="journey" aria-hidden="true">
+        <div class="jr-sky jr-sky-day"></div>
+        <div class="jr-sky jr-sky-dusk"></div>
+        <div class="jr-sky jr-sky-night"></div>
+        <div class="jr-stars"><i class="jr-star-a"></i><i class="jr-star-b"></i></div>
+        <div class="jr-shoot"><i></i><i></i><i></i></div>
+        <div class="jr-sun"></div>
+        <div class="jr-moon"></div>
+
+        <div class="jr-band jr-far jr-far-city"></div>
+        <div class="jr-band jr-landmark"></div>
+        <div class="jr-band jr-far jr-far-mid"></div>
+        <div class="jr-band jr-far jr-far-camp"></div>
+        <div class="jr-band jr-near"></div>
+        <div class="jr-road"></div>
+
+        <div class="jr-beam"></div>
+        <div class="jr-van">
+          <svg viewBox="0 0 200 130">
+            <ellipse class="jr-shadow" cx="100" cy="119" rx="84" ry="7" fill="rgba(0,0,0,0.15)"/>
+            <g class="jr-shake">
+              <rect x="20" y="101" width="162" height="9" rx="4" fill="#b8cdbd"/>
+              <path d="M84,32 Q84,27 89,27 L181,27 Q188,27 188,34 L188,104 Q188,109 183,109 L89,109 Q84,109 84,104 Z" fill="#fbfbf7" stroke="#3d4a42" stroke-width="2.5"/>
+              <path d="M84,99 L188,99 L188,104 Q188,109 183,109 L89,109 Q84,109 84,104 Z" fill="#c8e7d4" stroke="#3d4a42" stroke-width="2"/>
+              <path d="M13,109 L13,73 Q13,67 18,64 L28,57 Q31,55 35,55 L86,55 L86,109 Z" fill="#c8e7d4" stroke="#3d4a42" stroke-width="2.5"/>
+              <path d="M30,60 Q26,55 26,45 Q26,19 60,14 Q96,12 99,35 L99,60 Z" fill="#c8e7d4" stroke="#3d4a42" stroke-width="2.5"/>
+              <rect x="41" y="30" width="22" height="15" rx="3" fill="#cfe7f5" stroke="#3d4a42" stroke-width="2"/>
+              <path d="M45,42 L55,31" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+              <rect x="31" y="61" width="30" height="25" rx="4" fill="#3f4a56" stroke="#3d4a42" stroke-width="2.5"/>
+              <path d="M36,84 L51,63 M45,85 L59,66" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+              <path d="M13,66 L6,64 Q3,64 3,67 L3,71 Q3,73 6,72 L13,70 Z" fill="#4a5560" stroke="#3d4a42" stroke-width="1.5"/>
+              <rect x="9" y="98" width="15" height="9" rx="2" fill="#b8cdbd" stroke="#3d4a42" stroke-width="1.5"/>
+              <rect x="13" y="86" width="7" height="9" rx="2" fill="#f5e08a" stroke="#3d4a42" stroke-width="1.5"/>
+              <rect x="98" y="40" width="38" height="69" rx="4" fill="#fbfbf7" stroke="#3d4a42" stroke-width="2.5"/>
+              <rect x="105" y="47" width="24" height="25" rx="3" fill="#cfe7f5" stroke="#3d4a42" stroke-width="2"/>
+              <path d="M109,70 L123,49" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
+              <circle cx="117" cy="87" r="6" fill="#f5c04a" stroke="#3d4a42" stroke-width="1.5"/>
+              <path d="M109,87 L106.5,87 M125,87 L127.5,87 M111,81 L109.2,79.2 M123,81 L124.8,79.2 M111,93 L109.2,94.8 M123,93 L124.8,94.8" stroke="#e8a33d" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="114.7" cy="86" r="0.8" fill="#3d4a42"/>
+              <circle cx="119.3" cy="86" r="0.8" fill="#3d4a42"/>
+              <path d="M114.6,89 Q117,91 119.4,89" stroke="#3d4a42" stroke-width="1" fill="none" stroke-linecap="round"/>
+              <rect x="100" y="76" width="4" height="10" rx="2" fill="#3d4a42"/>
+              <circle cx="145" cy="50" r="5.5" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.3"/>
+              <path d="M141,52 L143.5,48 L146,51 L148,47.5 L150,52 Z" fill="#8bb98a"/>
+              <rect x="150" y="44" width="30" height="26" rx="4" fill="#cfe7f5" stroke="#3d4a42" stroke-width="2.5"/>
+              <path d="M154,68 L168,46" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
+              <path d="M165,57.5 c-1.7,-2.1 -5,-0.6 -5,1.9 0,2.5 3,4.2 5,5.9 2,-1.7 5,-3.4 5,-5.9 0,-2.5 -3.3,-4 -5,-1.9 Z" fill="#fff" stroke="#8bb0c4" stroke-width="0.9"/>
+              <g class="jr-lit">
+                <rect x="33" y="63" width="26" height="21" rx="3" fill="#ffb545"/>
+                <rect x="107" y="49" width="20" height="21" rx="3" fill="#ffc35c"/>
+                <rect x="152" y="46" width="26" height="22" rx="3" fill="#ffb545"/>
+                <rect x="43" y="32" width="18" height="11" rx="2" fill="#ffd489"/>
+                <ellipse cx="100" cy="112" rx="64" ry="9" fill="#ffb545" opacity=".3"/>
+              </g>
+              <g class="jr-dogs">
+                <g transform="translate(34.8,61.3) scale(0.56)">
+                  <ellipse cx="7.2" cy="12.4" rx="5.3" ry="7" transform="rotate(-30 7.2 12.4)" fill="#6e7478"/>
+                  <ellipse cx="32.8" cy="12.4" rx="5.3" ry="7" transform="rotate(30 32.8 12.4)" fill="#6e7478"/>
+                  <circle cx="20" cy="21" r="15" fill="#8f9599" stroke="#3a3a36" stroke-width="1.6"/>
+                  <ellipse cx="20" cy="27.5" rx="10.5" ry="8" fill="#d9dee0"/>
+                  <path d="M10.5,13.6 q3.8,-1.8 7.4,0 M22.1,13.6 q3.8,-1.8 7.4,0" stroke="#e7ebec" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                  <circle cx="14.6" cy="18.4" r="2.7" fill="#1f2226"/>
+                  <circle cx="25.4" cy="18.4" r="2.7" fill="#1f2226"/>
+                  <ellipse cx="20" cy="24.4" rx="3.6" ry="2.7" fill="#1a1c1f"/>
+                  <path d="M20,27.1 q-2.6,3.1 -5.2,0.6 M20,27.1 q2.6,3.1 5.2,0.6" stroke="#5a6064" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                  <rect x="7.5" y="34.6" width="25" height="5" rx="2.5" fill="#f2c53d" stroke="#3a3a36" stroke-width="0.9"/>
+                </g>
+                <g transform="translate(106.2,48.8) scale(0.54)">
+                  <ellipse cx="7.2" cy="12.4" rx="5.3" ry="7" transform="rotate(-30 7.2 12.4)" fill="#24272b"/>
+                  <ellipse cx="32.8" cy="12.4" rx="5.3" ry="7" transform="rotate(30 32.8 12.4)" fill="#24272b"/>
+                  <circle cx="20" cy="21" r="15" fill="#3a3e44" stroke="#1b1d20" stroke-width="1.6"/>
+                  <ellipse cx="20" cy="27.5" rx="10" ry="7.6" fill="#4e535a"/>
+                  <circle cx="14.6" cy="18.4" r="3" fill="#f3ead6"/>
+                  <circle cx="25.4" cy="18.4" r="3" fill="#f3ead6"/>
+                  <circle cx="15.1" cy="18.8" r="1.5" fill="#1b1d20"/>
+                  <circle cx="25.9" cy="18.8" r="1.5" fill="#1b1d20"/>
+                  <ellipse cx="20" cy="24.4" rx="3.6" ry="2.7" fill="#141619"/>
+                  <path d="M20,27.1 q-2.6,3.1 -5.2,0.6 M20,27.1 q2.6,3.1 5.2,0.6" stroke="#7b8189" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                  <rect x="7.5" y="34.6" width="25" height="5" rx="2.5" fill="#d4483b" stroke="#3a3a36" stroke-width="0.9"/>
+                </g>
+              </g>
+              <rect x="150" y="80" width="17" height="7" rx="2" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.2"/>
+              <rect x="150" y="90" width="11" height="5" rx="2" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.2"/>
+              <g class="jr-lamp">
+                <circle cx="15" cy="90" r="6" fill="#fff7d2"/>
+                <circle cx="15" cy="90" r="11" fill="#ffe9a0" opacity=".4"/>
+                <circle cx="186" cy="96" r="6" fill="#ff5f48" opacity=".5"/>
+              </g>
+            </g>
+            <g class="jr-wheel">
+              <circle cx="50" cy="108" r="15" fill="#2f3430"/>
+              <circle cx="50" cy="108" r="7.5" fill="#c9cdc8"/>
+              <path d="M50,102 L50,114 M44,108 L56,108 M46,104 L54,112 M54,104 L46,112" stroke="#2f3430" stroke-width="2"/>
+            </g>
+            <g class="jr-wheel">
+              <circle cx="150" cy="108" r="15" fill="#2f3430"/>
+              <circle cx="150" cy="108" r="7.5" fill="#c9cdc8"/>
+              <path d="M150,102 L150,114 M144,108 L156,108 M146,104 L154,112 M154,104 L146,112" stroke="#2f3430" stroke-width="2"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="jr-grade"></div>
+        <div class="jr-nightfall"></div>
+        <div class="jr-vignette"></div>
+      </div>
+
       <div class="p2-story-lines">
         <p class="p2-story-line" data-line="0">時刻表よりも<br>気分で決める旅がある</p>
         <p class="p2-story-line" data-line="1">富良野のラベンダーも<br>知床の朝焼けも</p>
         <p class="p2-story-line" data-line="2">泊まれるクルマなら<br>ぜんぶ巡れる</p>
         <p class="p2-story-line" data-line="3">さあ 北の大地へ</p>
-      </div>
-      <div class="p2-story-road"></div>
-      <div class="p2-van p2-van-story" aria-hidden="true">
-        <svg viewBox="0 0 200 130">
-          <ellipse cx="100" cy="119" rx="84" ry="7" fill="rgba(0,0,0,0.13)"/>
-          <rect x="20" y="101" width="162" height="9" rx="4" fill="#b8cdbd"/>
-          <path d="M84,32 Q84,27 89,27 L181,27 Q188,27 188,34 L188,104 Q188,109 183,109 L89,109 Q84,109 84,104 Z" fill="#fbfbf7" stroke="#3d4a42" stroke-width="2.5"/>
-          <path d="M84,99 L188,99 L188,104 Q188,109 183,109 L89,109 Q84,109 84,104 Z" fill="#c8e7d4" stroke="#3d4a42" stroke-width="2"/>
-          <path d="M13,109 L13,73 Q13,67 18,64 L28,57 Q31,55 35,55 L86,55 L86,109 Z" fill="#c8e7d4" stroke="#3d4a42" stroke-width="2.5"/>
-          <path d="M30,60 Q26,55 26,45 Q26,19 60,14 Q96,12 99,35 L99,60 Z" fill="#c8e7d4" stroke="#3d4a42" stroke-width="2.5"/>
-          <rect x="41" y="30" width="22" height="15" rx="3" fill="#cfe7f5" stroke="#3d4a42" stroke-width="2"/>
-          <path d="M45,42 L55,31" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-          <rect x="31" y="61" width="30" height="25" rx="4" fill="#3f4a56" stroke="#3d4a42" stroke-width="2.5"/>
-          <path d="M36,84 L51,63 M45,85 L59,66" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
-          <path d="M13,66 L6,64 Q3,64 3,67 L3,71 Q3,73 6,72 L13,70 Z" fill="#4a5560" stroke="#3d4a42" stroke-width="1.5"/>
-          <rect x="9" y="98" width="15" height="9" rx="2" fill="#b8cdbd" stroke="#3d4a42" stroke-width="1.5"/>
-          <rect x="13" y="86" width="7" height="9" rx="2" fill="#f5e08a" stroke="#3d4a42" stroke-width="1.5"/>
-          <rect x="98" y="40" width="38" height="69" rx="4" fill="#fbfbf7" stroke="#3d4a42" stroke-width="2.5"/>
-          <rect x="105" y="47" width="24" height="25" rx="3" fill="#cfe7f5" stroke="#3d4a42" stroke-width="2"/>
-          <path d="M109,70 L123,49" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
-          <circle cx="117" cy="87" r="6" fill="#f5c04a" stroke="#3d4a42" stroke-width="1.5"/>
-          <path d="M109,87 L106.5,87 M125,87 L127.5,87 M111,81 L109.2,79.2 M123,81 L124.8,79.2 M111,93 L109.2,94.8 M123,93 L124.8,94.8" stroke="#e8a33d" stroke-width="1.6" stroke-linecap="round"/>
-          <circle cx="114.7" cy="86" r="0.8" fill="#3d4a42"/>
-          <circle cx="119.3" cy="86" r="0.8" fill="#3d4a42"/>
-          <path d="M114.6,89 Q117,91 119.4,89" stroke="#3d4a42" stroke-width="1" fill="none" stroke-linecap="round"/>
-          <rect x="100" y="76" width="4" height="10" rx="2" fill="#3d4a42"/>
-          <circle cx="145" cy="50" r="5.5" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.3"/>
-          <path d="M141,52 L143.5,48 L146,51 L148,47.5 L150,52 Z" fill="#8bb98a"/>
-          <rect x="150" y="44" width="30" height="26" rx="4" fill="#cfe7f5" stroke="#3d4a42" stroke-width="2.5"/>
-          <path d="M154,68 L168,46" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
-          <path d="M165,57.5 c-1.7,-2.1 -5,-0.6 -5,1.9 0,2.5 3,4.2 5,5.9 2,-1.7 5,-3.4 5,-5.9 0,-2.5 -3.3,-4 -5,-1.9 Z" fill="#fff" stroke="#8bb0c4" stroke-width="0.9"/>
-          <rect x="150" y="80" width="17" height="7" rx="2" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.2"/>
-          <rect x="150" y="90" width="11" height="5" rx="2" fill="#eef3ee" stroke="#9db3a4" stroke-width="1.2"/>
-          <circle cx="50" cy="108" r="15" fill="#2f3430"/>
-          <circle cx="50" cy="108" r="7.5" fill="#c9cdc8"/>
-          <path d="M50,102 L50,114 M44,108 L56,108 M46,104 L54,112 M54,104 L46,112" stroke="#2f3430" stroke-width="2"/>
-          <circle cx="150" cy="108" r="15" fill="#2f3430"/>
-          <circle cx="150" cy="108" r="7.5" fill="#c9cdc8"/>
-          <path d="M150,102 L150,114 M144,108 L156,108 M146,104 L154,112 M154,104 L146,112" stroke="#2f3430" stroke-width="2"/>
-        </svg>
       </div>
     </div>
   </section>
@@ -1539,16 +1669,28 @@ ul, ol { list-style: none; }
         </div>
       </div>
       <ul class="p2-price-notes pop">
-        <li><span class="material-icons-round">local_florist</span>GW：4/29〜5/6（2026年度）</li>
-        <li><span class="material-icons-round">wb_sunny</span>夏休み・お盆：7/18〜8/16（2026年度）</li>
-        <li><span class="material-icons-round">ac_unit</span>年末年始：12/25〜1/6（2026年度）</li>
         <li><span class="material-icons-round">sell</span>5泊以上で<strong>レンタル料金10%OFF</strong></li>
-        <li><span class="material-icons-round">warning</span>お盆（8/10〜8/16）・冬休み（12/29〜1/4）は<strong>7泊8日限定</strong>受付</li>
+        <li><span class="material-icons-round">warning</span>2026年度のお盆（8/10〜8/16）・冬休み（12/29〜1/4）は<strong>7泊8日限定</strong>受付</li>
+        <li><span class="material-icons-round">warning</span>2027年度のお盆（8/7〜8/15）・年末年始（12/29〜1/4）は<strong>7日間（6泊7日）以上</strong>から受付</li>
         <li><span class="material-icons-round">schedule</span>お渡し10:00〜／ご返却〜18:00（営業 9:00〜18:00）</li>
         <li><span class="material-icons-round">local_gas_station</span>燃料費は実費精算</li>
         <li><span class="material-icons-round">calculate</span>混在日程は下の仮見積もりで自動計算できます</li>
       </ul>
-      <div class="p2-center pop"><a class="p2-btn p2-btn-big" href="#estimate"><span class="material-icons-round">calculate</span>日程を入れて自動計算</a></div>
+      <!-- ハイシーズン期間（ミニカレンダー・データは main.js の HIGH_SEASONS） -->
+      <div class="hsx pop" id="hsx">
+        <div class="hsx-head">
+          <span class="material-icons-round">wb_sunny</span>
+          <b>ハイシーズン期間</b>
+          <div class="hsx-tabs" id="hsxTabs" role="tablist"></div>
+        </div>
+        <div class="hsx-months" id="hsxMonths"></div>
+        <div class="hsx-foot">
+          <span class="hsx-leg"><i class="hsx-sw hsx-sw-hs"></i>ハイシーズン料金</span>
+          <span class="hsx-leg"><i class="hsx-sw hsx-sw-lim"></i>日数条件あり</span>
+          <span class="hsx-list" id="hsxList"></span>
+        </div>
+      </div>
+      <div class="p2-center pop"><a class="p2-btn p2-btn-big" href="#estimate"><span class="material-icons-round">calculate</span>日程を入れて自動計算</a><button type="button" class="p2-btn p2-btn-white" onclick="openConsultModal(false)"><span class="material-icons-round">chat_bubble</span>料金を相談する</button></div>
     </div>
   </section>
 
@@ -1558,12 +1700,17 @@ ul, ol { list-style: none; }
       <h2 class="section-title animate">キャンピングカーレンタルの保険・免責</h2>
       <p class="section-desc animate">当店は車両保険にも加入。初めての方でも安心してご利用いただけます</p>
       <div class="ins-summary animate">
-        <div class="ins-sum-grid">
-          <div class="ins-sum-item"><span class="material-icons-round">verified_user</span><h3>基本保険込み</h3><p>対人・対物<strong>無制限</strong>／人身傷害3,000万円</p></div>
-          <div class="ins-sum-item"><span class="material-icons-round">star</span><h3>車両保険に加入</h3><p>修理代がいくらでも自己負担は<strong>最大20万円</strong></p></div>
-          <div class="ins-sum-item"><span class="material-icons-round">support_agent</span><h3>ロードサービス完備</h3><p>事故対応・バッテリー上がり・パンク等に対応</p></div>
-          <div class="ins-sum-item"><span class="material-icons-round">health_and_safety</span><h3>自賠責も加入済み</h3><p>強制保険もレンタル料金に込み</p></div>
-        </div>
+        <details class="fold animate">
+          <summary><span class="fold-tag">対人・対物 無制限</span><span class="fold-tag">自己負担 最大20万円</span><span class="fold-tag">ロードサービス込み</span><span class="fold-tag">自賠責も加入済み</span><p class="fold-sum-note">保険の内訳とご利用条件を見る</p></summary>
+          <div class="fold-body">
+          <div class="ins-sum-grid">
+            <div class="ins-sum-item"><span class="material-icons-round">verified_user</span><h3>基本保険込み</h3><p>対人・対物<strong>無制限</strong>／人身傷害3,000万円</p></div>
+            <div class="ins-sum-item"><span class="material-icons-round">star</span><h3>車両保険に加入</h3><p>修理代がいくらでも自己負担は<strong>最大20万円</strong></p></div>
+            <div class="ins-sum-item"><span class="material-icons-round">support_agent</span><h3>ロードサービス完備</h3><p>事故対応・バッテリー上がり・パンク等に対応</p></div>
+            <div class="ins-sum-item"><span class="material-icons-round">health_and_safety</span><h3>自賠責も加入済み</h3><p>強制保険もレンタル料金に込み</p></div>
+          </div>
+          </div>
+        </details>
         <div class="ins-sum-note">
           <span class="material-icons-round">badge</span>
           <p><strong>運転条件：</strong>普通自動車免許（AT限定可）で運転できます。運転される全員の免許証を当日ご持参ください</p>
@@ -1736,13 +1883,16 @@ ul, ol { list-style: none; }
               <span class="course-arrow">→</span>
               <span class="course-spot">店舗（返却）</span>
             </div>
-            <p class="course-desc">世界三大夜景の函館山、噴火湾を望む洞爺湖、地獄谷で有名な登別温泉を巡るコース。歴史ある函館の街歩き・朝市・海鮮グルメも楽しめる贅沢ルート。総走行距離約500km。</p>
+            <p class="course-desc">世界三大夜景の函館山、噴火湾を望む洞爺湖、地獄谷で有名な登別温泉を巡るコース。歴史ある函館の街歩き・朝市・海鮮グルメも楽しめる贅沢ルート。総走行距離約650km。</p>
             <div class="course-tags">
               <span class="course-tag">函館山の夜景</span>
               <span class="course-tag">洞爺湖</span>
               <span class="course-tag">登別温泉</span>
               <span class="course-tag">函館朝市</span>
             </div>
+            <a href="/course/hakodate" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 20px;background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;border-radius:100px;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+              📖 3泊4日 道南コースを見る →
+            </a>
           </div>
         </div>
 
@@ -1791,25 +1941,7 @@ ul, ol { list-style: none; }
   </section>
 
 
-  <!-- コース深掘りカード（新規） -->
-  <section id="course-detail" class="p2-sec p2-sec-tight">
-    <div class="p2-wrap">
-      <p class="p2-label pop">TRIP +α</p>
-      <h2 class="p2-h2 pop">北海道キャンピングカーの旅を深掘る</h2>
-      <div class="p2-hints pop" style="grid-template-columns: 1fr 1fr;">
-        <a class="p2-hint" href="/course/furano">
-          <span class="p2-hint-emoji">🌸</span>
-          <h3>富良野・美瑛 2泊3日 カップル向けモデルコース</h3>
-          <p><i>#ラベンダー</i><i>#青い池</i><i>#パッチワークの路</i></p>
-        </a>
-        <a class="p2-hint" href="/course/shiretoko">
-          <span class="p2-hint-emoji">🐻</span>
-          <h3>道東・知床 5泊6日 世界遺産モデルコース</h3>
-          <p><i>#知床五湖</i><i>#釧路湿原</i><i>#網走</i></p>
-        </a>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- 予約状況カレンダー（現行流用） -->  <section id="calendar" class="section section-gray">
     <div class="container">
@@ -1817,36 +1949,28 @@ ul, ol { list-style: none; }
       <p class="section-desc animate">ご希望の日程・車両を入れると、その場で空き状況がわかります。</p>
 
       <!-- 空き状況チェッカー -->
-      <div class="avail-check animate">
-        <div class="avail-check-head"><span class="material-icons-round">event_available</span>日程を入れて「今すぐ」空き状況をチェック</div>
-        <div class="avail-check-form">
-          <div class="acf"><label>出発日</label><input type="date" id="ac-checkin"></div>
-          <div class="acf"><label>返却日</label><input type="date" id="ac-checkout"></div>
-          <div class="acf"><label>車両</label>
-            <select id="ac-car">
-              <option value="どちらでも可">どちらでも可</option>
-              <option value="HAPPY1 アイスグリーン">アイスグリーン</option>
-              <option value="HAPPY1 カーキ">カーキ</option>
-            </select>
+      <details class="fold animate">
+        <summary><span class="material-icons-round">event_available</span><b>日程を入れて「今すぐ」空き状況をチェック</b><p class="fold-sum-note">出発日と返却日を入れると、その場で空き／満車が分かります</p></summary>
+        <div class="fold-body">
+        <div class="avail-check">
+          <div class="avail-check-form">
+            <div class="acf"><label>出発日</label><input type="date" id="ac-checkin"></div>
+            <div class="acf"><label>返却日</label><input type="date" id="ac-checkout"></div>
+            <div class="acf"><label>車両</label>
+              <select id="ac-car">
+                <option value="どちらでも可">どちらでも可</option>
+                <option value="HAPPY1 アイスグリーン">アイスグリーン</option>
+                <option value="HAPPY1 カーキ">カーキ</option>
+              </select>
+            </div>
+            <button type="button" class="ac-btn" onclick="runAvailCheck()"><span class="material-icons-round">search</span>空き状況を確認</button>
           </div>
-          <button type="button" class="ac-btn" onclick="runAvailCheck()"><span class="material-icons-round">search</span>空き状況を確認</button>
+          <div id="ac-result" class="ac-result" aria-live="polite"></div>
         </div>
-        <div id="ac-result" class="ac-result" aria-live="polite"></div>
-      </div>
+        </div>
+      </details>
 
-      <!-- ハイシーズン期間のご案内 -->
-      <div class="hs-info animate">
-        <div class="hs-info-head"><span class="material-icons-round">wb_sunny</span>ハイシーズン期間のご案内<span class="hs-year">2026年度</span></div>
-        <ul class="hs-chips">
-          <li><em>🌸 GW</em>4/29〜5/6</li>
-          <li><em>☀️ 夏休み</em>7/18〜8/9</li>
-          <li class="hs-lim"><em>🌻 お盆</em>8/10〜8/16<small>7日間のみ受付</small></li>
-          <li><em>🎄 年末</em>12/25〜12/28</li>
-          <li class="hs-lim"><em>🎍 冬休み</em>12/29〜1/4<small>7日間のみ受付</small></li>
-          <li><em>🎍 年始</em>1/5〜1/6</li>
-        </ul>
-        <p class="hs-note">上記期間は<a href="#price">ハイシーズン料金</a>が適用されます（ご予約の空き状況とは関係ありません）</p>
-      </div>
+      <p class="cal-note-clarify" style="margin-top:0">ハイシーズン期間は<a href="#price">料金セクションのカレンダー</a>でご確認いただけます</p>
 
       <!-- 予約状況カレンダー（折りたたみ・全体確認用） -->
       <details class="cal-collapse animate">
@@ -1855,7 +1979,7 @@ ul, ol { list-style: none; }
           <span class="leg"><span class="dot dot-booked"></span>色つきの日＝予約済み（貸出中）</span>
           <span class="leg"><span class="dot dot-open"></span>空白の日＝ご予約可能</span>
         </div>
-        <p class="cal-note-clarify">このカレンダーは<strong>実際の予約状況のみ</strong>を表示しています（ハイシーズンなどの料金区分は含みません）ハイシーズン期間は上の一覧をご確認ください</p>
+        <p class="cal-note-clarify">このカレンダーは<strong>実際の予約状況のみ</strong>を表示しています（ハイシーズンなどの料金区分は含みません）ハイシーズン期間は<a href="#price">料金セクションのカレンダー</a>をご確認ください</p>
 
         <!-- タブ切替ボタン -->
         <div class="cal-tab-wrap">
@@ -1903,8 +2027,8 @@ ul, ol { list-style: none; }
       </details>
 
       <div class="avail-inq-cta-wrap animate">
-        <button type="button" class="avail-inq-btn" onclick="openAvailModal()"><span class="material-icons-round">mail</span>空き状況を問い合わせる（見積り不要）</button>
-        <p style="font-size:.82rem;color:#888;margin-top:8px">ご希望日程の相談・キャンセル待ちなどはこちらから直接ご確認いただけます</p>
+        <button type="button" class="avail-inq-btn" onclick="openAvailModal()"><span class="material-icons-round">mail</span>料金・空き状況を相談する</button>
+        <p style="font-size:.82rem;color:#888;margin-top:8px">日程・料金のご相談やキャンセル待ちは、住所などの入力なしでこちらから</p>
       </div>
 
     </div>
@@ -1918,7 +2042,6 @@ ul, ol { list-style: none; }
     <h2 class="pop">想像を超える北海道へ<br>出発しよう</h2>
     <div class="p2-bigcta-btns pop">
       <a href="#estimate" class="p2-btn p2-btn-big p2-btn-orange"><span class="material-icons-round">calculate</span>見積もりから予約する</a>
-      <a href="#calendar" class="p2-btn p2-btn-big p2-btn-white">空き状況を見る</a>
     </div>
   </section>
 
@@ -1949,7 +2072,7 @@ ul, ol { list-style: none; }
         </div>
         <div id="estFutureYearNotice" class="notice-future-year">
           <span class="material-icons-round">event_busy</span>
-          <p>2027年以降のご予約は別途お電話・メールでお問い合わせください。</p>
+          <p>2028年以降のご予約は別途お電話・メールでお問い合わせください。</p>
         </div>
         <div class="est-options-section">
           <div class="est-options-title"><span class="material-icons-round">tune</span>オプション選択（任意）</div>
@@ -2024,6 +2147,8 @@ ul, ol { list-style: none; }
           <div class="est-to-form-wrap">
             <button type="button" id="est-attach-btn" class="est-attach-btn" onclick="attachEstimateToForm()"><span class="material-icons-round">attach_file</span>予約フォームに添付する</button>
             <div id="est-attach-done" class="est-attach-hint" style="display:none;"><span class="material-icons-round">check_circle</span>添付しました。下のフォームへ自動入力されています。</div>
+            <button type="button" class="est-consult-btn" onclick="openConsultModal(true)"><span class="material-icons-round">chat_bubble</span>この内容で相談する</button>
+            <p class="est-consult-hint">金額・日程の調整もご相談ください。この画面の日程と合計目安をそのままお預かりします</p>
           </div>
         </div>
       </div>
@@ -2038,8 +2163,11 @@ ul, ol { list-style: none; }
       <p class="section-desc section-desc-white animate">必要事項をご入力の上、お申し込みください。仮予約後、スタッフよりお電話確認いたします。</p>
       <div id="formFutureYearNotice" class="notice-future-year">
         <span class="material-icons-round">event_busy</span>
-        <p>2027年以降のご予約は別途お電話・メールでお問い合わせください。</p>
+        <p>2028年以降のご予約は別途お電話・メールでお問い合わせください。</p>
       </div>
+      <details class="fold rsv-fold animate" id="rsvFold">
+        <summary><span class="material-icons-round">edit_calendar</span><b>予約フォームを開く</b><p class="fold-sum-note">お名前・ご住所・お支払い方法などをご入力いただきます（仮見積もりの添付が必要です）</p></summary>
+        <div class="fold-body">
       <form id="contact-form" class="contact-form" action="https://formspree.io/f/mdaboaka" method="POST" novalidate>
         <div class="form-est-attach-wrap">
           <div id="form-est-attach-empty" class="form-est-attach-empty">
@@ -2229,6 +2357,8 @@ ul, ol { list-style: none; }
           <button type="submit" class="btn btn-submit"><span class="material-icons-round">send</span>仮予約を申し込む</button>
         </div>
       </form>
+        </div>
+      </details>
       <div class="contact-methods animate" style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:48px;padding-top:36px;border-top:1px solid rgba(255,255,255,0.2);">
         <a href="tel:050-1720-6116" class="btn btn-primary" style="font-size:1.05rem;padding:16px 30px"><span class="material-icons-round">phone</span>050-1720-6116</a>
         <a href="mailto:info@green-rentacar.net" class="btn btn-secondary" style="font-size:1rem;padding:16px 30px"><span class="material-icons-round">mail</span>info@green-rentacar.net</a>
@@ -2279,7 +2409,10 @@ ul, ol { list-style: none; }
         <div class="access-card"><span class="material-icons-round">schedule</span><div><h4>営業時間</h4><p>9:00〜18:00</p></div></div>
         <div class="access-card"><span class="material-icons-round">directions_car</span><div><h4>マイカー預かり</h4><p>キャンピングカー1台につき<br>お車1台を<strong>無料</strong>でお預かり</p></div></div>
       </div>
-      <div class="company-table-wrap animate">
+      <details class="fold animate company-fold">
+        <summary><span class="material-icons-round">business</span><b>会社概要・運営者情報</b><p class="fold-sum-note">運営元・所在地・電話・取扱車両・配車などの詳細</p></summary>
+        <div class="fold-body">
+      <div class="company-table-wrap">
         <table class="company-table">
           <tr><th>店舗名</th><td>グリーンレンタカー 北海道店</td></tr>
           <tr><th>運営元</th><td>株式会社TOWA AUTO（トーワオート）</td></tr>
@@ -2293,6 +2426,8 @@ ul, ol { list-style: none; }
           <tr><th>大阪本店</th><td><a href="https://green-rentacar.net" target="_blank" rel="noopener">green-rentacar.net</a></td></tr>
         </table>
       </div>
+        </div>
+      </details>
       <div class="company-map animate" style="max-width: 720px; margin: 40px auto 0; border-radius: 10px; overflow: hidden;">
         <iframe
           src="https://maps.google.com/maps?q=%E5%8C%97%E6%B5%B7%E9%81%93%E6%9C%AD%E5%B9%8C%E5%B8%82%E7%99%BD%E7%9F%B3%E5%8C%BA%E5%8C%97%E9%83%B7%E4%BA%94%E6%9D%A18%E4%B8%81%E7%9B%AE10%E7%95%AA18%E5%8F%B7&output=embed"
@@ -2381,7 +2516,9 @@ ul, ol { list-style: none; }
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260819"></script>
+  <script src="js/main.js?v=20260906f"></script>
+  <script src="js/hs-cal.js?v=20260906f" defer></script>
+  <script src="js/fold.js?v=20260906f" defer></script>
   <script>
     /* ===== カレンダータブ切替 ===== */
     function switchCal(idx) {
@@ -2638,8 +2775,8 @@ ul, ol { list-style: none; }
     <div class="avail-modal-box">
       <button class="avail-close-x" onclick="closeAvailModal()" aria-label="閉じる">✕</button>
       <div id="avail-form-view">
-        <h3 id="avail-modal-title"><span class="material-icons-round">event_available</span>空き状況のお問い合わせ</h3>
-        <p class="lead">ご希望の日程・車両をお送りください。担当者が空き状況を確認し、通常1営業日以内にご返信します（お見積りは不要です）。</p>
+        <h3 id="avail-modal-title"><span class="material-icons-round">chat_bubble</span>料金・空き状況のご相談</h3>
+        <p class="lead">ご希望の日程・車両をお送りください。担当者が空き状況を確認し、通常2営業日以内にご返信します（お見積りは不要です）。</p>
         <form id="avail-form" novalidate>
           <div class="avail-field">
             <label>お名前</label>
@@ -2675,12 +2812,13 @@ ul, ol { list-style: none; }
       <div id="avail-done-view" class="avail-modal-done" style="display:none">
         <span class="material-icons-round">check_circle</span>
         <h3 style="justify-content:center;color:#43a047">送信しました</h3>
-        <p class="lead">お問い合わせありがとうございます。担当者が空き状況を確認し、通常1営業日以内にご返信いたします。</p>
+        <p class="lead">お問い合わせありがとうございます。担当者が空き状況を確認し、通常2営業日以内にご返信いたします。</p>
         <div class="avail-modal-actions"><button type="button" class="avail-send-btn" onclick="closeAvailModal()">閉じる</button></div>
       </div>
     </div>
   </div>
 
-  <script src="js/lp2.js?v=20260819"></script>
+  <script src="js/lp2.js?v=20260906f"></script>
+  <script src="js/journey.js?v=20260906f" defer></script>
 </body>
 </html>

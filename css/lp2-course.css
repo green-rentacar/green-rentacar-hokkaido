@@ -178,3 +178,25 @@
   .pc-day-body { padding: 20px 16px; }
   .pc-tl li { gap: 12px; }
 }
+
+/* ---------- コースFAQ ---------- */
+.pc-faq { display: grid; gap: 14px; max-width: 880px; margin: 0 auto; }
+.pc-faq-item {
+  background: #fff; border: 2px solid var(--p2-line); border-radius: 22px;
+  box-shadow: 0 4px 0 var(--p2-line); overflow: hidden;
+}
+.pc-faq-item > summary {
+  list-style: none; cursor: pointer; display: flex; gap: 12px; align-items: flex-start;
+  padding: 20px 22px; font: 800 15px/1.65 var(--p2-round); color: var(--p2-ink);
+}
+.pc-faq-item > summary::-webkit-details-marker { display: none; }
+.pc-faq-item > summary .material-icons-round { color: var(--p2-green); font-size: 22px; flex: 0 0 auto; }
+.pc-faq-item > summary .pc-faq-mark { margin-left: auto; color: var(--p2-line); transition: transform 0.25s ease; }
+.pc-faq-item[open] > summary .pc-faq-mark { transform: rotate(180deg); }
+.pc-faq-a { padding: 0 22px 22px 56px; font: 500 14px/1.95 var(--p2-round); color: #46543f; }
+@media (max-width: 640px) {
+  .pc-faq-item > summary { padding: 16px 18px; font-size: 14px; gap: 10px; }
+  .pc-faq-a { padding: 0 18px 18px 18px; font-size: 13px; }
+}
+
+.pc-hero h1.pc-h1-long { font-size: clamp(28px, 5.1vw, 56px); }
