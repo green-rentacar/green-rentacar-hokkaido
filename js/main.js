@@ -292,6 +292,27 @@ async function fetchAddress(digits) {
 // ===== Google Apps Script URL =====
 const APPS_SCRIPT_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.workers.dev';
 
+// ===== GAS読み取り（GET）共通：時間切れ・読めない応答（Google側の一時エラーページ等）は待って再試行 =====
+// ※予約送信（POST）には使わない（二重登録防止）
+async function gasGetJson(url, attempts = 3, timeoutMs = 15000) {
+  let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, { redirect: 'follow', signal: ctrl.signal });
+      const text = await res.text();
+      return JSON.parse(text);
+    } catch (e) {
+      lastErr = e;
+      if (i < attempts - 1) await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  throw lastErr;
+}
+
 // ===== 空き確認エラー：上部バナー表示 =====
 function showAvailErrorBanner(message) {
   // 既存バナーを削除
@@ -430,9 +451,7 @@ function showAvailErrorBanner(message) {
 
       let availData = { available: true };
       try {
-        const availRes  = await fetch(availUrl, { redirect: 'follow' });
-        const availText = await availRes.text();
-        availData = JSON.parse(availText);
+        availData = await gasGetJson(availUrl, 2);
       } catch (availErr) {
         console.warn('空き確認スキップ（通信エラー）:', availErr);
       }
@@ -644,8 +663,37 @@ function isPeak(date) {
   return HIGH_SEASONS.some(s => key >= s.s && key <= s.e);
 }
 
+// 祝日（2026〜2030）振替休日・国民の休日を含む。5年ごとに要更新。
+const HOLIDAYS = new Set([
+  '2026-01-01', '2026-01-12', '2026-02-11', '2026-02-23', '2026-03-20',
+  '2026-04-29', '2026-05-03', '2026-05-04', '2026-05-05', '2026-05-06',
+  '2026-07-20', '2026-08-11', '2026-09-21', '2026-09-22', '2026-09-23',
+  '2026-10-12', '2026-11-03', '2026-11-23', '2027-01-01', '2027-01-11',
+  '2027-02-11', '2027-02-23', '2027-03-21', '2027-03-22', '2027-04-29',
+  '2027-05-03', '2027-05-04', '2027-05-05', '2027-07-19', '2027-08-11',
+  '2027-09-20', '2027-09-23', '2027-10-11', '2027-11-03', '2027-11-23',
+  '2028-01-01', '2028-01-10', '2028-02-11', '2028-02-23', '2028-03-20',
+  '2028-04-29', '2028-05-03', '2028-05-04', '2028-05-05', '2028-07-17',
+  '2028-08-11', '2028-09-18', '2028-09-22', '2028-10-09', '2028-11-03',
+  '2028-11-23', '2029-01-01', '2029-01-08', '2029-02-11', '2029-02-12',
+  '2029-02-23', '2029-03-20', '2029-04-29', '2029-04-30', '2029-05-03',
+  '2029-05-04', '2029-05-05', '2029-07-16', '2029-08-11', '2029-09-17',
+  '2029-09-23', '2029-09-24', '2029-10-08', '2029-11-03', '2029-11-23',
+  '2030-01-01', '2030-01-14', '2030-02-11', '2030-02-23', '2030-03-20',
+  '2030-04-29', '2030-05-03', '2030-05-04', '2030-05-05', '2030-05-06',
+  '2030-07-15', '2030-08-11', '2030-08-12', '2030-09-16', '2030-09-23',
+  '2030-10-14', '2030-11-03', '2030-11-04', '2030-11-23'
+]);
+
+function isHoliday(date) {
+  const k = date.getFullYear() + '-'
+    + String(date.getMonth() + 1).padStart(2, '0') + '-'
+    + String(date.getDate()).padStart(2, '0');
+  return HOLIDAYS.has(k);
+}
+
 function isWeekend(date) {
-  return date.getDay() === 0 || date.getDay() === 6;
+  return date.getDay() === 0 || date.getDay() === 6 || isHoliday(date);
 }
 
 function formatYen(amount) {
@@ -1255,8 +1303,7 @@ async function lookupCancel() {
 
   try {
     const url = APPS_SCRIPT_URL + '?action=cancel_info&receiptNo=' + encodeURIComponent(receiptNo) + '&email=' + encodeURIComponent(email);
-    const res = await fetch(url, { redirect: 'follow' });
-    const data = await res.json();
+    const data = await gasGetJson(url);
 
     if (!data.ok) {
       errEl.textContent = data.message || '予約が見つかりません。';
@@ -1368,8 +1415,7 @@ async function _acQuery(ci, co, car) {
     + '&checkin=' + encodeURIComponent(ci)
     + '&checkout=' + encodeURIComponent(co)
     + '&car=' + encodeURIComponent(car);
-  const res = await fetch(url, { redirect: 'follow' });
-  return JSON.parse(await res.text());
+  return gasGetJson(url);
 }
 function acGoEstimate(ci, co, car) {
   const e1 = document.getElementById('est-checkin');

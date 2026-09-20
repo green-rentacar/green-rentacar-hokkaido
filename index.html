@@ -76,7 +76,7 @@
       {
         "@type": "Question",
         "name": "ペット同伴はOKですか？",
-        "acceptedAnswer": { "@type": "Answer", "text": "はい、可能です。小型犬2匹、または中・大型犬1匹まで同乗いただけます。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。" }
+        "acceptedAnswer": { "@type": "Answer", "text": "はい、可能です。小型犬2匹まで、または中型犬1匹まで同乗いただけます（中型犬は成犬で体重25kg程度まで。大型犬はご遠慮いただいております）。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。" }
       },
       {
         "@type": "Question",
@@ -1174,10 +1174,10 @@ ul, ol { list-style: none; }
       .ps-sub-grid img { border-radius: 10px; }
     }
   </style>
-  <link rel="stylesheet" href="css/lp2.css?v=20260906f">
-  <link rel="stylesheet" href="css/hs-cal.css?v=20260906f">
-  <link rel="stylesheet" href="css/fold.css?v=20260906f">
-  <link rel="stylesheet" href="css/journey.css?v=20260906f">
+  <link rel="stylesheet" href="css/lp2.css?v=20260910a">
+  <link rel="stylesheet" href="css/hs-cal.css?v=20260910a">
+  <link rel="stylesheet" href="css/fold.css?v=20260910a">
+  <link rel="stylesheet" href="css/journey.css?v=20260910a">
 <style>@media(max-width:640px){.h1-sep{display:block;height:0;overflow:hidden}}</style>
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/favicon.png">
@@ -2381,7 +2381,7 @@ ul, ol { list-style: none; }
       <div class="faq-list">
         <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>普通免許で運転できますか？</span></summary><p>はい、普通自動車免許（AT限定可）で運転していただけます。ご運転は18歳〜75歳未満で、免許取得から1年以上経過している方に限らせていただきます。</p></details>
         <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>新千歳空港から店舗へのアクセス方法は？</span></summary><p>店舗（札幌市白石区）は新千歳空港から車で約35分です。<strong>新札幌駅までは無料でお迎え</strong>にあがります。また、新千歳空港へ車両をお届けする配車サービス（¥16,500/1回）もご利用いただけます。</p></details>
-        <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>ペット同伴はOKですか？</span></summary><p>はい、可能です！小型犬2匹、または中・大型犬1匹まで同乗いただけます。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。</p></details>
+        <details class="faq-item animate d1"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>ペット同伴はOKですか？</span></summary><p>はい、可能です！小型犬2匹まで、または中型犬1匹まで同乗いただけます（中型犬は成犬で体重25kg程度まで。大型犬はご遠慮いただいております）。ご利用の際は事前申告をお願いしております。走行中はケージに入れていただき、車外ではリードの着用をお願いいたします。</p></details>
         <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>車内での宿泊は本当に快適ですか？</span></summary><p>大人4名様まで就寝可能なフルフラットベッドを展開できます。人数分の寝袋や毛布、マットレスを無料でご用意。冬季はFFヒーターを完備しておりポカポカです。</p></details>
         <details class="faq-item animate d2"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>保険はありますか？</span></summary><p>基本料金に自動車保険（対人・対物無制限 ※対物免責¥150,000）が含まれております。万が一の事故時は免責金額（¥150,000）をお客様にご負担いただきます。</p></details>
         <details class="faq-item animate d3"><summary><span class="faq-q"><span class="material-icons-round">help_outline</span>宿を予約しなくても旅ができるって本当？</span></summary><p>はい、本当です。キャンピングカーがあれば"宿ごと移動"できるので、旅行のたびに宿を探したり予約を取る必要がありません。</p></details>
@@ -2516,9 +2516,9 @@ ul, ol { list-style: none; }
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260906f"></script>
-  <script src="js/hs-cal.js?v=20260906f" defer></script>
-  <script src="js/fold.js?v=20260906f" defer></script>
+  <script src="js/main.js?v=20260915a"></script>
+  <script src="js/hs-cal.js?v=20260910a" defer></script>
+  <script src="js/fold.js?v=20260910a" defer></script>
   <script>
     /* ===== カレンダータブ切替 ===== */
     function switchCal(idx) {
@@ -2545,6 +2545,7 @@ ul, ol { list-style: none; }
         e.preventDefault();
         var err=document.getElementById('avail-err'); err.style.display='none';
         var fd=new FormData(f);
+        if(fd.get('_gotcha')){ document.getElementById('avail-form-view').style.display='none'; document.getElementById('avail-done-view').style.display='block'; return; } // ハニーポット：ロボットは送信せず完了表示だけ
         var ci=fd.get('ご希望開始日'), co=fd.get('ご希望終了日');
         if(!fd.get('お名前')||!fd.get('メールアドレス')||!ci||!co){ err.textContent='お名前・メールアドレス・ご希望日程は必須です'; err.style.display='block'; return; }
         if(co<ci){ err.textContent='終了日は開始日以降の日付を選んでください'; err.style.display='block'; return; }
@@ -2778,6 +2779,7 @@ ul, ol { list-style: none; }
         <h3 id="avail-modal-title"><span class="material-icons-round">chat_bubble</span>料金・空き状況のご相談</h3>
         <p class="lead">ご希望の日程・車両をお送りください。担当者が空き状況を確認し、通常2営業日以内にご返信します（お見積りは不要です）。</p>
         <form id="avail-form" novalidate>
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="avail-field">
             <label>お名前</label>
             <input type="text" name="お名前" required placeholder="山田 太郎">
@@ -2818,7 +2820,7 @@ ul, ol { list-style: none; }
     </div>
   </div>
 
-  <script src="js/lp2.js?v=20260906f"></script>
-  <script src="js/journey.js?v=20260906f" defer></script>
+  <script src="js/lp2.js?v=20260910a"></script>
+  <script src="js/journey.js?v=20260910a" defer></script>
 </body>
 </html>
