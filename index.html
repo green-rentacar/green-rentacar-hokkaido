@@ -1174,10 +1174,28 @@ ul, ol { list-style: none; }
       .ps-sub-grid img { border-radius: 10px; }
     }
   </style>
-  <link rel="stylesheet" href="css/lp2.css?v=20260910a">
+  <!-- 季節の切り替え：<html data-season="default|autumn|winter">（ヒーローとストーリーで使う）。
+       ?season=autumn などのURLパラメータで強制的にプレビューできる。
+       パラメータが無ければ日付から自動判定。北海道は秋も冬も早いので
+       10月=秋・11〜3月=冬・4〜9月=通常（大阪本店とは時期が違う）。 -->
+  <script>
+    (function () {
+      var forced = new URLSearchParams(location.search).get('season');
+      var season = 'default';
+      if (forced === 'autumn' || forced === 'winter' || forced === 'default') {
+        season = forced;
+      } else {
+        var month = new Date().getMonth() + 1;
+        if (month === 10) season = 'autumn';
+        else if (month >= 11 || month <= 3) season = 'winter';
+      }
+      document.documentElement.setAttribute('data-season', season);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/lp2.css?v=20260924a">
   <link rel="stylesheet" href="css/hs-cal.css?v=20260910a">
   <link rel="stylesheet" href="css/fold.css?v=20260910a">
-  <link rel="stylesheet" href="css/journey.css?v=20260910a">
+  <link rel="stylesheet" href="css/journey.css?v=20260924a">
 <style>@media(max-width:640px){.h1-sep{display:block;height:0;overflow:hidden}}</style>
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/favicon.png">
@@ -1186,6 +1204,28 @@ ul, ol { list-style: none; }
     #hero.p2-hero { background: linear-gradient(to bottom, #aednf0 0%, #cde9f6 55%, #eef5ee 100%); background: linear-gradient(to bottom, #a8d8ef 0%, #cde9f6 55%, #eef5ee 100%); }
     .p2h-hills path.h1 { fill: #dfece2; }
     .p2h-hills path.h2 { fill: #b9d8c2; }
+    /* 季節バージョン（<html data-season>）：北海道の景色の色分け */
+    .p2-sun { background: #ffe49a; box-shadow: 0 0 0 18px rgba(255,228,154,0.25), 0 0 0 36px rgba(255,228,154,0.12); }
+    /* 秋：大雪山は「頂上に初雪・山肌は紅葉」、富良野の畑は収穫後の黄金色 */
+    [data-season="autumn"] #hero.p2-hero { background: linear-gradient(to bottom, #a9cfe6 0%, #f3d9a8 55%, #fbe7c8 100%); }
+    [data-season="autumn"] .p2-sun { background: #ff9d4d; box-shadow: 0 0 0 18px rgba(255,157,77,0.28), 0 0 0 36px rgba(255,157,77,0.14); }
+    [data-season="autumn"] .p2-hill-mtn1 { fill: #b8693a; }
+    [data-season="autumn"] .p2-hill-mtn2 { fill: #c98a4c; }
+    [data-season="autumn"] .p2-hill-mtn3 { fill: #d49a58; }
+    [data-season="autumn"] .p2h-hills path.h1 { fill: #e8c06a; }
+    [data-season="autumn"] .p2-field { fill: #e3b04b; }
+    [data-season="autumn"] .p2-field-row { stroke: #c98f2e; }
+    [data-season="autumn"] .p2h-hills path.h2 { fill: #d1863f; }
+    /* 冬：一面の雪景色。雪空なので太陽は出さない */
+    [data-season="winter"] #hero.p2-hero { background: linear-gradient(to bottom, #cfe3f0 0%, #e9f4fa 55%, #ffffff 100%); }
+    [data-season="winter"] .p2-sun { display: none; }
+    [data-season="winter"] .p2-hill-mtn1 { fill: #8fa6ba; }
+    [data-season="winter"] .p2-hill-mtn2 { fill: #a3b6c8; }
+    [data-season="winter"] .p2-hill-mtn3 { fill: #b0c1d1; }
+    [data-season="winter"] .p2h-hills path.h1 { fill: #eef3f6; }
+    [data-season="winter"] .p2-field { fill: #f6f9fb; }
+    [data-season="winter"] .p2-field-row { stroke: #d8e4ec; }
+    [data-season="winter"] .p2h-hills path.h2 { fill: #dce8ee; }
     .p2-van .wave1 { fill: #7fb8c9; }
     .p2-van .wave2 { fill: #9db8a4; }
   </style>
@@ -1248,7 +1288,7 @@ ul, ol { list-style: none; }
   <!-- ヒーロー：クラフト紙の空と雪の丘 -->
   <section id="hero" class="p2-hero">
     <div class="p2-craft"></div>
-    <div class="p2-sun" style="background:#ffe49a; box-shadow:0 0 0 18px rgba(255,228,154,0.25), 0 0 0 36px rgba(255,228,154,0.12)"></div>
+    <div class="p2-sun"></div>
     <div class="p2-cloud p2-cloud1"></div>
     <div class="p2-cloud p2-cloud2"></div>
     <div class="p2-cloud p2-cloud3"></div>
@@ -1264,19 +1304,22 @@ ul, ol { list-style: none; }
     </div>
     <svg class="p2-hills p2h-hills" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
       <!-- 雪冠の山脈（大雪山イメージ） -->
-      <path d="M60,200 L210,72 L360,200 Z" fill="#9fb3c8"/>
+      <path class="p2-hill-mtn1" d="M60,200 L210,72 L360,200 Z" fill="#9fb3c8"/>
       <path d="M172,105 L210,72 L248,105 L233,97 L221,111 L210,99 L198,111 L186,97 Z" fill="#f6fbf7"/>
-      <path d="M280,200 L400,100 L520,200 Z" fill="#aebfd2"/>
+      <path class="p2-hill-mtn2" d="M280,200 L400,100 L520,200 Z" fill="#aebfd2"/>
       <path d="M370,125 L400,100 L430,125 L418,118 L409,129 L400,120 L390,129 L381,118 Z" fill="#f6fbf7"/>
-      <path d="M0,200 L110,115 L230,200 Z" fill="#b4c3d4"/>
+      <path class="p2-hill-mtn3" d="M0,200 L110,115 L230,200 Z" fill="#b4c3d4"/>
       <path d="M83,136 L110,115 L137,136 L126,130 L118,140 L110,132 L101,140 L93,130 Z" fill="#f6fbf7"/>
+      <!-- 冬限定：山肌のゲレンデ -->
+      <path class="p2-winter-deco p2-piste" d="M210,108 L199,124 L217,138 L205,152" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="p2-winter-deco p2-piste" d="M400,128 L391,142 L409,154 L398,166" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       <path class="h1" d="M0,190 C200,90 400,210 720,170 C1020,135 1200,225 1440,150 L1440,320 L0,320 Z" fill="#dfece2"/>
       <!-- ラベンダー畑の丘（富良野イメージ） -->
-      <path d="M880,252 Q1100,148 1440,190 L1440,272 Q1120,236 880,252 Z" fill="#c9b2e2"/>
-      <path d="M920,240 Q1130,158 1440,197" stroke="#a888cf" stroke-width="7" fill="none"/>
-      <path d="M950,246 Q1160,172 1440,212" stroke="#a888cf" stroke-width="7" fill="none"/>
-      <path d="M990,252 Q1190,188 1440,228" stroke="#a888cf" stroke-width="7" fill="none"/>
-      <path d="M1040,256 Q1230,204 1440,244" stroke="#a888cf" stroke-width="7" fill="none"/>
+      <path class="p2-field" d="M880,252 Q1100,148 1440,190 L1440,272 Q1120,236 880,252 Z" fill="#c9b2e2"/>
+      <path d="M920,240 Q1130,158 1440,197" class="p2-field-row" stroke="#a888cf" stroke-width="7" fill="none"/>
+      <path d="M950,246 Q1160,172 1440,212" class="p2-field-row" stroke="#a888cf" stroke-width="7" fill="none"/>
+      <path d="M990,252 Q1190,188 1440,228" class="p2-field-row" stroke="#a888cf" stroke-width="7" fill="none"/>
+      <path d="M1040,256 Q1230,204 1440,244" class="p2-field-row" stroke="#a888cf" stroke-width="7" fill="none"/>
       <!-- 札幌時計台 -->
       <g transform="translate(545,142)">
         <rect x="10" y="60" width="100" height="72" fill="#fbfbf7" stroke="#3d4a42" stroke-width="2.5"/>
@@ -1289,8 +1332,18 @@ ul, ol { list-style: none; }
         <rect x="24" y="78" width="14" height="22" fill="#a9cfe4" stroke="#3d4a42" stroke-width="2"/>
         <rect x="53" y="78" width="14" height="22" fill="#a9cfe4" stroke="#3d4a42" stroke-width="2"/>
         <rect x="82" y="78" width="14" height="22" fill="#a9cfe4" stroke="#3d4a42" stroke-width="2"/>
+        <!-- 冬限定：屋根に積もった雪 -->
+        <path class="p2-winter-deco" d="M-3,59 L60,19 L123,59 L117,62 Q90,46 60,27 Q30,46 3,62 Z" fill="#fff"/>
+        <path class="p2-winter-deco" d="M32,-14 L60,-38 L88,-14 L83,-11 Q72,-21 60,-31 Q48,-21 37,-11 Z" fill="#fff"/>
       </g>
       <path class="h2" d="M0,260 C300,200 560,280 860,240 C1160,200 1300,270 1440,240 L1440,320 L0,320 Z" fill="#b9d8c2"/>
+      <!-- 冬限定：ゲレンデ気分の雪だるまとモミの木 -->
+      <text class="p2-winter-deco" x="372" y="252" font-size="32" text-anchor="middle">🌲</text>
+      <text class="p2-winter-deco" x="452" y="268" font-size="76" text-anchor="middle">⛄</text>
+      <text class="p2-winter-deco" x="524" y="262" font-size="26" text-anchor="middle">🌲</text>
+      <text class="p2-winter-deco" x="862" y="258" font-size="30" text-anchor="middle">🌲</text>
+      <text class="p2-winter-deco" x="918" y="266" font-size="24" text-anchor="middle">🌲</text>
+      <text class="p2-winter-deco" x="1392" y="240" font-size="28" text-anchor="middle">🌲</text>
       <path d="M0,300 L1440,300 L1440,320 L0,320 Z" fill="#5b5b56"/>
       <path d="M0,308 L60,308 L60,312 L0,312 Z M120,308 L180,308 L180,312 L120,312 Z M240,308 L300,308 L300,312 L240,312 Z M360,308 L420,308 L420,312 L360,312 Z M480,308 L540,308 L540,312 L480,312 Z M600,308 L660,308 L660,312 L600,312 Z M720,308 L780,308 L780,312 L720,312 Z M840,308 L900,308 L900,312 L840,312 Z M960,308 L1020,308 L1020,312 L960,312 Z M1080,308 L1140,308 L1140,312 L1080,312 Z M1200,308 L1260,308 L1260,312 L1200,312 Z M1320,308 L1380,308 L1380,312 L1320,312 Z" fill="#fff" opacity="0.8"/>
     </svg>
@@ -1359,6 +1412,52 @@ ul, ol { list-style: none; }
           <circle cx="150" cy="108" r="7.5" fill="#c9cdc8"/>
           <path d="M150,102 L150,114 M144,108 L156,108 M146,104 L154,112 M154,104 L146,112" stroke="#2f3430" stroke-width="2"/>
         </svg>
+    </div>
+    <!-- 秋：落ち葉が舞う演出（data-season="autumn" のときだけCSSで表示） -->
+    <div class="p2-leaves" aria-hidden="true">
+      <span style="left:2%; animation-duration:11s; animation-delay:-1s;">🍁</span>
+      <span style="left:8%; animation-duration:8.5s; animation-delay:-6.5s; font-size:16px;">🍂</span>
+      <span style="left:14%; animation-duration:9s; animation-delay:-4s;">🍂</span>
+      <span style="left:20%; animation-duration:12.5s; animation-delay:-3s; font-size:18px;">🍁</span>
+      <span style="left:24%; animation-duration:13s; animation-delay:-7s;">🍁</span>
+      <span style="left:30%; animation-duration:9.8s; animation-delay:-9.5s; font-size:16px;">🍂</span>
+      <span style="left:36%; animation-duration:10s; animation-delay:-2s;">🍂</span>
+      <span style="left:42%; animation-duration:11.2s; animation-delay:-5.5s; font-size:19px;">🍁</span>
+      <span style="left:48%; animation-duration:12s; animation-delay:-9s;">🍁</span>
+      <span style="left:53%; animation-duration:8.8s; animation-delay:-1.5s; font-size:17px;">🍂</span>
+      <span style="left:58%; animation-duration:9.5s; animation-delay:-5s;">🍂</span>
+      <span style="left:63%; animation-duration:13.2s; animation-delay:-8.5s; font-size:18px;">🍁</span>
+      <span style="left:68%; animation-duration:11.5s; animation-delay:-3s;">🍁</span>
+      <span style="left:73%; animation-duration:10.3s; animation-delay:-6s; font-size:16px;">🍂</span>
+      <span style="left:78%; animation-duration:10.5s; animation-delay:-8s;">🍂</span>
+      <span style="left:83%; animation-duration:9.2s; animation-delay:-2.5s; font-size:19px;">🍁</span>
+      <span style="left:88%; animation-duration:13.5s; animation-delay:-6s;">🍁</span>
+      <span style="left:91%; animation-duration:11.8s; animation-delay:-4.5s; font-size:17px;">🍂</span>
+      <span style="left:94%; animation-duration:9s; animation-delay:-10s;">🍂</span>
+      <span style="left:97%; animation-duration:12.8s; animation-delay:-7.5s; font-size:18px;">🍁</span>
+    </div>
+    <!-- 冬：雪が降る演出（data-season="winter" のときだけCSSで表示） -->
+    <div class="p2-snow" aria-hidden="true">
+      <span style="left:2%; animation-duration:8s; animation-delay:-1s;"></span>
+      <span style="left:10%; animation-duration:11s; animation-delay:-5s;"></span>
+      <span style="left:18%; animation-duration:7s; animation-delay:-3s;"></span>
+      <span style="left:26%; animation-duration:9.5s; animation-delay:-7s;"></span>
+      <span style="left:34%; animation-duration:6.5s; animation-delay:-2s;"></span>
+      <span style="left:42%; animation-duration:10s; animation-delay:-9s;"></span>
+      <span style="left:50%; animation-duration:8.5s; animation-delay:-4s;"></span>
+      <span style="left:58%; animation-duration:7.5s; animation-delay:-6s;"></span>
+      <span style="left:66%; animation-duration:9s; animation-delay:-1.5s;"></span>
+      <span style="left:74%; animation-duration:11.5s; animation-delay:-8s;"></span>
+      <span style="left:82%; animation-duration:6.8s; animation-delay:-3.5s;"></span>
+      <span style="left:90%; animation-duration:10.5s; animation-delay:-5.5s;"></span>
+      <span style="left:96%; animation-duration:8s; animation-delay:-0.5s;"></span>
+      <span style="left:6%; animation-duration:9.8s; animation-delay:-6.5s;"></span>
+      <span style="left:22%; animation-duration:7.2s; animation-delay:-9.5s;"></span>
+      <span style="left:38%; animation-duration:11s; animation-delay:-2.5s;"></span>
+      <span style="left:54%; animation-duration:8.2s; animation-delay:-7.5s;"></span>
+      <span style="left:70%; animation-duration:9.3s; animation-delay:-4.5s;"></span>
+      <span style="left:86%; animation-duration:6.3s; animation-delay:-10.5s;"></span>
+      <span style="left:98%; animation-duration:10.8s; animation-delay:-1.2s;"></span>
     </div>
     <div class="p2-scroll-cue"><span class="material-icons-round">arrow_downward</span>スクロールして出発</div>
   </section>
@@ -1467,6 +1566,40 @@ ul, ol { list-style: none; }
               <path d="M150,102 L150,114 M144,108 L156,108 M146,104 L154,112 M154,104 L146,112" stroke="#2f3430" stroke-width="2"/>
             </g>
           </svg>
+        </div>
+
+        <!-- 秋：落ち葉／冬：雪（季節のときだけ表示。夕景・夜の色がかぶるよう jr-grade より前に置く） -->
+        <div class="p2-leaves">
+          <span style="left:3%; animation-duration:10s; animation-delay:-2s;">🍁</span>
+          <span style="left:11%; animation-duration:12.5s; animation-delay:-7s; font-size:18px;">🍂</span>
+          <span style="left:19%; animation-duration:9s; animation-delay:-4.5s;">🍁</span>
+          <span style="left:28%; animation-duration:11.5s; animation-delay:-9s; font-size:17px;">🍂</span>
+          <span style="left:37%; animation-duration:10.5s; animation-delay:-1s;">🍁</span>
+          <span style="left:46%; animation-duration:13s; animation-delay:-6s; font-size:19px;">🍂</span>
+          <span style="left:55%; animation-duration:9.5s; animation-delay:-3s;">🍁</span>
+          <span style="left:64%; animation-duration:12s; animation-delay:-8.5s; font-size:16px;">🍂</span>
+          <span style="left:72%; animation-duration:10s; animation-delay:-5s;">🍁</span>
+          <span style="left:80%; animation-duration:11s; animation-delay:-0.5s; font-size:18px;">🍂</span>
+          <span style="left:88%; animation-duration:13.5s; animation-delay:-10s;">🍁</span>
+          <span style="left:96%; animation-duration:9.8s; animation-delay:-3.5s; font-size:17px;">🍂</span>
+        </div>
+        <div class="p2-snow">
+          <span style="left:3%; animation-duration:8s; animation-delay:-1s;"></span>
+          <span style="left:9%; animation-duration:10.5s; animation-delay:-6s;"></span>
+          <span style="left:15%; animation-duration:7s; animation-delay:-3s;"></span>
+          <span style="left:22%; animation-duration:9.5s; animation-delay:-8s;"></span>
+          <span style="left:29%; animation-duration:6.8s; animation-delay:-2s;"></span>
+          <span style="left:36%; animation-duration:10s; animation-delay:-9.5s;"></span>
+          <span style="left:43%; animation-duration:8.5s; animation-delay:-4s;"></span>
+          <span style="left:50%; animation-duration:7.5s; animation-delay:-6.5s;"></span>
+          <span style="left:57%; animation-duration:9s; animation-delay:-1.5s;"></span>
+          <span style="left:64%; animation-duration:11s; animation-delay:-7.5s;"></span>
+          <span style="left:71%; animation-duration:6.5s; animation-delay:-3.5s;"></span>
+          <span style="left:78%; animation-duration:10.2s; animation-delay:-5.5s;"></span>
+          <span style="left:85%; animation-duration:8.2s; animation-delay:-0.5s;"></span>
+          <span style="left:91%; animation-duration:9.6s; animation-delay:-8.8s;"></span>
+          <span style="left:97%; animation-duration:7.2s; animation-delay:-4.8s;"></span>
+          <span style="left:47%; animation-duration:11.4s; animation-delay:-2.6s;"></span>
         </div>
 
         <div class="jr-grade"></div>
