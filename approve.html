@@ -42,9 +42,16 @@
 const GAS_URL = 'https://green-rentacar-hokkaido-proxy.shy-snow-b32c.workers.dev';
 const params  = new URLSearchParams(location.search);
 const receipt = params.get('receiptNo') || '';
+const token   = params.get('t') || '';
 
-document.getElementById('info').innerHTML =
-  receipt ? '受付番号：<strong>' + receipt + '</strong>' : '受付番号が指定されていません。';
+const info = document.getElementById('info');
+if (receipt) {
+  const strong = document.createElement('strong');
+  strong.textContent = receipt;
+  info.append('受付番号：', strong);
+} else {
+  info.textContent = '受付番号が指定されていません。';
+}
 
 async function doAction(action) {
   const btnApprove = document.getElementById('btn-approve');
@@ -61,6 +68,7 @@ async function doAction(action) {
     const body = new URLSearchParams();
     body.append('action',    action);
     body.append('receiptNo', receipt);
+    body.append('t',         token);
 
     const res  = await fetch(GAS_URL, { method: 'POST', body });
     const data = await res.json();

@@ -1,0 +1,5 @@
+.est-qty-btn,.hsx-tab{position:relative}
+.est-qty-btn::after{content:"";position:absolute;inset:-6px}
+.hsx-tab::after{content:"";position:absolute;inset:-5px 0}
+.footer-nav a,.footer-links a,.flow-link,.news-link,a[onclick*="openCancelModal"]{display:inline-block;padding-block:7px;margin-block:-7px}
+a[href^="tel:"]:not(.btn),a[href^="mailto:"]:not(.btn){padding-block:6px;margin-block:-6px}

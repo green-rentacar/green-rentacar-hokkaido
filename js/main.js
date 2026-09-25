@@ -487,6 +487,7 @@ function showAvailErrorBanner(message) {
       postBody.append('認知経路',            formData.get('認知経路') || '');
       postBody.append('仮見積もり内容',      bookingData.estimate);
       postBody.append('ご質問・ご要望',      bookingData.message);
+      postBody.append('gr_hp',               formData.get('gr_hp') || '');
       postBody.append('合計金額',            _lastEstimate ? String(_lastEstimate.grandTotal) : '0');
 
       const bookRes  = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: postBody, redirect: 'follow' });
