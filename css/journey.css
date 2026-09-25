@@ -199,6 +199,27 @@
 .jr-vignette { inset: 0; pointer-events: none;
   background: radial-gradient(120% 80% at 50% 42%, transparent 52%, rgba(20, 26, 40, .28)); }
 
+/* ---- 季節（<html data-season>）：空の色と背景の絵を秋・冬版に差し替える ---- */
+[data-season="autumn"] #journey { background: #f3d9a8; }
+[data-season="autumn"] .jr-sky-day { background: linear-gradient(#a9cfe6 0%, #f3d9a8 55%, #fbe7c8 100%); }
+[data-season="autumn"] .jr-far-city { background-image: url("../images/journey/city-autumn.svg"); }
+[data-season="autumn"] .jr-far-mid  { background-image: url("../images/journey/mid-autumn.svg"); }
+[data-season="autumn"] .jr-far-camp { background-image: url("../images/journey/camp-autumn.svg"); }
+[data-season="autumn"] .jr-near     { background-image: url("../images/journey/roadside-autumn.svg"); }
+
+[data-season="winter"] #journey { background: #e9f4fa; }
+[data-season="winter"] .jr-sky-day { background: linear-gradient(#cfe3f0 0%, #e9f4fa 55%, #ffffff 100%); }
+[data-season="winter"] .jr-far-city { background-image: url("../images/journey/city-winter.svg"); }
+[data-season="winter"] .jr-far-mid  { background-image: url("../images/journey/mid-winter.svg"); }
+[data-season="winter"] .jr-far-camp { background-image: url("../images/journey/camp-winter.svg"); }
+[data-season="winter"] .jr-near     { background-image: url("../images/journey/roadside-winter.svg"); }
+/* 雪空なので太陽は出さない。夜になると雪がやんで星空になる */
+[data-season="winter"] .jr-sun { display: none; }
+
+/* 落ち葉・雪は情景の一部として夕景・夜の色をかぶせたいので、重なり順を DOM 順に戻す */
+.jr-stage .p2-leaves, .jr-stage .p2-snow { z-index: auto; }
+.jr-stage .p2-snow { opacity: calc(1 - var(--oNight)); }
+
 /* ---- コピー ---- */
 .p2-story-lines { z-index: 6; }
 .p2-story-line { color: var(--jr-ink, var(--p2-ink)); text-shadow: 0 2px 18px var(--jr-shadow, transparent); }

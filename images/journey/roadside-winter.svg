@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 130" width="360" height="130">
+  <g fill="#33463a">
+    <rect x="44" y="34" width="7" height="96" rx="3.5"/>
+    <rect x="32" y="28" width="31" height="9" rx="4.5"/>
+    <rect x="228" y="52" width="6" height="78" rx="3"/>
+    <rect x="219" y="47" width="24" height="8" rx="4"/>
+    <path d="M104,130 q8,-40 16,0 q7,-30 14,0 z"/>
+    <path d="M150,130 q6,-26 12,0 z"/>
+    <path d="M282,130 q9,-44 18,0 q7,-28 14,0 z"/>
+    <path d="M330,130 q6,-24 12,0 z"/>
+  </g>
+  <!-- 街灯と植え込みに積もった雪・道路わきの雪 -->
+  <g fill="#ffffff">
+    <rect x="30" y="24" width="35" height="7" rx="3.5"/>
+    <rect x="217" y="43" width="28" height="6" rx="3"/>
+    <ellipse cx="113" cy="106" rx="9" ry="5"/>
+    <ellipse cx="128" cy="114" rx="7" ry="4"/>
+    <ellipse cx="292" cy="104" rx="10" ry="5"/>
+    <ellipse cx="308" cy="115" rx="7" ry="4"/>
+    <path d="M0,130 q30,-10 60,-4 t60,-2 t60,-4 t60,2 t60,-4 t60,12 z"/>
+  </g>
+  <g fill="#e8c34a">
+    <rect x="230" y="56" width="4" height="7" rx="2"/>
+  </g>
+</svg>
